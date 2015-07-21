@@ -1,5 +1,5 @@
 var React = window.React = require('react'),
-    Panel = require('./ui/Panel'),
+    Panel = require('./ui/Panel.jsx'),
     mountNode = document.getElementById("app");
 
 
