@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var del = require('del');
 var path = require('path');
+var historyApiFallback = require('connect-history-api-fallback');
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
@@ -143,6 +144,7 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
     browserSync({
         notify: false,
         logPrefix: 'BS',
+        middleware: [historyApiFallback()],
         server: ['dist', 'app']
     });
 
