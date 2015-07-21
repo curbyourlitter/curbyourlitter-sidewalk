@@ -3,7 +3,7 @@ var React = window.React = require('react'),
     Link = reactRouter.Link,
     Route = reactRouter.Route,
     Router = reactRouter.Router,
-    history = require('react-router/lib/HashHistory').history,
+    history = require('react-router/lib/BrowserHistory').history,
     Panel = require('./ui/Panel.jsx'),
     mountNode = document.getElementById("app");
 
