@@ -142,6 +142,7 @@ gulp.task('extras', function() {
 // Watch
 gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
     browserSync({
+        browser: 'chromium-browser',
         notify: false,
         logPrefix: 'BS',
         middleware: [historyApiFallback()],
