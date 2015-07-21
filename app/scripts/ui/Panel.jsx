@@ -1,8 +1,11 @@
+var reactRouter = require('react-router'),
+    Link = reactRouter.Link;
+
 var Panel = React.createClass({
     render: function () {
         return (
             <div className="panel panel-right">
-                I'm a panel
+                <Link to="/">close</Link>
             </div>
         );
     }

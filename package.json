@@ -1,7 +1,9 @@
 {
   "name": "curbyourlitter-sidewalk",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "react-router": "^1.0.0-beta3"
+  },
   "devDependencies": {
     "browser-sync": "latest",
     "browserify-shim": "^3.8.0",

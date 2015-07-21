@@ -1,4 +1,9 @@
 var React = window.React = require('react'),
+    reactRouter = require('react-router'),
+    Link = reactRouter.Link,
+    Route = reactRouter.Route,
+    Router = reactRouter.Router,
+    history = require('react-router/lib/HashHistory').history,
     Panel = require('./ui/Panel.jsx'),
     mountNode = document.getElementById("app");
 
@@ -22,11 +27,26 @@ var Map = React.createClass({
     render: function() {
         return (
             <div className="map" id="map">
-                <Panel />
+                {this.props.children}
+                <AddButton />
             </div>
         );
     }
 });
 
+var AddButton = React.createClass({
+    render: function() {
+        return (
+            <Link className="btn btn-add" to="/add">add</Link>
+        );
+    }
+});
 
-React.render(<Map />, mountNode);
+React.render((
+    <Router history={history}>
+        <Route path="/" component={Map}>
+            <Route path="add" component={Panel}/>
+        </Route>
+    </Router>
+    ), mountNode
+);
