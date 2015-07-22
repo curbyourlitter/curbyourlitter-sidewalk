@@ -4,9 +4,10 @@ var React = window.React = require('react'),
     Route = reactRouter.Route,
     Router = reactRouter.Router,
     history = require('react-router/lib/BrowserHistory').history,
-    Panel = require('./ui/Panel.jsx'),
     mountNode = document.getElementById("app");
 
+var Legend = require('./ui/Legend.jsx'),
+    Panel = require('./ui/Panel.jsx');
 
 var Map = React.createClass({
     componentDidMount: function() {
@@ -29,6 +30,7 @@ var Map = React.createClass({
             <div className="map" id="map">
                 {this.props.children}
                 <AddButton />
+                <Legend />
             </div>
         );
     }
