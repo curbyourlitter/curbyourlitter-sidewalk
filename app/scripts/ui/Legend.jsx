@@ -10,7 +10,7 @@ var Legend = React.createClass({
 
     showLegend: function () {
         this.setState({
-            shown: true
+            shown: !this.state.shown
         });
     },
 
