@@ -61,6 +61,7 @@ gulp.task('scripts', rebundle);
 
 gulp.task('buildScripts', function() {
     return browserify(sourceFile)
+        .transform(babelify)
         .bundle()
         .pipe(source(destFileName))
         .pipe(gulp.dest('dist/scripts'));
