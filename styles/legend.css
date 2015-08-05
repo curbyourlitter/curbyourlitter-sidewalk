@@ -1,0 +1,13 @@
+.legend {
+  background: white;
+  bottom: 75px;
+  display: none;
+  height: 300px;
+  left: 25px;
+  position: absolute;
+  width: 33.33%;
+  z-index: 5100;
+}
+.legend.visible {
+  display: block;
+}

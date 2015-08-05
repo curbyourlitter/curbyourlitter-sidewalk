@@ -1,0 +1,11 @@
+.panel {
+  background: white;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 33.33%;
+  z-index: 5100;
+}
+.panel-right {
+  right: 0;
+}

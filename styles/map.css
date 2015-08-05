@@ -1,0 +1,18 @@
+.map {
+  height: 100%;
+  width: 100%;
+}
+.btn-add {
+  background: white;
+  bottom: 25px;
+  position: absolute;
+  right: 25px;
+  z-index: 5000;
+}
+.btn-legend {
+  background: white;
+  bottom: 25px;
+  left: 25px;
+  position: absolute;
+  z-index: 5000;
+}
