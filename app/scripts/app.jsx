@@ -22,7 +22,7 @@ var Map = React.createClass({
             attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        map.setView([40.733958, -73.955326], 15);
+        map.setView([40.728,-73.95], 15);
 
         cartodb.createLayer(map, 'https://curbyourlitter.cartodb.com/api/v2/viz/4226a41e-3b85-11e5-8232-0e4fddd5de28/viz.json')
             .addTo(map);
