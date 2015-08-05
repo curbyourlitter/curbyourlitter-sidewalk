@@ -36,6 +36,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "build": "bash build/dist.sh",
     "test": "echo 'no tests yet'"
   },
   "browserify": {
