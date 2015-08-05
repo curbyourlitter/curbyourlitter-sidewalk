@@ -9,6 +9,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
 var watchify = require('watchify');
+var babelify = require('babelify');
 var source = require('vinyl-source-stream'),
     sourceFile = './app/scripts/app.jsx',
     destFolder = './dist/scripts',
@@ -39,7 +40,7 @@ var bundler = watchify(browserify({
     cache: {},
     packageCache: {},
     fullPaths: true
-}));
+})).transform(babelify);
 
 bundler.on('update', rebundle);
 bundler.on('log', $.util.log);
