@@ -15,7 +15,10 @@ var Map = React.createClass({
     },
 
     initializeMap: function () {
-        var map = L.map('map');
+        var map = L.map('map', {
+            zoomControl: false
+        });
+        L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             minZoom: 11,
