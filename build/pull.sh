@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd $HOME/sidewalk
+cd /home/cyl/sidewalk
 git pull origin gh-pages
