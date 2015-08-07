@@ -60,7 +60,11 @@ function rebundle() {
 gulp.task('scripts', rebundle);
 
 gulp.task('buildScripts', function() {
-    return browserify(sourceFile)
+    return browserify({
+        entries: [sourceFile],
+        insertGlobals: true,
+        fullPaths: true
+    })
         .transform(babelify)
         .bundle()
         .pipe(source(destFileName))
