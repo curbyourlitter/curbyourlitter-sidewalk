@@ -35,7 +35,10 @@ body {
 }
 
 .container {
+    margin: 0;
+    padding: 0;
     position: relative;
+    width: 100%;
     z-index: @ui-z-index;
 }
 
@@ -43,13 +46,6 @@ body {
     margin: 30px 0;
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-
-    .header {
-        background: white;
-    }
+.header {
+    background: white;
 }
