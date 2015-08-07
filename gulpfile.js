@@ -79,6 +79,14 @@ gulp.task('html', function() {
         .pipe($.size());
 });
 
+// Build/deploy scripts
+gulp.task('deploymentScripts', function() {
+    return gulp.src('build/*')
+        .pipe($.useref())
+        .pipe(gulp.dest('dist/build'))
+        .pipe($.size());
+});
+
 // Images
 gulp.task('images', function() {
     return gulp.src('app/images/**/*')
@@ -162,7 +170,7 @@ gulp.task('watch', ['html', 'fonts', 'bundle'], function() {
 });
 
 // Build
-gulp.task('build', ['html', 'buildBundle', 'images', 'fonts', 'extras'], function() {
+gulp.task('build', ['html', 'buildBundle', 'deploymentScripts', 'images', 'fonts', 'extras'], function() {
     gulp.src('dist/scripts/app.js')
         .pipe($.uglify())
         .pipe($.stripDebug())
