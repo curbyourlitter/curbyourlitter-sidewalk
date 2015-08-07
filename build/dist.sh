@@ -14,5 +14,6 @@ cd $DEST_DIR
 git checkout $PUBLISH_BRANCH
 rm -rf *
 cp -r ../curbyourlitter-sidewalk/dist/* .
+git add -A
 git commit -am "Latest build"
 git push origin $PUBLISH_BRANCH
