@@ -27,7 +27,9 @@ var Map = React.createClass({
 
         map.setView([40.728,-73.95], 15);
 
-        cartodb.createLayer(map, 'https://curbyourlitter.cartodb.com/api/v2/viz/4226a41e-3b85-11e5-8232-0e4fddd5de28/viz.json')
+        cartodb.createLayer(map, 'https://curbyourlitter.cartodb.com/api/v2/viz/4226a41e-3b85-11e5-8232-0e4fddd5de28/viz.json', {
+            cartodb_logo: false
+        })
             .addTo(map);
     },
 
