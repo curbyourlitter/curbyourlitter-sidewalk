@@ -1,7 +1,7 @@
-var reactRouter = require('react-router'),
-    Link = reactRouter.Link,
-    _ = require('underscore'),
-    cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
+import _ from 'underscore';
+import { Link } from 'react-router';
+
+var cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
 
 var ReportDetails = React.createClass({
     getData: function (callback) {
@@ -58,4 +58,4 @@ var Report = React.createClass({
     }
 });
 
-module.exports = Report;
+export default Report;

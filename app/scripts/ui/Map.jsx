@@ -1,10 +1,7 @@
-var _ = require('underscore'),
-    reactRouter = require('react-router'),
-    Link = reactRouter.Link,
-    Navigation = reactRouter.Navigation,
-    Router = reactRouter.Router;
+import _ from 'underscore';
+import { Link, Navigation, Router } from 'react-router';
 
-var Legend = require('./Legend.jsx');
+import Legend from './Legend.jsx';
 
 var map,
     complaintLayer;
@@ -48,7 +45,7 @@ var AddButton = React.createClass({
     }
 });
 
-module.exports = {
+export default {
     updateFilters: function (newFilters) {
         _.extend(filters, newFilters);
         updateSql();

@@ -1,6 +1,6 @@
-var reactRouter = require('react-router'),
-    Link = reactRouter.Link,
-    map = require('./Map.jsx');
+import { Link } from 'react-router';
+
+import map from './Map.jsx';
 
 var Legend = React.createClass({
     getInitialState: function () {
@@ -54,4 +54,4 @@ var LegendItem = React.createClass({
     }
 });
 
-module.exports = Legend;
+export default Legend;

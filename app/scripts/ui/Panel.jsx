@@ -1,6 +1,5 @@
-var reactRouter = require('react-router'),
-    Link = reactRouter.Link,
-    _ = require('underscore');
+import _ from 'underscore';
+import { Link } from 'react-router';
 
 var ImageInput = React.createClass({
     handleChange: function (e) {
@@ -52,4 +51,4 @@ var Panel = React.createClass({
     }
 });
 
-module.exports = Panel;
+export default Panel;

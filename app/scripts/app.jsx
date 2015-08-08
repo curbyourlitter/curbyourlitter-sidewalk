@@ -1,9 +1,9 @@
-var React = window.React = require('react'),
-    reactRouter = require('react-router'),
-    Route = reactRouter.Route,
-    Router = reactRouter.Router,
-    history = require('react-router/lib/BrowserHistory').history,
-    mountNode = document.getElementById("app");
+import React from 'react';
+window.React = React;
+import { Route, Router } from 'react-router';
+var history = require('react-router/lib/BrowserHistory').history;
+
+var mountNode = document.getElementById("app");
 
 var Map = require('./ui/Map.jsx').Map,
     Panel = require('./ui/Panel.jsx'),
