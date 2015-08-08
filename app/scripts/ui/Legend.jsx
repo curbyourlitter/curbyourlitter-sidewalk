@@ -1,6 +1,6 @@
 var reactRouter = require('react-router'),
     Link = reactRouter.Link,
-    map = require('../map');
+    map = require('./Map.jsx');
 
 var Legend = React.createClass({
     getInitialState: function () {
