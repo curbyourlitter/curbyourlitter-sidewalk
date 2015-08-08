@@ -63,7 +63,6 @@ export default {
         },
 
         init: function (id) {
-            var component = this;
             map = L.map(id, {
                 zoomControl: false
             });
@@ -81,20 +80,20 @@ export default {
                 infowindow: false
             })
                 .addTo(map)
-                .on('done', function (layer) {
+                .on('done', (layer) => {
                     complaintLayer = layer.getSubLayer(0);
                     complaintLayer.setInteractivity('cartodb_id,complaint');
                     updateSql();
 
                     layer.setInteraction(true);
-                    layer.on('featureOver', function () {
+                    layer.on('featureOver', () => {
                         document.getElementById(id).style.cursor = 'pointer';
                     });
-                    layer.on('featureOut', function () {
+                    layer.on('featureOut', () => {
                         document.getElementById(id).style.cursor = null;
                     });
-                    layer.on('featureClick', function (event, latlng, pos, data) {
-                        component.transitionTo('/reports/' + data.cartodb_id);
+                    layer.on('featureClick', (event, latlng, pos, data) => {
+                        this.transitionTo('/reports/' + data.cartodb_id);
                     });
                 });
         },
