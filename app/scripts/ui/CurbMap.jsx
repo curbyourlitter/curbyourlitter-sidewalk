@@ -54,7 +54,8 @@ var CurbMap = React.createClass({
     },
 
     getId: function () {
-        return React.findDOMNode(this).id;
+        //return React.findDOMNode(this).id;
+        return 'map';
     },
 
     init: function (id) {
@@ -95,10 +96,12 @@ var CurbMap = React.createClass({
 
     render: function() {
         return (
-            <div className="map" id="map">
+            <div className="app-container">
+                <div className="map" id="map">
+                    <AddButton />
+                    <Legend />
+                </div>
                 {this.props.children}
-                <AddButton />
-                <Legend />
             </div>
         );
     }
