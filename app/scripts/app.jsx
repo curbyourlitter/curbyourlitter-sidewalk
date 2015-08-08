@@ -5,13 +5,13 @@ var history = require('react-router/lib/BrowserHistory').history;
 
 var mountNode = document.getElementById("app");
 
-var Map = require('./ui/Map.jsx').Map,
+var CurbMap = require('./ui/CurbMap.jsx').CurbMap,
     Panel = require('./ui/Panel.jsx'),
     Report = require('./ui/Report.jsx');
 
 React.render((
     <Router history={history}>
-        <Route path="/" component={Map}>
+        <Route path="/" component={CurbMap}>
             <Route path="add" component={Panel}/>
             <Route path="reports/:reportId" component={Report}/>
         </Route>

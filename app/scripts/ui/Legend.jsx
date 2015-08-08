@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-import map from './Map.jsx';
+import map from './CurbMap.jsx';
 
 var Legend = React.createClass({
     getInitialState: function () {

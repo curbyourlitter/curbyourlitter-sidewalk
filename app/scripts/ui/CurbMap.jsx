@@ -51,7 +51,7 @@ export default {
         updateSql();
     },
 
-    Map: React.createClass({
+    CurbMap: React.createClass({
         mixins: [Navigation],
 
         componentDidMount: function() {
