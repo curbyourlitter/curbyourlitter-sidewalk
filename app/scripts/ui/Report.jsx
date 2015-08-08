@@ -1,10 +1,11 @@
 import _ from 'underscore';
 import React from 'react';
 import { Link } from 'react-router';
+import { Panel } from './Panel.jsx';
 
 var cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
 
-var ReportDetails = React.createClass({
+export var Report = React.createClass({
     getData: function (callback) {
         cartodbSql.execute('SELECT * FROM table_311_11222 WHERE cartodb_id = {{ id }}', { id: this.props.routeParams.reportId })
             .done(function (data) {
@@ -35,7 +36,7 @@ var ReportDetails = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <Panel>
                 <h2>
                     report details
                 </h2>
@@ -43,18 +44,7 @@ var ReportDetails = React.createClass({
                 <div>agency: {this.state.agency}</div>
                 <div>descriptor: {this.state.descriptor}</div>
                 <div>{this.state.location_t}</div>
-            </div>
-        );
-    }
-});
-
-export var Report = React.createClass({
-    render: function () {
-        return (
-            <div className="panel panel-right">
-                <Link to="/">close</Link>
-                <ReportDetails {...this.props} />
-            </div>
+            </Panel>
         );
     }
 });
@@ -100,16 +90,13 @@ export var ReportList = React.createClass({
             return <ReportListItem reportId={row.cartodb_id} {...row} />
         });
         return (
-            <div className="panel panel-right">
-                <Link to="/">close</Link>
+            <Panel>
                 <h2>report list</h2>
                 reports: {this.state.rows.length}
                 <ul>
                     {list}
                 </ul>
-            </div>
+            </Panel>
         );
     }
 });
-
-export default Report;
