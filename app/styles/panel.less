@@ -1,9 +1,9 @@
 @import "variables";
+@panel-header-height: 35px;
 
 .panel {
     background: white;
     height: 100%;
-    overflow-y: auto;
     position: absolute;
     top: 0;
     width: 33.33%;
@@ -11,5 +11,14 @@
 
     &-right {
         right: 0;
+    }
+
+    &-header {
+        height: @panel-header-height;
+    }
+
+    &-body {
+        height: ~"calc(100% - 35px)";
+        overflow-y: auto;
     }
 }
