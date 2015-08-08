@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import React from 'react';
 import { Link } from 'react-router';
 
 var cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
@@ -47,12 +48,65 @@ var ReportDetails = React.createClass({
     }
 });
 
-var Report = React.createClass({
+export var Report = React.createClass({
     render: function () {
         return (
             <div className="panel panel-right">
                 <Link to="/">close</Link>
                 <ReportDetails {...this.props} />
+            </div>
+        );
+    }
+});
+
+var ReportListItem = React.createClass({
+    render: function () {
+        return (
+            <li>
+                {this.props.complaint}
+            </li>
+        );
+    }
+});
+
+export var ReportList = React.createClass({
+    getData: function (callback) {
+        // TODO only get reports as filtered, reports in viewport
+        cartodbSql.execute('SELECT complaint, cartodb_id FROM table_311_11222')
+            .done(function (data) {
+                callback(data.rows);
+            });
+    },
+
+    updateData: function () {
+        var component = this;
+        this.getData(function (data) {
+            component.setState({ rows: data });
+        });
+    },
+
+    componentDidMount: function () {
+        this.updateData();
+    },
+
+    getInitialState: function () {
+        return {
+            rows: []
+        };
+    },
+
+    render: function () {
+        var list = this.state.rows.map(row => {
+            return <ReportListItem reportId={row.cartodb_id} {...row} />
+        });
+        return (
+            <div className="panel panel-right">
+                <Link to="/">close</Link>
+                <h2>report list</h2>
+                reports: {this.state.rows.length}
+                <ul>
+                    {list}
+                </ul>
             </div>
         );
     }

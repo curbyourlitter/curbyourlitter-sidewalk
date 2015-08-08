@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import React from 'react';
 import { Link } from 'react-router';
 
 var ImageInput = React.createClass({
