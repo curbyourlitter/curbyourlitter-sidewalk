@@ -9,3 +9,10 @@
 .panel-right {
   right: 0;
 }
+.panel-header {
+  height: 35px;
+}
+.panel-body {
+  height: calc(100% - 35px);
+  overflow-y: auto;
+}

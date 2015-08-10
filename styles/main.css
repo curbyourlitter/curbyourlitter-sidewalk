@@ -6722,6 +6722,13 @@ button.close {
   right: 25px;
   z-index: 5000;
 }
+.btn-list {
+  background: white;
+  top: 50px;
+  position: absolute;
+  right: 25px;
+  z-index: 5000;
+}
 .btn-legend {
   background: white;
   bottom: 25px;
@@ -6740,6 +6747,13 @@ button.close {
 .panel-right {
   right: 0;
 }
+.panel-header {
+  height: 35px;
+}
+.panel-body {
+  height: calc(100% - 35px);
+  overflow-y: auto;
+}
 html,
 body {
   height: 100%;
@@ -6748,6 +6762,7 @@ body {
 #app {
   height: 100%;
   left: 0;
+  overflow: hidden;
   position: absolute;
   top: 0;
   width: 100%;
@@ -6771,6 +6786,12 @@ body {
 }
 .container-narrow > hr {
   margin: 30px 0;
+}
+.app-container {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 .header {
   background: white;
