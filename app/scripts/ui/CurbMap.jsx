@@ -38,14 +38,6 @@ function updateSql() {
     complaintLayer.setSQL(getSql());
 }
 
-var AddButton = React.createClass({
-    render: function() {
-        return (
-            <Link className="btn btn-add" to="/add">add</Link>
-        );
-    }
-});
-
 var CurbMap = React.createClass({
     mixins: [Navigation],
 
@@ -99,7 +91,7 @@ var CurbMap = React.createClass({
             <div className="app-container">
                 <div className="map" id="map">
                     <Link to="/reports" className="btn btn-list">list</Link>
-                    <AddButton />
+                    <Link to="/add" className="btn btn-add">add</Link>
                     <Legend />
                 </div>
                 {this.props.children}
