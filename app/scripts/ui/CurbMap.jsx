@@ -98,6 +98,7 @@ var CurbMap = React.createClass({
         return (
             <div className="app-container">
                 <div className="map" id="map">
+                    <Link to="/reports" className="btn btn-list">list</Link>
                     <AddButton />
                     <Legend />
                 </div>
