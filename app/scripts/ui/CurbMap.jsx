@@ -1,8 +1,11 @@
 import _ from 'underscore';
 import React from 'react';
+import joinClasses from 'react/lib/joinClasses';
 import { Link, Navigation, Router } from 'react-router';
+import { Button, Overlay, Popover } from 'react-bootstrap';
 
 import Legend from './Legend.jsx';
+import PopoverButton from './PopoverButton.jsx';
 
 var map,
     complaintLayer;
@@ -90,11 +93,51 @@ var CurbMap = React.createClass({
         return (
             <div className="app-container">
                 <div className="map" id="map">
-                    <Link to="/reports" className="btn btn-list">list</Link>
-                    <Link to="/add" className="btn btn-add">add</Link>
+                    <ListButton />
+                    <AddButton />
                     <Legend />
                 </div>
                 {this.props.children}
+            </div>
+        );
+    }
+});
+
+var AddButton = React.createClass({
+    mixins: [PopoverButton],
+
+    render: function () {
+        return (
+            <div>
+                <Link to="/add" className="btn btn-add" ref="button">
+                    add
+                </Link>
+                <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
+                    <Popover>
+                        <div>Add a new request</div>
+                        <Button onClick={this.dismissPopover}>got it</Button>
+                    </Popover>
+                </Overlay>
+            </div>
+        );
+    }
+});
+
+var ListButton = React.createClass({
+    mixins: [PopoverButton],
+
+    render: function () {
+        return (
+            <div>
+                <Link to="/reports" className="btn btn-list" ref="button">
+                    list
+                </Link>
+                <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="bottom" containerPadding={20}>
+                    <Popover>
+                        <div>List all records</div>
+                        <Button onClick={this.dismissPopover}>got it</Button>
+                    </Popover>
+                </Overlay>
             </div>
         );
     }

@@ -2,12 +2,13 @@
   "name": "curbyourlitter-sidewalk",
   "version": "0.0.1",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/curbyourlitter/curbyourlitter-sidewalk.git"
+    "type": "git",
+    "url": "https://github.com/curbyourlitter/curbyourlitter-sidewalk.git"
   },
   "license": "AGPL-3.0",
   "dependencies": {
     "babelify": "^6.1.3",
+    "react-bootstrap": "^0.24.4",
     "react-router": "^1.0.0-beta3",
     "underscore": "^1.8.3"
   },
@@ -44,7 +45,9 @@
     "test": "echo 'no tests yet'"
   },
   "browserify": {
-    "transform": ["browserify-shim"]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "browserify-shim": {
     "jquery": "global:$"

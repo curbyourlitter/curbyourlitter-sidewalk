@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
+import { Button, Overlay, Popover } from 'react-bootstrap';
 
 import map from './CurbMap.jsx';
+import PopoverButton from './PopoverButton.jsx';
 
 var Legend = React.createClass({
+    mixins: [PopoverButton],
+
     getInitialState: function () {
         return {
             shown: false
@@ -19,7 +23,13 @@ var Legend = React.createClass({
     render: function () {
         return (
             <div className="legend-wrapper">
-                <a className="btn btn-legend" onClick={this.showLegend}>legend</a>
+                <a className="btn btn-legend" ref="button" onClick={this.showLegend}>legend</a>
+                <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
+                    <Popover>
+                        <div>Show legend and pick layers</div>
+                        <Button onClick={this.dismissPopover}>got it</Button>
+                    </Popover>
+                </Overlay>
                 <div className={this.state.shown ? "legend visible" : "legend" }>
                     Legend
                     <LegendItem name="rodent sightings" label="rodents" />
