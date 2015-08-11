@@ -2,13 +2,12 @@ import React from 'react';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
+import BrowserHistory from 'react-router/lib/BrowserHistory';
 
 import * as reducers from './reducers';
 import { CurbMap } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
 import { Report, ReportList } from './ui/Report.jsx';
-
-var history = require('react-router/lib/BrowserHistory').history;
 
 var mountNode = document.getElementById("app");
 
@@ -18,7 +17,7 @@ React.render((
     <Provider store={store}>
         {() => {
             return (
-                <Router history={history}>
+                <Router history={new BrowserHistory()}>
                     <Route path="/" component={CurbMap}>
                         <Route path="add" component={AddRequest}/>
                         <Route path="reports" component={ReportList}/>
