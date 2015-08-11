@@ -1,9 +1,11 @@
 import _ from 'underscore';
 import React from 'react';
 import joinClasses from 'react/lib/joinClasses';
+import { connect } from 'react-redux';
 import { Link, Navigation, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 
+import { mapIsReady } from '../actions';
 import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
@@ -44,8 +46,33 @@ function updateSql() {
 var CurbMap = React.createClass({
     mixins: [Navigation],
 
+    activateDropPin: function () {
+        this.pin = L.marker(map.getCenter(), { draggable: true }).addTo(map);
+        this.pin.on('dragend', () => {
+            // TODO action to redux?
+            console.log(this.pin.getLatLng());
+        });
+    },
+
+    deactivateDropPin: function () {
+        map.removeLayer(this.pin);
+    },
+
     componentDidMount: function() {
         this.init(this.getId());
+        this.props.dispatch(mapIsReady());
+        if (this.props.pinDropActive) {
+            this.activateDropPin();
+        }
+    },
+
+    componentWillUpdate: function(nextProps) {
+        if (nextProps.pinDropActive && !this.props.pinDropActive) {
+            this.activateDropPin();
+        }
+        if (!nextProps.pinDropActive && this.props.pinDropActive) {
+            this.deactivateDropPin();
+        }
     },
 
     getId: function () {
@@ -102,6 +129,14 @@ var CurbMap = React.createClass({
     }
 });
 
+function select(state) {
+    return {
+        pinDropActive: state.pinDropActive
+    };
+}
+
+CurbMap = connect(select)(CurbMap);
+
 var AddButton = React.createClass({
     mixins: [PopoverButton],
 
@@ -143,6 +178,7 @@ var ListButton = React.createClass({
 });
 
 export default {
+
     updateFilters: function (newFilters) {
         _.extend(filters, newFilters);
         updateSql();

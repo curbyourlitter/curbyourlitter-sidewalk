@@ -1,5 +1,9 @@
 import _ from 'underscore';
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { pinDropActive } from '../actions';
+import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
 
 var ImageInput = React.createClass({
@@ -15,6 +19,14 @@ var ImageInput = React.createClass({
 });
 
 var AddRequestForm = React.createClass({
+    componentDidMount: function () {
+        this.props.dispatch(pinDropActive(true));
+    },
+
+    componentWillUnmount: function () {
+        this.props.dispatch(pinDropActive(false));
+    },
+
     getInitialState: function () {
         return {
             fields: {}
@@ -33,6 +45,7 @@ var AddRequestForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
+                <div>Move the pin on the map</div>
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
                 <input type="submit">upload</input>
@@ -41,14 +54,14 @@ var AddRequestForm = React.createClass({
     }
 });
 
-export var AddRequest = React.createClass({
+export var AddRequest = connect()(React.createClass({
     render: function () {
         return (
             <Panel>
-                <AddRequestForm/>
+                <AddRequestForm {...this.props} />
             </Panel>
         );
     }
-});
+}));
 
 export default AddRequest;
