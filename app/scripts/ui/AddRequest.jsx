@@ -38,6 +38,7 @@ var LocationInput = React.createClass({
     componentWillUpdate: function(nextProps) {
         if (!this.props.latlng || this.props.latlng.lat !== nextProps.latlng.lat ||
             this.props.latlng.lng !== nextProps.latlng.lng) {
+            this.props.onChangeCallback({ latlng: this.props.latlng });
             var geocoder = new google.maps.Geocoder;
             var component = this;
             geocoder.geocode({'location': nextProps.latlng}, function(results, status) {
@@ -105,7 +106,7 @@ var AddRequestForm = React.createClass({
         return (
             <form onSubmit={this.submit}>
                 <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.fields.canType} />
-                <LocationInput latlng={this.props.pinDropLatlng} />
+                <LocationInput onChangeCallback={this.fieldChange} latlng={this.props.pinDropLatlng} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
                 <input type="submit">upload</input>
