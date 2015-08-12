@@ -13,12 +13,23 @@ var mountNode = document.getElementById("app");
 
 let store = createStore(combineReducers(reducers));
 
+var App = React.createClass({
+    render: function () {
+        return (
+            <div className="app-container">
+                <CurbMap />
+                {this.props.children}
+            </div>
+        );
+    }
+});
+
 React.render((
     <Provider store={store}>
         {() => {
             return (
                 <Router history={new BrowserHistory()}>
-                    <Route path="/" component={CurbMap}>
+                    <Route path="/" component={App}>
                         <Route path="add" component={AddRequest}/>
                         <Route path="reports" component={ReportList}/>
                         <Route path="reports/:reportId" component={Report}/>

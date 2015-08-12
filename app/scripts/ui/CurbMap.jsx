@@ -43,7 +43,14 @@ function updateSql() {
     complaintLayer.setSQL(getSql());
 }
 
-var CurbMap = React.createClass({
+
+function mapStateToProps(state) {
+    return {
+        pinDropActive: state.pinDropActive
+    };
+}
+
+var CurbMap = connect(mapStateToProps)(React.createClass({
     mixins: [Navigation],
 
     activateDropPin: function () {
@@ -117,25 +124,14 @@ var CurbMap = React.createClass({
 
     render: function() {
         return (
-            <div className="app-container">
-                <div className="map" ref="map" id="map">
-                    <ListButton />
-                    <AddButton />
-                    <Legend />
-                </div>
-                {this.props.children}
+            <div className="map" ref="map" id="map">
+                <ListButton />
+                <AddButton />
+                <Legend />
             </div>
         );
     }
-});
-
-function select(state) {
-    return {
-        pinDropActive: state.pinDropActive
-    };
-}
-
-CurbMap = connect(select)(CurbMap);
+}));
 
 var AddButton = React.createClass({
     mixins: [PopoverButton],
