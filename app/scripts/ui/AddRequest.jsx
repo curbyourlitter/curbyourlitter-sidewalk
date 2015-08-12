@@ -19,11 +19,40 @@ var ImageInput = React.createClass({
 });
 
 var LocationInput = React.createClass({
+    getInitialState: function () {
+        return {
+            address: ''
+        };
+    },
+
+    getAddress: function (geocoderResult) {
+        var street_number = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('street_number') >= 0;
+        }).long_name;
+        var street = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('route') >= 0;
+        }).short_name;
+        return street_number + ' ' + street;
+    },
+
+    componentWillUpdate: function(nextProps) {
+        if (!this.props.latlng || this.props.latlng.lat !== nextProps.latlng.lat ||
+            this.props.latlng.lng !== nextProps.latlng.lng) {
+            var geocoder = new google.maps.Geocoder;
+            var component = this;
+            geocoder.geocode({'location': nextProps.latlng}, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    component.setState({ address: component.getAddress(results[0]) });
+                }
+            });
+        }
+    },
+
     render: function () {
         return (
             <div>
-                <div>Move the pin on the map</div>
-                <div>current location: {this.props.latlng}</div>
+                <div>Move the pin on the map to your desired location</div>
+                <div>current address: {this.state.address}</div>
             </div>
         );
     }
