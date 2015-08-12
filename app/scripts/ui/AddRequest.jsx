@@ -58,6 +58,25 @@ var LocationInput = React.createClass({
     }
 });
 
+var CanTypeInput = React.createClass({
+    handleChange: function (e) {
+        this.props.onChangeCallback({ canType: e.target.value });
+    },
+
+    render: function () {
+        return (
+            <div>
+                <span>can type:</span>
+                <select onChange={this.handleChange} value={this.props.value}>
+                    <option>small</option>
+                    <option>medium</option>
+                    <option>large</option>
+                </select>
+            </div>
+        );
+    }
+});
+
 var AddRequestForm = React.createClass({
     componentDidMount: function () {
         this.props.dispatch(pinDropActive(true));
@@ -85,6 +104,7 @@ var AddRequestForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
+                <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.fields.canType} />
                 <LocationInput latlng={this.props.pinDropLatlng} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
