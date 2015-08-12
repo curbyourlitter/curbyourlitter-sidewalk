@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
 import { pinDropActive } from '../actions';
 import map from './CurbMap.jsx';
@@ -109,7 +110,7 @@ var AddRequestForm = React.createClass({
                 <LocationInput onChangeCallback={this.fieldChange} latlng={this.props.pinDropLatlng} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
-                <input type="submit" value="upload" />
+                <Button type="submit">next</Button>
             </form>
         );
     }
@@ -121,11 +122,45 @@ function mapStateToProps(state) {
     };
 }
 
-export var AddRequest = connect(mapStateToProps)(React.createClass({
+var RequestTypeForm = React.createClass({
     render: function () {
         return (
+            <div>
+                <Button onClick={() => this.props.onSelect('trash')}>
+                    request a trash bin
+                </Button>
+                <Button onClick={() => this.props.onSelect('recycling')}>
+                    request a recycling bin
+                </Button>
+            </div>
+        );
+    }
+});
+
+export var AddRequest = connect(mapStateToProps)(React.createClass({
+    getInitialState: function () {
+        return {
+            requestType: null
+        };
+    },
+
+    render: function () {
+        var step = 1;
+        if (this.state.requestType) {
+            step = 2;
+        }
+
+        return (
             <Panel>
-                <AddRequestForm {...this.props} />
+                <div>step {step}</div>
+                {(() => {
+                    switch (step) {
+                        case 1:
+                            return <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
+                        case 2:
+                            return <AddRequestForm {...this.props} />;
+                    }
+                })()}
             </Panel>
         );
     }
