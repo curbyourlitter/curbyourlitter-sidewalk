@@ -109,7 +109,7 @@ var AddRequestForm = React.createClass({
                 <LocationInput onChangeCallback={this.fieldChange} latlng={this.props.pinDropLatlng} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
-                <input type="submit">upload</input>
+                <input type="submit" value="upload" />
             </form>
         );
     }
