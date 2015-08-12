@@ -18,6 +18,17 @@ var ImageInput = React.createClass({
     }
 });
 
+var LocationInput = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <div>Move the pin on the map</div>
+                <div>current location: {this.props.latlng}</div>
+            </div>
+        );
+    }
+});
+
 var AddRequestForm = React.createClass({
     componentDidMount: function () {
         this.props.dispatch(pinDropActive(true));
@@ -45,7 +56,7 @@ var AddRequestForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <div>Move the pin on the map</div>
+                <LocationInput latlng={this.props.pinDropLatlng} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
                 <div>{this.state.fields.image}</div>
                 <input type="submit">upload</input>
@@ -54,7 +65,13 @@ var AddRequestForm = React.createClass({
     }
 });
 
-export var AddRequest = connect()(React.createClass({
+function mapStateToProps(state) {
+    return {
+        pinDropLatlng: state.pinDropLatlng
+    };
+}
+
+export var AddRequest = connect(mapStateToProps)(React.createClass({
     render: function () {
         return (
             <Panel>

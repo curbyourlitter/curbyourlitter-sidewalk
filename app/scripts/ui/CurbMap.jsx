@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Link, Navigation, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 
-import { mapIsReady } from '../actions';
+import { mapIsReady, pinDropMoved } from '../actions';
 import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
@@ -55,9 +55,13 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
     activateDropPin: function () {
         this.pin = L.marker(map.getCenter(), { draggable: true }).addTo(map);
+
+        // Give initial latlng
+        this.props.dispatch(pinDropMoved(this.pin.getLatLng()));
+
+        // When marker is dragged, update latlng
         this.pin.on('dragend', () => {
-            // TODO action to redux?
-            console.log(this.pin.getLatLng());
+            this.props.dispatch(pinDropMoved(this.pin.getLatLng()));
         });
     },
 
