@@ -90,26 +90,25 @@ var AddRequestForm = React.createClass({
 
     getInitialState: function () {
         return {
-            fields: {}
+            canType: null,
+            latlng: null
         };
     },
 
     fieldChange: function (updates) {
-        this.setState({ fields: _.extend(this.state.fields, updates) });
+        this.setState(updates);
     },
 
     submit: function (e) {
-        console.log(this.state);
+        this.props.onSubmit(this.state);
         e.preventDefault();
     },
 
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.fields.canType} />
+                <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.canType} />
                 <LocationInput onChangeCallback={this.fieldChange} latlng={this.props.pinDropLatlng} />
-                <ImageInput onChangeCallback={this.fieldChange} value={this.state.fields.image} />
-                <div>{this.state.fields.image}</div>
                 <Button type="submit">next</Button>
             </form>
         );
@@ -137,6 +136,34 @@ var RequestTypeForm = React.createClass({
     }
 });
 
+var CommentPictureForm = React.createClass({
+    getInitialState: function () {
+        return {
+            comment: null,
+            image: null
+        };
+    },
+
+    fieldChange: function (updates) {
+        this.setState(updates);
+    },
+
+    submit: function (e) {
+        e.preventDefault();
+        this.props.onSubmit(this.state);
+    },
+
+    render: function () {
+        return (
+            <form onSubmit={this.submit}>
+                <textarea onChangeCallback={this.fieldChange} value={this.state.comment} />
+                <ImageInput onChangeCallback={this.fieldChange} value={this.state.image} />
+                <Button type="submit">submit</Button>
+            </form>
+        );
+    }
+});
+
 export var AddRequest = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
@@ -144,23 +171,26 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         };
     },
 
+    updateState: function (state) {
+        this.setState(state);
+    },
+
     render: function () {
+        var formPanel = <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
         var step = 1;
         if (this.state.requestType) {
             step = 2;
+            formPanel = <AddRequestForm onSubmit={this.updateState} {...this.props} />;
+            if (this.state.canType) {
+                step = 3;
+                formPanel = <CommentPictureForm onSubmit={this.updateState} />;
+            }
         }
 
         return (
             <Panel>
                 <div>step {step}</div>
-                {(() => {
-                    switch (step) {
-                        case 1:
-                            return <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
-                        case 2:
-                            return <AddRequestForm {...this.props} />;
-                    }
-                })()}
+                {formPanel}
             </Panel>
         );
     }
