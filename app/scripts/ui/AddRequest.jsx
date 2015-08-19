@@ -2,10 +2,13 @@ import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
+import reqwest from 'reqwest';
 
 import { pinDropActive } from '../actions';
 import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
+
+var API_BASE = 'http://localhost:8080';
 
 var ImageInput = React.createClass({
     handleChange: function (e) {
@@ -175,8 +178,30 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         this.props.dispatch(pinDropActive(false));
     },
 
+    validateRequest: function () {
+        return (this.state.requestType && this.state.canType && this.state.latlng && this.state.comment && this.state.image);
+    },
+
+    submitRequest: function () {
+        if (this.validateRequest()) {
+            console.log(this.state);
+            reqwest({
+                url: API_BASE + '/request',
+                method: 'post',
+                error: function () {
+                    console.warn('error');
+                },
+                success: function () {
+                    console.log('success');
+                }
+            });
+        }
+    },
+
     updateState: function (state) {
-        this.setState(state);
+        this.setState(state, () => {
+            this.submitRequest();
+        });
     },
 
     render: function () {
