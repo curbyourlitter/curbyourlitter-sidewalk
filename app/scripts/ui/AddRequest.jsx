@@ -8,7 +8,7 @@ import { pinDropActive } from '../actions';
 import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
 
-var API_BASE = 'http://localhost:8080';
+import config from '../config/config';
 
 var ImageInput = React.createClass({
     handleChange: function (e) {
@@ -186,7 +186,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         if (this.validateRequest()) {
             console.log(this.state);
             reqwest({
-                url: API_BASE + '/request',
+                url: config.apiBase + '/request',
                 method: 'post',
                 error: function () {
                     console.warn('error');

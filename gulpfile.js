@@ -8,6 +8,7 @@ var historyApiFallback = require('connect-history-api-fallback');
 // Load plugins
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
+var envify = require('envify/custom');
 var watchify = require('watchify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream'),
@@ -33,14 +34,17 @@ gulp.task('less', function() {
 });
 
 
-var bundler = watchify(browserify({
+var bundler = watchify(
+    browserify({
     entries: [sourceFile],
     debug: true,
     insertGlobals: true,
     cache: {},
     packageCache: {},
     fullPaths: true
-})).transform(babelify);
+}))
+    .transform(babelify)
+    .transform(envify({ NODE_ENV: 'development' }));
 
 bundler.on('update', rebundle);
 bundler.on('log', $.util.log);
@@ -66,6 +70,7 @@ gulp.task('buildScripts', function() {
         fullPaths: true
     })
         .transform(babelify)
+        .transform(envify({ NODE_ENV: 'production' }))
         .bundle()
         .pipe(source(destFileName))
         .pipe(gulp.dest('dist/scripts'));
