@@ -140,6 +140,10 @@ var CommentPictureForm = React.createClass({
         };
     },
 
+    commentChange: function (e) {
+        this.setState({ comment: e.target.value });
+    },
+
     fieldChange: function (updates) {
         this.setState(updates);
     },
@@ -152,7 +156,7 @@ var CommentPictureForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <textarea onChangeCallback={this.fieldChange} value={this.state.comment} />
+                <textarea onChange={this.commentChange} value={this.state.comment} />
                 <ImageInput onChangeCallback={this.fieldChange} value={this.state.image} />
                 <Button type="submit">submit</Button>
             </form>
