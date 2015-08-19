@@ -84,10 +84,6 @@ var AddRequestForm = React.createClass({
         this.props.dispatch(pinDropActive(true));
     },
 
-    componentWillUnmount: function () {
-        this.props.dispatch(pinDropActive(false));
-    },
-
     getInitialState: function () {
         return {
             canType: null,
@@ -169,6 +165,10 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         return {
             requestType: null
         };
+    },
+
+    componentWillUnmount: function () {
+        this.props.dispatch(pinDropActive(false));
     },
 
     updateState: function (state) {
