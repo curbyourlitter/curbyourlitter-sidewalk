@@ -11,13 +11,21 @@ import { Panel } from './Panel.jsx';
 import config from '../config/config';
 
 var ImageInput = React.createClass({
+    getInitialState: function () {
+        return {
+            value: null
+        };
+    },
+
     handleChange: function (e) {
-        this.props.onChangeCallback({ image: e.target.value });
+        console.log(e.target.files[0]);
+        this.setState({ value: e.target.value });
+        this.props.onChangeCallback({ image: e.target.files[0] });
     },
 
     render: function () {
         return (
-            <input onChange={this.handleChange} type="file" value={this.props.value} />
+            <input onChange={this.handleChange} type="file" value={this.state.value} />
         );
     }
 });
@@ -160,7 +168,7 @@ var CommentPictureForm = React.createClass({
         return (
             <form onSubmit={this.submit}>
                 <textarea onChange={this.commentChange} value={this.state.comment} />
-                <ImageInput onChangeCallback={this.fieldChange} value={this.state.image} />
+                <ImageInput onChangeCallback={this.fieldChange} />
                 <Button type="submit">submit</Button>
             </form>
         );
@@ -184,8 +192,15 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
 
     submitRequest: function () {
         if (this.validateRequest()) {
-            console.log(this.state);
+            var formData = new FormData();
+            formData.append('canType', this.state.canType);
+            formData.append('comment', this.state.comment);
+            formData.append('image', this.state.image, this.state.image.name);
+            formData.append('latlng', this.state.latlng);
+            formData.append('requestType', this.state.requestType);
+
             reqwest({
+                data: formData,
                 url: config.apiBase + '/request',
                 method: 'post',
                 error: function () {
