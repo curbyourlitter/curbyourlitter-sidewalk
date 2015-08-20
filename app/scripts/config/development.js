@@ -1,5 +1,5 @@
 var config = {};
 
-config.apiBase = 'http://localhost:8080';
+config.apiBase = 'http://localhost:8000';
 
 export default config;
