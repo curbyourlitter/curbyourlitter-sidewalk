@@ -50,7 +50,7 @@ var LocationInput = React.createClass({
     componentWillUpdate: function(nextProps) {
         if (!this.props.latlng || this.props.latlng.lat !== nextProps.latlng.lat ||
             this.props.latlng.lng !== nextProps.latlng.lng) {
-            this.props.onChangeCallback({ latlng: this.props.latlng });
+            this.props.onChangeCallback({ latlng: nextProps.latlng });
             var geocoder = new google.maps.Geocoder;
             var component = this;
             geocoder.geocode({'location': nextProps.latlng}, function(results, status) {
