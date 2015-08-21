@@ -2,7 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import reqwest from 'reqwest';
+import qwest from 'qwest';
 
 import { pinDropActive } from '../actions';
 import map from './CurbMap.jsx';
@@ -132,7 +132,7 @@ var RequestTypeForm = React.createClass({
     render: function () {
         return (
             <div>
-                <Button onClick={() => this.props.onSelect('trash')}>
+                <Button onClick={() => this.props.onSelect('garbage')}>
                     request a trash bin
                 </Button>
                 <Button onClick={() => this.props.onSelect('recycling')}>
@@ -192,24 +192,19 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
 
     submitRequest: function () {
         if (this.validateRequest()) {
+            var latlng = this.state.latlng,
+                geomWkt = `POINT (${latlng.lng} ${latlng.lat})`;
             var formData = new FormData();
-            formData.append('canType', this.state.canType);
+
+            formData.append('can_type', this.state.requestType);
             formData.append('comment', this.state.comment);
             formData.append('image', this.state.image, this.state.image.name);
-            formData.append('latlng', this.state.latlng);
-            formData.append('requestType', this.state.requestType);
+            formData.append('geom', geomWkt);
 
-            reqwest({
-                data: formData,
-                url: config.apiBase + '/request',
-                method: 'post',
-                error: function () {
-                    console.warn('error');
-                },
-                success: function () {
-                    console.log('success');
-                }
-            });
+            // TODO loading indicator / success
+            qwest.post(config.apiBase + '/canrequests/', formData)
+                .then(() => console.warn('success'))
+                .catch(() => console.warn('error'));
         }
     },
 
