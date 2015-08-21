@@ -15,4 +15,5 @@
 .panel-body {
   height: calc(100% - 35px);
   overflow-y: auto;
+  padding: 25px;
 }
