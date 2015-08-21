@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from 'react-bootstrap';
+import { Button, Input } from 'react-bootstrap';
 import qwest from 'qwest';
 
 import { pinDropActive } from '../actions';
@@ -25,7 +25,7 @@ var ImageInput = React.createClass({
 
     render: function () {
         return (
-            <input onChange={this.handleChange} type="file" value={this.state.value} />
+            <Input onChange={this.handleChange} type="file" value={this.state.value} />
         );
     }
 });
@@ -80,11 +80,11 @@ var CanTypeInput = React.createClass({
         return (
             <div>
                 <span>can type:</span>
-                <select onChange={this.handleChange} value={this.props.value}>
+                <Input type="select" onChange={this.handleChange} value={this.props.value}>
                     <option value="small">small</option>
                     <option value="medium">medium</option>
                     <option value="large">large</option>
-                </select>
+                </Input>
             </div>
         );
     }
@@ -161,7 +161,7 @@ var CommentPictureForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <textarea onChange={this.commentChange} value={this.state.comment} />
+                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} />
                 <ImageInput onChangeCallback={this.fieldChange} />
                 <Button type="submit">submit</Button>
             </form>
