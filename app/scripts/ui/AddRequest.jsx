@@ -81,9 +81,9 @@ var CanTypeInput = React.createClass({
             <div>
                 <span>can type:</span>
                 <select onChange={this.handleChange} value={this.props.value}>
-                    <option>small</option>
-                    <option>medium</option>
-                    <option>large</option>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
                 </select>
             </div>
         );
@@ -97,7 +97,7 @@ var AddRequestForm = React.createClass({
 
     getInitialState: function () {
         return {
-            canType: null,
+            canType: 'small',
             latlng: null
         };
     },
