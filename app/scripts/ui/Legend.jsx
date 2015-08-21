@@ -20,10 +20,15 @@ var Legend = React.createClass({
         });
     },
 
+    handleClick: function () {
+        this.setState({ popoverShown: false });
+        this.showLegend();
+    },
+
     render: function () {
         return (
             <div className="legend-wrapper">
-                <a className="btn btn-legend" ref="button" onClick={this.showLegend}>legend</a>
+                <a className="btn btn-legend" ref="button" onClick={this.handleClick}>legend</a>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
                     <Popover>
                         <div>Show legend and pick layers</div>

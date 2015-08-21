@@ -140,10 +140,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 var AddButton = React.createClass({
     mixins: [PopoverButton],
 
+    handleClick: function () {
+        this.setState({ popoverShown: false });
+    },
+
     render: function () {
         return (
             <div>
-                <Link to="/add" className="btn btn-add" ref="button">
+                <Link to="/add" onClick={this.handleClick} className="btn btn-add" ref="button">
                     add
                 </Link>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
@@ -160,10 +164,14 @@ var AddButton = React.createClass({
 var ListButton = React.createClass({
     mixins: [PopoverButton],
 
+    handleClick: function () {
+        this.setState({ popoverShown: false });
+    },
+
     render: function () {
         return (
             <div>
-                <Link to="/reports" className="btn btn-list" ref="button">
+                <Link to="/reports" onClick={this.handleClick} className="btn btn-list" ref="button">
                     list
                 </Link>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="bottom" containerPadding={20}>
