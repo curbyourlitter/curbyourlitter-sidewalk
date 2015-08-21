@@ -122,12 +122,6 @@ var AddRequestForm = React.createClass({
     }
 });
 
-function mapStateToProps(state) {
-    return {
-        pinDropLatlng: state.pinDropLatlng
-    };
-}
-
 var RequestTypeForm = React.createClass({
     render: function () {
         return (
@@ -174,6 +168,12 @@ var CommentPictureForm = React.createClass({
         );
     }
 });
+
+function mapStateToProps(state) {
+    return {
+        pinDropLatlng: state.pinDropLatlng
+    };
+}
 
 export var AddRequest = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
