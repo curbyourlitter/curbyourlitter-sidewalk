@@ -14,7 +14,8 @@ var map,
 
 var filters = {
     rodents: true,
-    sweeping: true
+    sweeping: true,
+    year: null
 };
 
 function getSql() {
@@ -33,8 +34,18 @@ function getSql() {
             return value !== null;
         })
         .value();
+    var yearCondition = null;
+    if (filters.year) {
+        yearCondition = `extract(year from created_date) = ${filters.year}`;
+    }
     if (whereConditions.length > 0) {
-        sql += ' WHERE ' + whereConditions.join(' OR ');
+        sql += ` WHERE (${whereConditions.join(' OR ')})`;
+        if (yearCondition) {
+            sql += ' AND ' + yearCondition;
+        }
+    }
+    else if (yearCondition) {
+        sql += ' WHERE ' + yearCondition;
     }
     return sql;
 }
