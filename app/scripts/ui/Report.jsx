@@ -52,8 +52,9 @@ export var Report = React.createClass({
 var ReportListItem = React.createClass({
     render: function () {
         return (
-            <li>
-                {this.props.complaint}
+            <li className="report-list-item">
+                <div className="report-list-item-complaint">{this.props.complaint}</div>
+                <div className="report-list-item-date">{this.props.created_date}</div>
             </li>
         );
     }
@@ -62,7 +63,7 @@ var ReportListItem = React.createClass({
 export var ReportList = React.createClass({
     getData: function (callback) {
         // TODO only get reports as filtered, reports in viewport
-        cartodbSql.execute('SELECT complaint, cartodb_id FROM table_311_11222')
+        cartodbSql.execute('SELECT complaint, cartodb_id, created_date FROM table_311_11222')
             .done(function (data) {
                 callback(data.rows);
             });
@@ -87,13 +88,13 @@ export var ReportList = React.createClass({
 
     render: function () {
         var list = this.state.rows.map(row => {
-            return <ReportListItem reportId={row.cartodb_id} {...row} />
+            return <ReportListItem key={row.cartodb_id} reportId={row.cartodb_id} {...row} />
         });
         return (
             <Panel>
-                <h2>report list</h2>
-                reports: {this.state.rows.length}
-                <ul>
+                <h2>on the map</h2>
+                {this.state.rows.length} results
+                <ul className="report-list">
                     {list}
                 </ul>
             </Panel>
