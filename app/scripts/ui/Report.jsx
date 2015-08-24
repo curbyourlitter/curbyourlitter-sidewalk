@@ -1,6 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, Navigation } from 'react-router';
 import { Panel } from './Panel.jsx';
 
 var cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
@@ -50,9 +50,15 @@ export var Report = React.createClass({
 });
 
 var ReportListItem = React.createClass({
+    mixins: [Navigation],
+
+    handleClick: function () {
+        this.transitionTo(`/reports/${this.props.reportId}`);
+    },
+
     render: function () {
         return (
-            <li className="report-list-item">
+            <li className="report-list-item" onClick={this.handleClick}>
                 <div className="report-list-item-complaint">{this.props.complaint}</div>
                 <div className="report-list-item-date">{this.props.created_date}</div>
             </li>
