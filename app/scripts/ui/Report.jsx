@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
 import { Panel } from './Panel.jsx';
@@ -37,13 +38,14 @@ export var Report = React.createClass({
     render: function () {
         return (
             <Panel>
-                <h2>
-                    report details
-                </h2>
-                <div>{this.state.created_da}</div>
+                <Link to="/reports/">&lt; List View</Link>
+                <h2>{this.state.descriptor}</h2>
+                <div>{moment(this.state.created_date).format('h:mma MMMM Do YYYY')}</div>
                 <div>agency: {this.state.agency}</div>
-                <div>descriptor: {this.state.descriptor}</div>
-                <div>{this.state.location_t}</div>
+                <div>
+                    <h3>Location</h3>
+                    {this.state.location_t}
+                </div>
             </Panel>
         );
     }
