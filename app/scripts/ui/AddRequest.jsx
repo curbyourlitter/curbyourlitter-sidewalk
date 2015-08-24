@@ -163,8 +163,20 @@ var CommentPictureForm = React.createClass({
             <form onSubmit={this.submit}>
                 <Input type="textarea" onChange={this.commentChange} value={this.state.comment} />
                 <ImageInput onChangeCallback={this.fieldChange} />
-                <Button type="submit">submit</Button>
+                <Button type="submit" disabled={this.props.submitting}>
+                    {this.props.submitting ?  'submitting...' : 'submit'}
+                </Button>
             </form>
+        );
+    }
+});
+
+var Success = React.createClass({
+    render: function () {
+        return (
+            <div>
+                Your request was successfully submitted!
+            </div>
         );
     }
 });
@@ -178,7 +190,9 @@ function mapStateToProps(state) {
 export var AddRequest = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
-            requestType: null
+            requestType: null,
+            submitting: false,
+            success: false
         };
     },
 
@@ -201,9 +215,15 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             formData.append('image', this.state.image, this.state.image.name);
             formData.append('geom', geomWkt);
 
-            // TODO loading indicator / success
+            this.setState({ submitting: true });
             qwest.post(config.apiBase + '/canrequests/', formData)
-                .then(() => console.warn('success'))
+                .then(() => {
+                    console.log('success');
+                    this.setState({
+                        submitting: false,
+                        success: true 
+                    });
+                })
                 .catch(() => console.warn('error'));
         }
     },
@@ -215,21 +235,29 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
     },
 
     render: function () {
-        var formPanel = <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
+        var bodyPanel = <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
         var step = 1;
-        if (this.state.requestType) {
+        if (this.state.success) {
+            bodyPanel = <Success />;
+            step = null;
+        }
+        else if (this.state.requestType) {
             step = 2;
-            formPanel = <AddRequestForm onSubmit={this.updateState} {...this.props} />;
+            bodyPanel = <AddRequestForm onSubmit={this.updateState} {...this.props} />;
             if (this.state.canType) {
                 step = 3;
-                formPanel = <CommentPictureForm onSubmit={this.updateState} />;
+                bodyPanel = <CommentPictureForm onSubmit={this.updateState} submitting={this.state.submitting} />;
             }
         }
 
         return (
             <Panel>
-                <div>step {step}</div>
-                {formPanel}
+                {(() => {
+                    if (step) {
+                        return <div>step {step}</div>;
+                    }
+                })()}
+                {bodyPanel}
             </Panel>
         );
     }
