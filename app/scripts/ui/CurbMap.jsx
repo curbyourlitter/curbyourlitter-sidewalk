@@ -117,7 +117,8 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
         cartodb.createLayer(map, config.cartodbVisJson, {
             cartodb_logo: false,
-            infowindow: false
+            infowindow: false,
+            legends: false
         })
             .addTo(map)
             .on('done', (layer) => {
