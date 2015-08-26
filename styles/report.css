@@ -1,0 +1,14 @@
+.report-list {
+  list-style: none;
+  padding: 0;
+}
+.report-list-item {
+  border-top: 1px solid lightgray;
+  cursor: pointer;
+  padding: 5px 25px;
+  margin: 0 -25px;
+}
+.report-list-item:hover {
+  background: gray;
+  color: white;
+}
