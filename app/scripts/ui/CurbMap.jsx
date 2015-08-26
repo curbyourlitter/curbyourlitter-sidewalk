@@ -19,6 +19,8 @@ var filters = {
     year: null
 };
 
+var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
+
 function getSql() {
     var sql = `SELECT * FROM ${config.cartodbReportTable}`;
     var whereConditions = _.chain(filters)
@@ -75,9 +77,31 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         this.pin.on('dragend', () => {
             this.props.dispatch(pinDropMoved(this.pin.getLatLng()));
         });
+
+        cartodbSql.execute('SELECT * FROM {{ table }}', {
+            table: config.cartodbIntersectionsTable
+        }, {
+            format: 'GeoJSON'
+        })
+            .done(function (data) {
+                this.intersectionLayer = L.geoJson(data, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.circle(latlng, 25);
+                    },
+
+                    style: {
+                        clickable: false,
+                        color: 'green',
+                        fillColor: 'green',
+                        fillOpacity: 0.1,
+                        weight: 2
+                    }
+                }).addTo(map);
+            });
     },
 
     deactivateDropPin: function () {
+        map.removeLayer(this.intersectionLayer);
         map.removeLayer(this.pin);
     },
 
