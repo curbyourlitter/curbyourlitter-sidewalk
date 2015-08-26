@@ -20,6 +20,7 @@ var filters = {
 };
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
+var geocoder = new google.maps.Geocoder;
 
 function getSql() {
     var sql = `SELECT * FROM ${config.cartodbReportTable}`;
@@ -78,6 +79,23 @@ function mapStateToProps(state) {
 var CurbMap = connect(mapStateToProps)(React.createClass({
     mixins: [Navigation],
 
+    addDropPinPopup: function () {
+        geocoder.geocode({'location': this.pin.getLatLng()}, (results, status) => {
+            if (status !== google.maps.GeocoderStatus.OK) return;
+            this.pin.bindPopup(this.getAddress(results[0])).openPopup();
+        });
+    },
+
+    getAddress: function (geocoderResult) {
+        var street_number = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('street_number') >= 0;
+        }).long_name;
+        var street = _.find(geocoderResult.address_components, component => {
+            return component.types.indexOf('route') >= 0;
+        }).short_name;
+        return street_number + ' ' + street;
+    },
+
     activateDropPin: function () {
         this.pin = L.marker(map.getCenter(), { 
             draggable: true,
@@ -86,12 +104,19 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
         // Give initial latlng
         this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
+            // TODO show popup with address if valid
+            if (valid) {
+                this.addDropPinPopup();
+            }
             this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
         });
 
         // When marker is dragged, update latlng
         this.pin.on('dragend', () => {
             this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
+                if (valid) {
+                    this.addDropPinPopup();
+                }
                 this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
             });
         });
