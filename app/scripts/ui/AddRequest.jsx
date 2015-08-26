@@ -126,11 +126,14 @@ var RequestTypeForm = React.createClass({
     render: function () {
         return (
             <div>
-                <Button onClick={() => this.props.onSelect('garbage')}>
+                <Button onClick={() => this.props.onSelect('garbage')} block>
                     request a trash bin
                 </Button>
-                <Button onClick={() => this.props.onSelect('recycling')}>
+                <Button onClick={() => this.props.onSelect('recycling')} block>
                     request a recycling bin
+                </Button>
+                <Button onClick={() => this.props.onSelect('bigbelly')} block>
+                    request a big belly bin
                 </Button>
             </div>
         );
