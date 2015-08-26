@@ -126,14 +126,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 complaintLayer.setInteractivity('cartodb_id,complaint_type');
                 updateSql();
 
-                layer.setInteraction(true);
-                layer.on('featureOver', () => {
+                complaintLayer.setInteraction(true);
+                complaintLayer.on('featureOver', () => {
                     document.getElementById(id).style.cursor = 'pointer';
                 });
-                layer.on('featureOut', () => {
+                complaintLayer.on('featureOut', () => {
                     document.getElementById(id).style.cursor = null;
                 });
-                layer.on('featureClick', (event, latlng, pos, data) => {
+                complaintLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
             });
