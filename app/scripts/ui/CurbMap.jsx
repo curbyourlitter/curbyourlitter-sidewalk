@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link, Navigation, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 
+import config from '../config/config';
 import { mapIsReady, pinDropMoved } from '../actions';
 import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
@@ -19,14 +20,14 @@ var filters = {
 };
 
 function getSql() {
-    var sql = 'SELECT * FROM table_311_11222';
+    var sql = `SELECT * FROM ${config.cartodbReportTable}`;
     var whereConditions = _.chain(filters)
         .map(function (value, key) {
             if (key === 'rodents' && value) {
-                return "complaint = 'Rodent'";
+                return "complaint_type = 'Rodent'";
             }
             if (key === 'sweeping' && value) {
-                return "complaint IN ('Sweeping/Inadequate', 'Sweeping/Missed', 'Sweeping/Missed-Inadequate')";
+                return "complaint_type IN ('Sweeping/Inadequate', 'Sweeping/Missed', 'Sweeping/Missed-Inadequate')";
             }
             return null;
         })
@@ -114,14 +115,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
         map.setView([40.728,-73.95], 15);
 
-        cartodb.createLayer(map, 'https://curbyourlitter.cartodb.com/api/v2/viz/4226a41e-3b85-11e5-8232-0e4fddd5de28/viz.json', {
+        cartodb.createLayer(map, config.cartodbVisJson, {
             cartodb_logo: false,
             infowindow: false
         })
             .addTo(map)
             .on('done', (layer) => {
-                complaintLayer = layer.getSubLayer(0);
-                complaintLayer.setInteractivity('cartodb_id,complaint');
+                complaintLayer = layer.getSubLayer(1);
+                complaintLayer.setInteractivity('cartodb_id,complaint_type');
                 updateSql();
 
                 layer.setInteraction(true);

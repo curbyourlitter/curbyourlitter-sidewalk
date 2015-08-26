@@ -1,14 +1,18 @@
 import _ from 'underscore';
+import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
 import { Panel } from './Panel.jsx';
 
-var cartodbSql = new cartodb.SQL({ user: 'curbyourlitter' });
+var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
 export var Report = React.createClass({
     getData: function (callback) {
-        cartodbSql.execute('SELECT * FROM table_311_11222 WHERE cartodb_id = {{ id }}', { id: this.props.routeParams.reportId })
+        cartodbSql.execute('SELECT * FROM {{ table }} WHERE cartodb_id = {{ id }}', {
+            id: this.props.routeParams.reportId,
+            table: config.cartodbReportTable
+        })
             .done(function (data) {
                 callback(data.rows[0]);
             });
@@ -61,7 +65,7 @@ var ReportListItem = React.createClass({
     render: function () {
         return (
             <li className="report-list-item" onClick={this.handleClick}>
-                <div className="report-list-item-complaint">{this.props.complaint}</div>
+                <div className="report-list-item-complaint">{this.props.complaint_type}</div>
                 <div className="report-list-item-date">{this.props.created_date}</div>
             </li>
         );
@@ -71,7 +75,9 @@ var ReportListItem = React.createClass({
 export var ReportList = React.createClass({
     getData: function (callback) {
         // TODO only get reports as filtered, reports in viewport
-        cartodbSql.execute('SELECT complaint, cartodb_id, created_date FROM table_311_11222')
+        cartodbSql.execute('SELECT complaint_type, cartodb_id, created_date FROM {{ table }}', {
+            table: config.cartodbReportTable
+        })
             .done(function (data) {
                 callback(data.rows);
             });
