@@ -13,9 +13,10 @@ export function pinDropActive(active) {
     };
 }
 
-export function pinDropMoved(latlng) {
+export function pinDropMoved(latlng, valid) {
     return {
         latlng: latlng,
-        type: PIN_DROP_MOVED 
+        type: PIN_DROP_MOVED,
+        valid: valid
     };
 }

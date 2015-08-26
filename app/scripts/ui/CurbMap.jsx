@@ -57,6 +57,17 @@ function updateSql() {
     complaintLayer.setSQL(getSql());
 }
 
+var badPlacementIcon = L.AwesomeMarkers.icon({
+    icon: 'ion-sad',
+    markerColor: 'red',
+    prefix: 'ion'
+});
+
+var goodPlacementIcon = L.AwesomeMarkers.icon({
+    icon: 'ion-happy',
+    markerColor: 'green',
+    prefix: 'ion'
+});
 
 function mapStateToProps(state) {
     return {
@@ -68,14 +79,21 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     mixins: [Navigation],
 
     activateDropPin: function () {
-        this.pin = L.marker(map.getCenter(), { draggable: true }).addTo(map);
+        this.pin = L.marker(map.getCenter(), { 
+            draggable: true,
+            icon: badPlacementIcon
+        }).addTo(map);
 
         // Give initial latlng
-        this.props.dispatch(pinDropMoved(this.pin.getLatLng()));
+        this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
+            this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
+        });
 
         // When marker is dragged, update latlng
         this.pin.on('dragend', () => {
-            this.props.dispatch(pinDropMoved(this.pin.getLatLng()));
+            this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
+                this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
+            });
         });
 
         cartodbSql.execute('SELECT * FROM {{ table }}', {
@@ -86,7 +104,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
             .done(function (data) {
                 this.intersectionLayer = L.geoJson(data, {
                     pointToLayer: function (feature, latlng) {
-                        return L.circle(latlng, 25);
+                        return L.circle(latlng, config.cartodbIntersectionRadius);
                     },
 
                     style: {
@@ -98,6 +116,19 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                     }
                 }).addTo(map);
             });
+    },
+
+    checkDropPinValid: function (latlng, callback) {
+        cartodbSql.execute('SELECT * FROM {{ table }} WHERE ST_DWithin(the_geom::geography, CDB_LatLng({{ lat }}, {{ lng }})::geography, {{ radius }})', {
+            lat: latlng.lat,
+            lng: latlng.lng,
+            radius: config.cartodbIntersectionRadius,
+            table: config.cartodbIntersectionsTable
+        }).done((data) => {
+            var valid = data.rows.length > 0;
+            this.pin.setIcon(valid ? goodPlacementIcon : badPlacementIcon);
+            callback(valid);
+        });
     },
 
     deactivateDropPin: function () {

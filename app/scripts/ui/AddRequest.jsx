@@ -116,7 +116,7 @@ var AddRequestForm = React.createClass({
             <form onSubmit={this.submit}>
                 <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.canType} />
                 <LocationInput onChangeCallback={this.fieldChange} latlng={this.props.pinDropLatlng} />
-                <Button type="submit">next</Button>
+                <Button type="submit" disabled={!this.props.pinDropValid}>next</Button>
             </form>
         );
     }
@@ -186,7 +186,8 @@ var Success = React.createClass({
 
 function mapStateToProps(state) {
     return {
-        pinDropLatlng: state.pinDropLatlng
+        pinDropLatlng: state.pinDropLatlng,
+        pinDropValid: state.pinDropValid
     };
 }
 

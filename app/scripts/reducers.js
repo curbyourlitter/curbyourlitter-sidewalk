@@ -14,6 +14,13 @@ export function pinDropActive(state = false, action) {
     return state;
 }
 
+export function pinDropValid(state = false, action) {
+    if (action.type === PIN_DROP_MOVED) {
+        return action.valid;
+    }
+    return state;
+}
+
 export function pinDropLatlng(state = null, action) {
     if (action.type === PIN_DROP_MOVED) {
         return action.latlng;

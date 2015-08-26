@@ -11,6 +11,7 @@ else if (process.env.NODE_ENV === 'production') {
 }
 
 // Globals
+config.cartodbIntersectionRadius = 25;
 config.cartodbIntersectionsTable = 'intersections';
 config.cartodbReportTable = 'threeoneone';
 config.cartodbUser = 'curbyourlitter';
