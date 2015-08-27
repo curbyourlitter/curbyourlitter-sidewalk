@@ -157,6 +157,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         return {
             requestType: null,
             submitting: false,
+            step: 1,
             success: false
         };
     },
@@ -201,42 +202,54 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         }
     },
 
-    updateState: function (state) {
+    backward: function (e) {
+        e.preventDefault();
+        if (this.state.step > 0) {
+            this.setState({ step: this.state.step - 1 })
+        }
+    },
+
+    forward: function (state) {
+        if (this.state.step <= 3) {
+            this.setState({ step: this.state.step + 1 })
+        }
         this.setState(state, () => {
             this.submitRequest();
         });
     },
 
     render: function () {
-        var bodyPanel = <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
-        var heading = 'Make a request';
-        var step = 1;
+        var bodyPanel,
+            heading;
+
         if (this.state.success) {
             bodyPanel = <Success />;
-            step = null;
         }
-        else if (this.state.requestType) {
-            step = 2;
-            heading = 'Place your bin';
-            bodyPanel = <AddRequestForm onSubmit={this.updateState} {...this.props} />;
-            if (this.state.canType) {
-                step = 3;
-                heading = 'Final step';
-                bodyPanel = <CommentPictureForm onSubmit={this.updateState} submitting={this.state.submitting} />;
+        else {
+            switch (this.state.step) {
+                case 1:
+                    bodyPanel = <RequestTypeForm onSelect={(type) => this.forward({ requestType: type })} />;
+                    heading = 'Make a request';
+                    break;
+                case 2:
+                    bodyPanel = <AddRequestForm onSubmit={this.forward} {...this.props} />;
+                    heading = 'Place your bin';
+                    break;
+                case 3:
+                    bodyPanel = <CommentPictureForm onSubmit={this.forward} submitting={this.state.submitting} />;
+                    heading = 'Final step';
+                    break;
             }
         }
 
         var header = (
             <div className="panel-header add-request-panel-header">
                 <h2>
-                    {heading}
-                    <Link to="/">cancel</Link>
+                    {(this.state.step && this.state.step > 1) ? <a className="panel-header-back" href="#" onClick={this.backward}>back</a> : ''}
+                    <span className="panel-header-label">{heading}</span>
+                    <Link className="panel-header-cancel" to="/">cancel</Link>
                 </h2>
-                {(() => {
-                    if (step) {
-                        return <div>step {step}</div>;
-                    }
-                })()}
+                {this.state.step ? <div>step {this.state.step}</div> : ''}
             </div>
         );
 

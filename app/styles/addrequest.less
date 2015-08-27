@@ -2,7 +2,6 @@
     &-panel-header {
         a {
             color: white;
-            float: right;
             font-size: 12px;
         }
 
@@ -14,5 +13,23 @@
         color: white;
         height: auto;
         padding: 20px;
+
+        .panel-header {
+            &-back,
+            &-cancel {
+                display: inline-block;
+                width: 20%;
+            }
+
+            &-cancel {
+                text-align: right;
+            }
+
+            &-label {
+                display: inline-block;
+                text-align: center;
+                width: 60%;
+            }
+        }
     }
 }
