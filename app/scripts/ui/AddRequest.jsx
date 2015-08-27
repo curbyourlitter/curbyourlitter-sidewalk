@@ -122,7 +122,23 @@ var Success = React.createClass({
     render: function () {
         return (
             <div>
-                Your request was successfully submitted!
+                <div>You're all done</div>
+                <div>
+                    Have another request?
+                    <Button block>Make another request</Button>
+                </div>
+                <div>
+                    About the project
+                    <Button block>Go to the about page</Button>
+                </div>
+                <div>
+                    Want to volunteer?
+                    <Button block>Get involved</Button>
+                </div>
+                <div>
+                    Why are we doing this?
+                    <Button block>The problem</Button>
+                </div>
             </div>
         );
     }
@@ -178,9 +194,9 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             this.setState({ submitting: true });
             qwest.post(config.apiBase + '/canrequests/', formData)
                 .then(() => {
-                    console.log('success');
                     this.setState({
                         submitting: false,
+                        step: null,
                         success: true 
                     });
                 })
@@ -209,6 +225,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             heading;
 
         if (this.state.success) {
+            heading = 'Thanks!'
             bodyPanel = <Success />;
         }
         else {
