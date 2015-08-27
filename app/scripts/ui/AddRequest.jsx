@@ -2,6 +2,7 @@ import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Input } from 'react-bootstrap';
+import { Link } from 'react-router';
 import qwest from 'qwest';
 
 import { pinDropActive } from '../actions';
@@ -208,6 +209,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
 
     render: function () {
         var bodyPanel = <RequestTypeForm onSelect={(type) => this.setState({ requestType: type })} />;
+        var heading = 'Make a request';
         var step = 1;
         if (this.state.success) {
             bodyPanel = <Success />;
@@ -215,20 +217,31 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         }
         else if (this.state.requestType) {
             step = 2;
+            heading = 'Place your bin';
             bodyPanel = <AddRequestForm onSubmit={this.updateState} {...this.props} />;
             if (this.state.canType) {
                 step = 3;
+                heading = 'Final step';
                 bodyPanel = <CommentPictureForm onSubmit={this.updateState} submitting={this.state.submitting} />;
             }
         }
 
-        return (
-            <Panel>
+        var header = (
+            <div className="panel-header add-request-panel-header">
+                <h2>
+                    {heading}
+                    <Link to="/">cancel</Link>
+                </h2>
                 {(() => {
                     if (step) {
                         return <div>step {step}</div>;
                     }
                 })()}
+            </div>
+        );
+
+        return (
+            <Panel header={header}>
                 {bodyPanel}
             </Panel>
         );
