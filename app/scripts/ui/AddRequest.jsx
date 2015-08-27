@@ -31,24 +31,6 @@ var ImageInput = React.createClass({
     }
 });
 
-var CanTypeInput = React.createClass({
-    handleChange: function (e) {
-        this.props.onChangeCallback({ canType: e.target.value });
-    },
-
-    render: function () {
-        return (
-            <div>
-                <Input type="select" onChange={this.handleChange} label="Can type" value={this.props.value}>
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
-                </Input>
-            </div>
-        );
-    }
-});
-
 var AddRequestForm = React.createClass({
     componentDidMount: function () {
         this.props.dispatch(pinDropActive(true));
@@ -56,12 +38,8 @@ var AddRequestForm = React.createClass({
 
     getInitialState: function () {
         return {
-            canType: 'small'
+            canSubType: 'small'
         };
-    },
-
-    fieldChange: function (updates) {
-        this.setState(updates);
     },
 
     submit: function (e) {
@@ -70,9 +48,14 @@ var AddRequestForm = React.createClass({
     },
 
     render: function () {
+        // TODO with custom subtypes for each type
         return (
             <form onSubmit={this.submit}>
-                <CanTypeInput onChangeCallback={this.fieldChange} value={this.state.canType} />
+                <Input type="select" onChange={(e) => this.setState({ canSubType: e.target.value })} label="Can type" value={this.state.canSubType}>
+                    <option value="small">small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                </Input>
                 <Button type="submit" disabled={!this.props.pinDropValid}>next</Button>
             </form>
         );
@@ -179,6 +162,9 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             if (this.state.requestType) {
                 formData.append('can_type', this.state.requestType);
             }
+            if (this.state.canSubType) {
+                formData.append('can_subtype', this.state.canSubType);
+            }
             if (this.state.comment) {
                 formData.append('comment', this.state.comment);
             }
@@ -239,6 +225,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     bodyPanel = <CommentPictureForm onSubmit={this.forward} submitting={this.state.submitting} />;
                     heading = 'Final step';
                     break;
+                // TODO error panel
             }
         }
 
