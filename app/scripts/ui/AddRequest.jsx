@@ -25,7 +25,7 @@ var ImageInput = React.createClass({
 
     render: function () {
         return (
-            <Input onChange={this.handleChange} type="file" value={this.state.value} />
+            <Input onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
         );
     }
 });
@@ -38,8 +38,7 @@ var CanTypeInput = React.createClass({
     render: function () {
         return (
             <div>
-                <span>can type:</span>
-                <Input type="select" onChange={this.handleChange} value={this.props.value}>
+                <Input type="select" onChange={this.handleChange} label="Can type" value={this.props.value}>
                     <option value="small">small</option>
                     <option value="medium">medium</option>
                     <option value="large">large</option>
@@ -101,7 +100,9 @@ var CommentPictureForm = React.createClass({
     getInitialState: function () {
         return {
             comment: null,
-            image: null
+            email: null,
+            image: null,
+            name: null
         };
     },
 
@@ -121,8 +122,10 @@ var CommentPictureForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} />
-                <ImageInput onChangeCallback={this.fieldChange} />
+                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Comment (optional)" />
+                <ImageInput onChangeCallback={this.fieldChange} label="Photo (optional)" />
+                <Input type="text" onChange={() => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
+                <Input type="email" onChange={() => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
                 <Button type="submit" disabled={this.props.submitting}>
                     {this.props.submitting ?  'submitting...' : 'submit'}
                 </Button>
