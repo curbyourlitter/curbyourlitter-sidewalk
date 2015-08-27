@@ -126,7 +126,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         }, {
             format: 'GeoJSON'
         })
-            .done(function (data) {
+            .done((data) => {
                 this.intersectionLayer = L.geoJson(data, {
                     pointToLayer: function (feature, latlng) {
                         return L.circle(latlng, config.cartodbIntersectionRadius);
