@@ -165,8 +165,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
     },
 
     validateRequest: function () {
-        console.log(this.state.requestType, this.state.canType, this.props.pinDropLatlng, this.state.comment, this.state.image, this.state.name, this.state.email);
-        return (this.state.requestType && this.state.canType && this.props.pinDropLatlng && this.state.comment && this.state.image && this.state.name && this.state.email);
+        return (this.state.requestType && this.props.pinDropLatlng && this.state.name && this.state.email);
     },
 
     submitRequest: function () {
@@ -175,9 +174,15 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                 geomWkt = `POINT (${latlng.lng} ${latlng.lat})`;
             var formData = new FormData();
 
-            formData.append('can_type', this.state.requestType);
-            formData.append('comment', this.state.comment);
-            formData.append('image', this.state.image, this.state.image.name);
+            if (this.state.requestType) {
+                formData.append('can_type', this.state.requestType);
+            }
+            if (this.state.comment) {
+                formData.append('comment', this.state.comment);
+            }
+            if (this.state.image) {
+                formData.append('image', this.state.image, this.state.image.name);
+            }
             formData.append('name', this.state.name);
             formData.append('email', this.state.email);
             formData.append('geom', geomWkt);
