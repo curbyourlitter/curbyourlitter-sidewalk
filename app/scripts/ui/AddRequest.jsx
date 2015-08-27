@@ -124,8 +124,8 @@ var CommentPictureForm = React.createClass({
             <form onSubmit={this.submit}>
                 <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Comment (optional)" />
                 <ImageInput onChangeCallback={this.fieldChange} label="Photo (optional)" />
-                <Input type="text" onChange={() => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
-                <Input type="email" onChange={() => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
+                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
+                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
                 <Button type="submit" disabled={this.props.submitting}>
                     {this.props.submitting ?  'submitting...' : 'submit'}
                 </Button>
@@ -165,8 +165,8 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
     },
 
     validateRequest: function () {
-        console.log(this.state.requestType, this.state.canType, this.props.pinDropLatlng, this.state.comment, this.state.image);
-        return (this.state.requestType && this.state.canType && this.props.pinDropLatlng && this.state.comment && this.state.image);
+        console.log(this.state.requestType, this.state.canType, this.props.pinDropLatlng, this.state.comment, this.state.image, this.state.name, this.state.email);
+        return (this.state.requestType && this.state.canType && this.props.pinDropLatlng && this.state.comment && this.state.image && this.state.name && this.state.email);
     },
 
     submitRequest: function () {
@@ -178,6 +178,8 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             formData.append('can_type', this.state.requestType);
             formData.append('comment', this.state.comment);
             formData.append('image', this.state.image, this.state.image.name);
+            formData.append('name', this.state.name);
+            formData.append('email', this.state.email);
             formData.append('geom', geomWkt);
 
             this.setState({ submitting: true });
