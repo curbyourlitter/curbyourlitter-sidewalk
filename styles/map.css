@@ -9,10 +9,17 @@
   right: 25px;
   z-index: 5000;
 }
+.btn-list {
+  background: white;
+  top: 50px;
+  position: absolute;
+  right: 25px;
+  z-index: 5000;
+}
 .btn-legend {
   background: white;
   bottom: 25px;
-  left: 25px;
+  left: 50px;
   position: absolute;
   z-index: 5000;
 }
