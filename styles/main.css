@@ -4137,6 +4137,32 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   overflow-y: auto;
   padding: 25px;
 }
+.add-request-panel-header {
+  background: black;
+  color: white;
+  height: auto;
+  padding: 20px;
+}
+.add-request-panel-header a {
+  color: white;
+  font-size: 12px;
+}
+.add-request-panel-header h2 {
+  margin: 0;
+}
+.add-request-panel-header .panel-header-back,
+.add-request-panel-header .panel-header-cancel {
+  display: inline-block;
+  width: 20%;
+}
+.add-request-panel-header .panel-header-cancel {
+  text-align: right;
+}
+.add-request-panel-header .panel-header-label {
+  display: inline-block;
+  text-align: center;
+  width: 60%;
+}
 .report-list {
   list-style: none;
   padding: 0;
