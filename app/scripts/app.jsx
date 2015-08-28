@@ -8,6 +8,7 @@ import * as reducers from './reducers';
 import { CurbMap } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
 import { Report, ReportList } from './ui/Report.jsx';
+import { Request } from './ui/Request.jsx';
 
 var mountNode = document.getElementById("app");
 
@@ -32,7 +33,8 @@ React.render((
                     <Route path="/" component={App}>
                         <Route path="add" component={AddRequest}/>
                         <Route path="reports" component={ReportList}/>
-                        <Route path="reports/:reportId" component={Report}/>
+                        <Route path="reports/:id" component={Report}/>
+                        <Route path="requests/:id" component={Request}/>
                     </Route>
                 </Router>
             );

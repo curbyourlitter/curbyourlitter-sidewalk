@@ -234,6 +234,9 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
+                requestLayer.on('featureClick', (event, latlng, pos, data) => {
+                    this.transitionTo('/requests/' + data.cartodb_id);
+                });
             });
     },
 

@@ -3,57 +3,26 @@ import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
-import { Panel } from './Panel.jsx';
+import { detailPanel } from './Panel.jsx';
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
-export var Report = React.createClass({
-    getData: function (callback) {
-        cartodbSql.execute('SELECT * FROM {{ table }} WHERE cartodb_id = {{ id }}', {
-            id: this.props.routeParams.reportId,
-            table: config.cartodbReportTable
-        })
-            .done(function (data) {
-                callback(data.rows[0]);
-            });
-    },
-
-    updateData: function () {
-        var component = this;
-        this.getData(function (data) {
-            component.setState(data);
-        });
-    },
-
-    componentDidMount: function () {
-        this.updateData();
-    },
-
-    componentWillReceiveProps: function (nextProps) {
-        if (this.props.routeParams.reportId !== nextProps.routeParams.reportId) {
-            this.updateData();
-        }
-    },
-
-    getInitialState: function () {
-        return {};
-    },
-
+export var Report = detailPanel(React.createClass({
     render: function () {
         return (
-            <Panel>
+            <div>
                 <Link to="/reports/">&lt; List View</Link>
-                <h2>{this.state.descriptor}</h2>
-                <div>{moment(this.state.created_date).format('h:mma MMMM Do YYYY')}</div>
-                <div>agency: {this.state.agency}</div>
+                <h2>{this.props.descriptor}</h2>
+                <div>{moment(this.props.created_date).format('h:mma MMMM Do YYYY')}</div>
+                <div>agency: {this.props.agency}</div>
                 <div>
                     <h3>Location</h3>
-                    {this.state.location_t}
+                    {this.props.location_t}
                 </div>
-            </Panel>
+            </div>
         );
     }
-});
+}), config.cartodbReportTable);
 
 var ReportListItem = React.createClass({
     mixins: [Navigation],
