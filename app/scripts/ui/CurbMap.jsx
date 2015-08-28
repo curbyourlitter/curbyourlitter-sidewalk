@@ -11,7 +11,7 @@ import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
 var map,
-    complaintLayer;
+    reportLayer;
 
 var filters = {
     rodents: true,
@@ -55,7 +55,7 @@ function getSql() {
 }
 
 function updateSql() {
-    complaintLayer.setSQL(getSql());
+    reportLayer.setSQL(getSql());
 }
 
 var badPlacementIcon = L.AwesomeMarkers.icon({
@@ -202,18 +202,18 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         })
             .addTo(map)
             .on('done', (layer) => {
-                complaintLayer = layer.getSubLayer(1);
-                complaintLayer.setInteractivity('cartodb_id,complaint_type');
+                reportLayer = layer.getSubLayer(1);
+                reportLayer.setInteractivity('cartodb_id,complaint_type');
                 updateSql();
 
-                complaintLayer.setInteraction(true);
-                complaintLayer.on('featureOver', () => {
+                reportLayer.setInteraction(true);
+                reportLayer.on('featureOver', () => {
                     document.getElementById(id).style.cursor = 'pointer';
                 });
-                complaintLayer.on('featureOut', () => {
+                reportLayer.on('featureOut', () => {
                     document.getElementById(id).style.cursor = null;
                 });
-                complaintLayer.on('featureClick', (event, latlng, pos, data) => {
+                reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
             });
