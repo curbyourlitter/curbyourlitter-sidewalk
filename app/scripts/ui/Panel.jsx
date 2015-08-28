@@ -5,8 +5,12 @@ import { Link } from 'react-router';
 
 export var Panel = React.createClass({
     render: function () {
+        var className = 'panel panel-right';
+        if (this.props.className) {
+            className += ' ' + this.props.className;
+        }
         return (
-            <div className="panel panel-right">
+            <div className={className}>
                 {(() => {
                     if (!this.props.header) {
                         return (
@@ -29,7 +33,7 @@ export var Panel = React.createClass({
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
-export var detailPanel = function (Component, table) {
+export var detailPanel = function (Component, table, className = 'detail-panel') {
     return React.createClass({
         getData: function (callback) {
             cartodbSql.execute('SELECT * FROM {{ table }} WHERE cartodb_id = {{ id }}', {
@@ -61,7 +65,7 @@ export var detailPanel = function (Component, table) {
 
         render: function () {
             return (
-                <Panel>
+                <Panel className={className}>
                     <Component {...this.props} {...this.state} />
                 </Panel>
             );
