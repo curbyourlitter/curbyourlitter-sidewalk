@@ -17,3 +17,6 @@
   overflow-y: auto;
   padding: 25px;
 }
+.detail-panel img {
+  max-width: 100%;
+}

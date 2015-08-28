@@ -4137,6 +4137,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   overflow-y: auto;
   padding: 25px;
 }
+.detail-panel img {
+  max-width: 100%;
+}
 .add-request-panel-header {
   background: black;
   color: white;
