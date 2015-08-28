@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 import BrowserHistory from 'react-router/lib/BrowserHistory';
 
+import collapse from '../bower_components/bootstrap/js/collapse';
+
 import * as reducers from './reducers';
 import { CurbMap } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
