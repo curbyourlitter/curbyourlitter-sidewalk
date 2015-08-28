@@ -11,7 +11,11 @@ import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
 var map,
-    reportLayer;
+    reportLayer,
+    requestLayer;
+
+// Which layers on the map is the mouse currently over?
+var currentlyOver = {};
 
 var filters = {
     rodents: true,
@@ -203,16 +207,30 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
             .addTo(map)
             .on('done', (layer) => {
                 reportLayer = layer.getSubLayer(1);
-                reportLayer.setInteractivity('cartodb_id,complaint_type');
-                updateSql();
+                requestLayer = layer.getSubLayer(2);
 
                 reportLayer.setInteraction(true);
-                reportLayer.on('featureOver', () => {
-                    document.getElementById(id).style.cursor = 'pointer';
+                reportLayer.setInteractivity('cartodb_id,complaint_type');
+                requestLayer.setInteraction(true);
+                requestLayer.setInteractivity('cartodb_id');
+                updateSql();
+
+                layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
+                    if (layerIndex === 1 || layerIndex === 2) {
+                        currentlyOver[layerIndex] = true;
+                    }
+                    if (_.values(currentlyOver).filter((l) => l).length > 0) {
+                        document.getElementById(id).style.cursor = 'pointer';
+                    }
                 });
-                reportLayer.on('featureOut', () => {
-                    document.getElementById(id).style.cursor = null;
+                layer.on('featureOut', (e, layerIndex) => {
+                    if (!layerIndex) return;
+                    currentlyOver[layerIndex] = undefined;
+                    if (_.values(currentlyOver).filter((l) => l).length === 0) {
+                        document.getElementById(id).style.cursor = null;
+                    }
                 });
+
                 reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
