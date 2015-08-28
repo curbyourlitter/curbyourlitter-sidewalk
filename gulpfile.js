@@ -137,7 +137,7 @@ gulp.task('buildBundle', ['styles', 'buildScripts', 'bower'], function() {
 
 // Bower helper
 gulp.task('bower', function() {
-    gulp.src(['app/bower_components/**/*.js', 'app/bower_components/**/*.css'], {
+    gulp.src('app/bower_components/**/*', {
         base: 'app/bower_components'
     })
         .pipe(gulp.dest('dist/bower_components/'));
