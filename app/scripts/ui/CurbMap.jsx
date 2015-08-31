@@ -18,8 +18,9 @@ var map,
 var currentlyOver = {};
 
 var filters = {
-    rodents: true,
-    sweeping: true,
+    dirty_conditions: true,
+    overflowing_litter_basket: true,
+    sanitation_conditions: true,
     year: null
 };
 
@@ -30,11 +31,14 @@ function getSql() {
     var sql = `SELECT * FROM ${config.cartodbReportTable}`;
     var whereConditions = _.chain(filters)
         .map(function (value, key) {
-            if (key === 'rodents' && value) {
-                return "complaint_type = 'Rodent'";
+            if (key === 'sanitation_conditions' && value) {
+                return "descriptor IN ('15 Street Cond/Dump-Out/Drop-Off')";
             }
-            if (key === 'sweeping' && value) {
-                return "complaint_type IN ('Sweeping/Inadequate', 'Sweeping/Missed', 'Sweeping/Missed-Inadequate')";
+            if (key === 'overflowing_litter_basket' && value) {
+                return "descriptor IN ('6 Overflowing Litter Baskets')";
+            }
+            if (key === 'dirty_conditions' && value) {
+                return "descriptor IN ('E1 Improper Disposal', 'E2 Receptacle Violation', 'E3 Dirty Sidewalk', 'E3A Dirty Area/Alleyway', 'E5 Loose Rubbish', 'E11 Litter Surveillance', 'E12 Illegal Dumping Surveillance')";
             }
             return null;
         })

@@ -38,8 +38,9 @@ var Legend = React.createClass({
                 <div className={this.state.shown ? "legend visible" : "legend" }>
                     Legend
                     <YearPicker />
-                    <LegendItem name="rodent sightings" label="rodents" />
-                    <LegendItem name="sweeping complaints" label="sweeping" />
+                    <LegendItem name="sanitation conditions" label="sanitation_conditions" />
+                    <LegendItem name="overflowing litter basket" label="overflowing_litter_basket" />
+                    <LegendItem name="dirty conditions" label="dirty_conditions" />
                 </div>
             </div>
         );
