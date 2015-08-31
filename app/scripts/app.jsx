@@ -9,7 +9,8 @@ import collapse from '../bower_components/bootstrap/js/collapse';
 import * as reducers from './reducers';
 import { CurbMap } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
-import { Report, ReportList } from './ui/Report.jsx';
+import { ListContainer } from './ui/List.jsx';
+import { Report } from './ui/Report.jsx';
 import { Request } from './ui/Request.jsx';
 
 var mountNode = document.getElementById("app");
@@ -34,7 +35,7 @@ React.render((
                 <Router history={new BrowserHistory()}>
                     <Route path="/" component={App}>
                         <Route path="add" component={AddRequest}/>
-                        <Route path="reports" component={ReportList}/>
+                        <Route path="list" component={ListContainer}/>
                         <Route path="reports/:id" component={Report}/>
                         <Route path="requests/:id" component={Request}/>
                     </Route>

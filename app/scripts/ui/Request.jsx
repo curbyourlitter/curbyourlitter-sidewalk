@@ -13,7 +13,7 @@ export var Request = detailPanel(React.createClass({
     render: function () {
         return (
             <div>
-                <Link to="/requests/">&lt; List View</Link>
+                <Link to="/list/">&lt; List View</Link>
                 <h2>{this.props.can_subtype} {this.props.can_type} can request</h2>
                 {this.props.image ? <img src={this.props.image} /> : ''}
                 {this.props.comment ? <div>{this.props.comment}</div> : ''}
@@ -21,3 +21,24 @@ export var Request = detailPanel(React.createClass({
         );
     }
 }), config.cartodbRequestTable);
+
+export var RequestListItem = React.createClass({
+    mixins: [Navigation],
+
+    handleClick: function () {
+        this.transitionTo(`/requests/${this.props.id}`);
+    },
+
+    render: function () {
+        return (
+            <li className="entity-list-item request-list-item" onClick={this.handleClick}>
+                <div className="request-list-item-can-type">
+                    {this.props.can_type} can request
+                </div>
+                <div className="request-list-item-date">
+                    {moment(this.props.date).format('h:mma MMMM Do YYYY')}
+                </div>
+            </li>
+        );
+    }
+});
