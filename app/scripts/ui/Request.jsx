@@ -3,6 +3,7 @@ import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
+import { Col, Grid, Row } from 'react-bootstrap';
 import { detailPanel } from './Panel.jsx';
 
 export var Request = detailPanel(React.createClass({
@@ -32,12 +33,21 @@ export var RequestListItem = React.createClass({
     render: function () {
         return (
             <li className="entity-list-item request-list-item" onClick={this.handleClick}>
-                <div className="request-list-item-can-type">
-                    {this.props.can_type} can request
-                </div>
-                <div className="request-list-item-date">
-                    {moment(this.props.date).format('h:mma MMMM Do YYYY')}
-                </div>
+                <Grid>
+                    <Row>
+                        <Col sm={2}>
+                            <div className="request-list-item-icon"></div>
+                        </Col>
+                        <Col sm={10}>
+                            <div className="request-list-item-can-type">
+                                {this.props.can_type} can request
+                            </div>
+                            <div className="request-list-item-date">
+                                {moment(this.props.date).format('h:mma MMMM Do YYYY')}
+                            </div>
+                        </Col>
+                    </Row>
+                </Grid>
             </li>
         );
     }

@@ -3,6 +3,7 @@ import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
+import { Col, Grid, Row } from 'react-bootstrap';
 import { detailPanel } from './Panel.jsx';
 
 export var Report = detailPanel(React.createClass({
@@ -32,10 +33,19 @@ export var ReportListItem = React.createClass({
     render: function () {
         return (
             <li className="entity-list-item report-list-item" onClick={this.handleClick}>
-                <div className="report-list-item-complaint">{this.props.complaint_type}</div>
-                <div className="report-list-item-date">
-                    {moment(this.props.date).format('h:mma MMMM Do YYYY')}
-                </div>
+                <Grid>
+                    <Row>
+                        <Col sm={2}>
+                            <div className="report-list-item-icon"></div>
+                        </Col>
+                        <Col sm={10}>
+                            <div className="report-list-item-complaint">{this.props.complaint_type}</div>
+                            <div className="report-list-item-date">
+                                {moment(this.props.date).format('h:mma MMMM Do YYYY')}
+                            </div>
+                        </Col>
+                    </Row>
+                </Grid>
             </li>
         );
     }
