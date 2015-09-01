@@ -14,10 +14,10 @@ export var List = React.createClass({
     render: function () {
         var list = this.props.items.map(item => {
             if (item.type === 'report') {
-                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseOver={this.props.handleMouseOver} />
+                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} />
             }
             else if (item.type === 'request') {
-                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseOver={this.props.handleMouseOver} />
+                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} />
             }
         });
         return (
@@ -50,7 +50,7 @@ export var ListContainer = connect()(React.createClass({
             });
     },
 
-    handleMouseOver: function (id, type) {
+    handleMouseEnter: function (id, type) {
         this.props.dispatch(listRecordHovered(id, type));
     },
 
@@ -75,6 +75,6 @@ export var ListContainer = connect()(React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} handleMouseOver={this.handleMouseOver}/>
+        return <List items={this.state.rows} handleMouseEnter={this.handleMouseEnter}/>
     }
 }));

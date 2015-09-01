@@ -30,13 +30,13 @@ export var ReportListItem = React.createClass({
         this.transitionTo(`/reports/${this.props.id}`);
     },
 
-    handleMouseOver: function () {
-        this.props.handleMouseOver(this.props.id, this.props.type);
+    handleMouseEnter: function () {
+        this.props.handleMouseEnter(this.props.id, this.props.type);
     },
 
     render: function () {
         return (
-            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseOver={this.handleMouseOver}>
+            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.handleMouseEnter}>
                 <Grid>
                     <Row>
                         <Col sm={2}>

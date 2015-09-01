@@ -30,13 +30,13 @@ export var RequestListItem = React.createClass({
         this.transitionTo(`/requests/${this.props.id}`);
     },
 
-    handleMouseOver: function () {
-        this.props.handleMouseOver(this.props.id, this.props.type);
+    handleMouseEnter: function () {
+        this.props.handleMouseEnter(this.props.id, this.props.type);
     },
 
     render: function () {
         return (
-            <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseOver={this.handleMouseOver}>
+            <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseEnter={this.handleMouseEnter}>
                 <Grid>
                     <Row>
                         <Col sm={2}>
