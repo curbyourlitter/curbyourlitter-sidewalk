@@ -43,10 +43,10 @@ export var RequestListItem = React.createClass({
             <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
-                        <Col sm={2}>
+                        <Col xs={2}>
                             <div className="request-list-item-icon"></div>
                         </Col>
-                        <Col sm={10}>
+                        <Col xs={10}>
                             <div className="request-list-item-can-type">
                                 {this.props.can_type} can request
                             </div>

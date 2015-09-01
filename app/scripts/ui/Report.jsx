@@ -43,10 +43,10 @@ export var ReportListItem = React.createClass({
             <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
-                        <Col sm={2}>
+                        <Col xs={2}>
                             <div className="report-list-item-icon"></div>
                         </Col>
-                        <Col sm={10}>
+                        <Col xs={10}>
                             <div className="report-list-item-complaint">{this.props.complaint_type}</div>
                             <div className="report-list-item-date">
                                 {moment(this.props.date).format('h:mma MMMM Do YYYY')}
