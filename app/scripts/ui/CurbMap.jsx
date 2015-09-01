@@ -177,6 +177,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     highlightRecordPoint: function (record) {
+        this.unhighlightRecordPoint();
         cartodbSql.execute('SELECT the_geom FROM {{ table }} where cartodb_id = {{ id }}', {
             id: record.id,
             table: config.tables[record.recordType]
@@ -185,6 +186,10 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         }).done((data) => {
             highlightedRecordLayer.addData(data);
         });
+    },
+
+    unhighlightRecordPoint: function () {
+        highlightedRecordLayer.clearLayers();
     },
 
     componentDidMount: function() {
@@ -202,9 +207,11 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         if (!nextProps.pinDropActive && this.props.pinDropActive) {
             this.deactivateDropPin();
         }
-        if (nextProps.listRecordHovered && (!this.props.listRecordHovered || _.isEqual(nextProps.listRecordHovered, this.props.listRecordHovered))) {
-            // TODO on no longer hovering, stop
+        if (nextProps.listRecordHovered && (!this.props.listRecordHovered || !_.isEqual(nextProps.listRecordHovered, this.props.listRecordHovered))) {
             this.highlightRecordPoint(nextProps.listRecordHovered);
+        }
+        else if (!nextProps.listRecordHovered) {
+            this.unhighlightRecordPoint();
         }
     },
 

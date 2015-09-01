@@ -2,6 +2,7 @@ export const MAP_IS_READY = 'MAP_IS_READY';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
 export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
+export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
 
 export function mapIsReady() {
     return { type: MAP_IS_READY };
@@ -27,5 +28,11 @@ export function listRecordHovered(id, recordType) {
         id: id,
         recordType: recordType,
         type: LIST_RECORD_HOVERED
+    };
+}
+
+export function listRecordUnhovered() {
+    return {
+        type: LIST_RECORD_UNHOVERED
     };
 }

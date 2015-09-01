@@ -1,5 +1,9 @@
 import {
-    LIST_RECORD_HOVERED, MAP_IS_READY, PIN_DROP_ACTIVE, PIN_DROP_MOVED
+    LIST_RECORD_HOVERED,
+    LIST_RECORD_UNHOVERED,
+    MAP_IS_READY,
+    PIN_DROP_ACTIVE,
+    PIN_DROP_MOVED
 } from './actions';
 
 export function mapReady(state = false, action) {
@@ -36,6 +40,9 @@ export function listRecordHovered(state = null, action) {
             id: action.id,
             recordType: action.recordType
         };
+    }
+    if (action.type === LIST_RECORD_UNHOVERED) {
+        return null;
     }
     return state;
 }

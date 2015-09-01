@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import config from '../config/config';
-import { listRecordHovered } from '../actions';
+import { listRecordHovered, listRecordUnhovered } from '../actions';
 import { Panel } from './Panel.jsx';
 import { ReportListItem } from './Report.jsx';
 import { RequestListItem } from './Request.jsx';
@@ -14,10 +14,10 @@ export var List = React.createClass({
     render: function () {
         var list = this.props.items.map(item => {
             if (item.type === 'report') {
-                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} />
+                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} handleMouseLeave={this.props.handleMouseLeave} />
             }
             else if (item.type === 'request') {
-                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} />
+                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} handleMouseLeave={this.props.handleMouseLeave} />
             }
         });
         return (
@@ -54,6 +54,10 @@ export var ListContainer = connect()(React.createClass({
         this.props.dispatch(listRecordHovered(id, type));
     },
 
+    handleMouseLeave: function () {
+        this.props.dispatch(listRecordUnhovered());
+    },
+
     updateData: function () {
         var component = this;
         this.getData((data) => {
@@ -75,6 +79,6 @@ export var ListContainer = connect()(React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} handleMouseEnter={this.handleMouseEnter}/>
+        return <List items={this.state.rows} handleMouseEnter={this.handleMouseEnter} handleMouseLeave={this.handleMouseLeave}/>
     }
 }));
