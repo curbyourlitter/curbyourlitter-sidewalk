@@ -1,6 +1,7 @@
 export const MAP_IS_READY = 'MAP_IS_READY';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
+export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
 
 export function mapIsReady() {
     return { type: MAP_IS_READY };
@@ -18,5 +19,13 @@ export function pinDropMoved(latlng, valid) {
         latlng: latlng,
         type: PIN_DROP_MOVED,
         valid: valid
+    };
+}
+
+export function listRecordHovered(id, recordType) {
+    return {
+        id: id,
+        recordType: recordType,
+        type: LIST_RECORD_HOVERED
     };
 }

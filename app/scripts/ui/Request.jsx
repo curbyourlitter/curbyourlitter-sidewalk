@@ -21,7 +21,7 @@ export var Request = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.cartodbRequestTable);
+}), config.tables.request);
 
 export var RequestListItem = React.createClass({
     mixins: [Navigation],
@@ -30,9 +30,13 @@ export var RequestListItem = React.createClass({
         this.transitionTo(`/requests/${this.props.id}`);
     },
 
+    handleMouseOver: function () {
+        this.props.handleMouseOver(this.props.id, this.props.type);
+    },
+
     render: function () {
         return (
-            <li className="entity-list-item request-list-item" onClick={this.handleClick}>
+            <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseOver={this.handleMouseOver}>
                 <Grid>
                     <Row>
                         <Col sm={2}>

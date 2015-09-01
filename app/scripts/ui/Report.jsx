@@ -21,7 +21,7 @@ export var Report = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.cartodbReportTable);
+}), config.tables.report);
 
 export var ReportListItem = React.createClass({
     mixins: [Navigation],
@@ -30,9 +30,13 @@ export var ReportListItem = React.createClass({
         this.transitionTo(`/reports/${this.props.id}`);
     },
 
+    handleMouseOver: function () {
+        this.props.handleMouseOver(this.props.id, this.props.type);
+    },
+
     render: function () {
         return (
-            <li className="entity-list-item report-list-item" onClick={this.handleClick}>
+            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseOver={this.handleMouseOver}>
                 <Grid>
                     <Row>
                         <Col sm={2}>

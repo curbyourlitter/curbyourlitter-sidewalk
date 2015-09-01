@@ -12,7 +12,8 @@ import PopoverButton from './PopoverButton.jsx';
 
 var map,
     reportLayer,
-    requestLayer;
+    requestLayer,
+    highlightedRecordLayer;
 
 // Which layers on the map is the mouse currently over?
 var currentlyOver = {};
@@ -27,8 +28,13 @@ var filters = {
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 var geocoder = new google.maps.Geocoder;
 
+var highlightedRecordStyle = {
+    color: 'yellow',
+    weight: 2
+};
+
 function getSql() {
-    var sql = `SELECT * FROM ${config.cartodbReportTable}`;
+    var sql = `SELECT * FROM ${config.tables.report}`;
     var whereConditions = _.chain(filters)
         .map(function (value, key) {
             if (key === 'sanitation_conditions' && value) {
@@ -80,6 +86,7 @@ var goodPlacementIcon = L.AwesomeMarkers.icon({
 
 function mapStateToProps(state) {
     return {
+        listRecordHovered: state.listRecordHovered,
         pinDropActive: state.pinDropActive
     };
 }
@@ -130,7 +137,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         });
 
         cartodbSql.execute('SELECT * FROM {{ table }}', {
-            table: config.cartodbIntersectionsTable
+            table: config.tables.intersections
         }, {
             format: 'GeoJSON'
         })
@@ -156,7 +163,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
             lat: latlng.lat,
             lng: latlng.lng,
             radius: config.cartodbIntersectionRadius,
-            table: config.cartodbIntersectionsTable
+            table: config.tables.intersections
         }).done((data) => {
             var valid = data.rows.length > 0;
             this.pin.setIcon(valid ? goodPlacementIcon : badPlacementIcon);
@@ -167,6 +174,17 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     deactivateDropPin: function () {
         map.removeLayer(this.intersectionLayer);
         map.removeLayer(this.pin);
+    },
+
+    highlightRecordPoint: function (record) {
+        cartodbSql.execute('SELECT the_geom FROM {{ table }} where cartodb_id = {{ id }}', {
+            id: record.id,
+            table: config.tables[record.recordType]
+        }, {
+            format: 'GeoJSON' 
+        }).done((data) => {
+            highlightedRecordLayer.addData(data);
+        });
     },
 
     componentDidMount: function() {
@@ -184,6 +202,10 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         if (!nextProps.pinDropActive && this.props.pinDropActive) {
             this.deactivateDropPin();
         }
+        if (nextProps.listRecordHovered && (!this.props.listRecordHovered || _.isEqual(nextProps.listRecordHovered, this.props.listRecordHovered))) {
+            // TODO on no longer hovering, stop
+            this.highlightRecordPoint(nextProps.listRecordHovered);
+        }
     },
 
     getId: function () {
@@ -199,6 +221,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             minZoom: 11,
             attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        highlightedRecordLayer = L.geoJson(null, {
+            style: highlightedRecordStyle,
+
+            pointToLayer: (feature, latlng) => {
+                return L.circleMarker(latlng);
+            }
         }).addTo(map);
 
         map.setView([40.728,-73.95], 15);

@@ -1,7 +1,9 @@
 import _ from 'underscore';
 import React from 'react';
+import { connect } from 'react-redux';
 
 import config from '../config/config';
+import { listRecordHovered } from '../actions';
 import { Panel } from './Panel.jsx';
 import { ReportListItem } from './Report.jsx';
 import { RequestListItem } from './Request.jsx';
@@ -12,10 +14,10 @@ export var List = React.createClass({
     render: function () {
         var list = this.props.items.map(item => {
             if (item.type === 'report') {
-                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} />
+                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseOver={this.props.handleMouseOver} />
             }
             else if (item.type === 'request') {
-                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} />
+                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseOver={this.props.handleMouseOver} />
             }
         });
         return (
@@ -30,22 +32,26 @@ export var List = React.createClass({
     }
 });
 
-export var ListContainer = React.createClass({
+export var ListContainer = connect()(React.createClass({
     getData: function (callback) {
         // TODO only get reports as filtered, reports in viewport
         cartodbSql.execute("SELECT 'report' AS type, complaint_type, cartodb_id, created_date AS date FROM {{ table }}", {
-            table: config.cartodbReportTable
+            table: config.tables.report
         })
             .done(function (data) {
                 callback(data.rows);
             });
 
         cartodbSql.execute("SELECT 'request' AS type, cartodb_id, can_type, added AS date FROM {{ table }}", {
-            table: config.cartodbRequestTable
+            table: config.tables.request
         })
             .done(function (data) {
                 callback(data.rows);
             });
+    },
+
+    handleMouseOver: function (id, type) {
+        this.props.dispatch(listRecordHovered(id, type));
     },
 
     updateData: function () {
@@ -69,6 +75,6 @@ export var ListContainer = React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} />
+        return <List items={this.state.rows} handleMouseOver={this.handleMouseOver}/>
     }
-});
+}));
