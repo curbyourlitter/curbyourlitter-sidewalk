@@ -2989,7 +2989,7 @@ tbody.collapse.in {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   border: 1px solid transparent;
 }
 @media (min-width: 768px) {
@@ -4037,14 +4037,14 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   }
 }
 .legend {
-  background: white;
-  bottom: 75px;
-  display: none;
-  height: 300px;
-  left: 25px;
+  background: rgba(255, 255, 255, 0.7);
+  height: calc(100% - 50px);
+  left: 0;
+  padding: 25px;
   position: absolute;
+  top: 50px;
   width: 33.33%;
-  z-index: 5100;
+  z-index: 999;
 }
 .legend.visible {
   display: block;
