@@ -1,14 +1,14 @@
 @import "variables";
 
 .legend {
-    background: white;
-    bottom: 75px;
-    display: none;
-    height: 300px;
-    left: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    height: ~"calc(100% - @{navbar-height})";
+    left: 0;
+    padding: 25px;
     position: absolute;
+    top: @navbar-height;
     width: 33.33%;
-    z-index: @ui-z-index + 100;
+    z-index: @leaflet-control-z-index - 1;
 
     &.visible {
         display: block;
