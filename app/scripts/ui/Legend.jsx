@@ -25,11 +25,29 @@ var Legend = React.createClass({
     render: function () {
         return (
             <div className={this.state.shown ? "legend visible" : "legend" }>
-                Legend
+                <h2>Filters</h2>
                 <YearPicker />
-                <LegendItem name="sanitation conditions" label="sanitation_conditions" />
-                <LegendItem name="overflowing litter basket" label="overflowing_litter_basket" />
-                <LegendItem name="dirty conditions" label="dirty_conditions" />
+                <section>
+                    <h3>Community Input</h3>
+                    <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
+                    <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" />
+                    <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" />
+                    <LegendItem name="Litter sightings" layer="request" label="sightings" />
+                </section>
+                <section>
+                    <h3>311 Data</h3>
+                    <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
+                    <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" />
+                    <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
+                </section>
+                <section>
+                    <h3>Block Ratings</h3>
+                    <LegendItem name="Poor" layer="rating" label="5" />
+                    <LegendItem name="Below Average" layer="rating" label="4" />
+                    <LegendItem name="Average" layer="rating" label="3" />
+                    <LegendItem name="Above Average" layer="rating" label="2" />
+                    <LegendItem name="Great" layer="rating" label="1" />
+                </section>
             </div>
         );
     }
@@ -58,7 +76,7 @@ var YearPicker = React.createClass({
 
     handleClick: function (value) {
         this.setState({ year: value });
-        map.updateFilters({ year: value });
+        map.updateFilters(null, { year: value });
     },
 
     render: function () {
@@ -87,14 +105,14 @@ var LegendItem = React.createClass({
         this.setState({ shown: shown });
         var filters = {};
         filters[this.props.label] = shown;
-        map.updateFilters(filters);
+        map.updateFilters(this.props.layer, filters);
     },
 
     render: function () {
         return (
             <div className="legend-item">
-                <label htmlFor={this.props.label}>{this.props.name}</label>
                 <input id={this.props.label} type="checkbox" onChange={this.handleChange} checked={this.state.shown} />
+                <label htmlFor={this.props.label}>{this.props.name}</label>
             </div>
         );
     }

@@ -11,6 +11,7 @@ import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
 var map,
+    ratingLayer,
     reportLayer,
     requestLayer,
     highlightedRecordLayer;
@@ -18,11 +19,30 @@ var map,
 // Which layers on the map is the mouse currently over?
 var currentlyOver = {};
 
-var filters = {
+var globalFilters = {
+    year: null
+};
+
+var ratingFilters = {
+    1: true,
+    2: true,
+    3: true,
+    4: true,
+    5: true
+};
+
+var reportFilters = {
     dirty_conditions: true,
     overflowing_litter_basket: true,
     sanitation_conditions: true,
     year: null
+};
+
+var requestFilters = {
+    litter: true,
+    bigbelly: true,
+    recycling: true,
+    sightings: null
 };
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
@@ -33,9 +53,57 @@ var highlightedRecordStyle = {
     weight: 2
 };
 
-function getSql() {
+function getRequestSql() {
+    var sql = `SELECT * FROM ${config.tables.request}`;
+    var yearCondition;
+    var whereConditions = _.chain(requestFilters)
+        .map(function (value, key) {
+            switch(key) {
+                case 'bigbelly':
+                    if (value) {
+                        return "can_type = 'bigbelly'";
+                    }
+                    break;
+                case 'litter':
+                    if (value) {
+                        return "can_type = 'trash'";
+                    }
+                    break;
+                case 'recycling':
+                    if (value) {
+                        return "can_type = 'recycling'";
+                    }
+                    break;
+                case 'sightings':
+                    if (value) {
+                        return 'can_type IS NULL';
+                    }
+                    break;
+            }
+            return null;
+        })
+        .filter(function (value) {
+            return value !== null;
+        })
+        .value();
+    if (globalFilters.year) {
+        yearCondition = `extract(year from added) = ${globalFilters.year}`;
+    }
+    if (whereConditions.length > 0) {
+        sql += ` WHERE (${whereConditions.join(' OR ')})`;
+        if (yearCondition) {
+            sql += ' AND ' + yearCondition;
+        }
+    }
+    else if (yearCondition) {
+        sql += ' WHERE ' + yearCondition;
+    }
+    return sql;
+}
+
+function getReportSql() {
     var sql = `SELECT * FROM ${config.tables.report}`;
-    var whereConditions = _.chain(filters)
+    var whereConditions = _.chain(reportFilters)
         .map(function (value, key) {
             if (key === 'sanitation_conditions' && value) {
                 return "descriptor IN ('15 Street Cond/Dump-Out/Drop-Off')";
@@ -53,8 +121,8 @@ function getSql() {
         })
         .value();
     var yearCondition = null;
-    if (filters.year) {
-        yearCondition = `extract(year from created_date) = ${filters.year}`;
+    if (globalFilters.year) {
+        yearCondition = `extract(year from created_date) = ${globalFilters.year}`;
     }
     if (whereConditions.length > 0) {
         sql += ` WHERE (${whereConditions.join(' OR ')})`;
@@ -68,8 +136,33 @@ function getSql() {
     return sql;
 }
 
-function updateSql() {
-    reportLayer.setSQL(getSql());
+function getRatingSql() {
+    var sql = 'SELECT streets.the_geom_webmercator, ratings.rating FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
+    var selectedRatings = _.chain(ratingFilters)
+        .map(function (value, key) {
+            if (value) {
+                return key;
+            }
+            return null;
+        })
+        .filter(function (value) {
+            return value !== null;
+        })
+        .value();
+    sql += ' WHERE rating IN (' + selectedRatings.join(',') + ')';
+    return sql;
+}
+
+function updateRatingSql() {
+    ratingLayer.setSQL(getRatingSql());
+}
+
+function updateReportSql() {
+    reportLayer.setSQL(getReportSql());
+}
+
+function updateRequestSql() {
+    requestLayer.setSQL(getRequestSql());
 }
 
 var badPlacementIcon = L.AwesomeMarkers.icon({
@@ -247,6 +340,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         })
             .addTo(map)
             .on('done', (layer) => {
+                ratingLayer = layer.getSubLayer(0);
                 reportLayer = layer.getSubLayer(1);
                 requestLayer = layer.getSubLayer(2);
 
@@ -254,7 +348,10 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 reportLayer.setInteractivity('cartodb_id,complaint_type');
                 requestLayer.setInteraction(true);
                 requestLayer.setInteractivity('cartodb_id');
-                updateSql();
+
+                updateRatingSql();
+                updateReportSql();
+                updateRequestSql();
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
                     if (layerIndex === 1 || layerIndex === 2) {
@@ -342,9 +439,26 @@ var ListButton = React.createClass({
 
 export default {
 
-    updateFilters: function (newFilters) {
-        _.extend(filters, newFilters);
-        updateSql();
+    updateFilters: function (layer, newFilters) {
+        switch (layer) {
+            case 'rating':
+                _.extend(ratingFilters, newFilters);
+                updateRatingSql();
+                break;
+            case 'report':
+                _.extend(reportFilters, newFilters);
+                updateReportSql();
+                break;
+            case 'request':
+                _.extend(requestFilters, newFilters);
+                updateRequestSql();
+                break;
+            case null:
+                _.extend(globalFilters, newFilters);
+                updateReportSql();
+                updateRequestSql();
+                break;
+        }
     },
 
     CurbMap: CurbMap
