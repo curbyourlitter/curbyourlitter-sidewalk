@@ -1,0 +1,25 @@
+.help {
+  background: rgba(255, 255, 255, 0.75);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5005;
+}
+.help h1 {
+  margin: 0;
+}
+.help-body {
+  background: white;
+  height: 75%;
+  margin: 12.5%;
+  padding: 50px;
+  width: 75%;
+}
+.help-close {
+  float: right;
+}
+.help-download {
+  float: right;
+}

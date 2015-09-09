@@ -11,3 +11,15 @@
 .legend.visible {
   display: block;
 }
+.legend-help {
+  background: lightgray;
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+  float: right;
+  font-size: 16px;
+  height: 20px;
+  margin-top: 3px;
+  text-align: center;
+  width: 20px;
+}

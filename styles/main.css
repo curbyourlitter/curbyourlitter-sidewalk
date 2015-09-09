@@ -4049,6 +4049,18 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .legend.visible {
   display: block;
 }
+.legend-help {
+  background: lightgray;
+  border-radius: 50%;
+  color: white;
+  display: inline-block;
+  float: right;
+  font-size: 16px;
+  height: 20px;
+  margin-top: 3px;
+  text-align: center;
+  width: 20px;
+}
 .map {
   height: 100%;
   width: 100%;
@@ -4126,6 +4138,31 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   display: inline-block;
   text-align: center;
   width: 60%;
+}
+.help {
+  background: rgba(255, 255, 255, 0.75);
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5005;
+}
+.help h1 {
+  margin: 0;
+}
+.help-body {
+  background: white;
+  height: 75%;
+  margin: 12.5%;
+  padding: 50px;
+  width: 75%;
+}
+.help-close {
+  float: right;
+}
+.help-download {
+  float: right;
 }
 .entity-list {
   list-style: none;
