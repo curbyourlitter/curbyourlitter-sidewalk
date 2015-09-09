@@ -9,6 +9,7 @@ import collapse from '../bower_components/bootstrap/js/collapse';
 import * as reducers from './reducers';
 import { CurbMap } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
+import { Help, Help311Data, HelpCommunityInput } from './ui/Help.jsx';
 import { ListContainer } from './ui/List.jsx';
 import { Report } from './ui/Report.jsx';
 import { Request } from './ui/Request.jsx';
@@ -38,6 +39,10 @@ React.render((
                         <Route path="list" component={ListContainer}/>
                         <Route path="reports/:id" component={Report}/>
                         <Route path="requests/:id" component={Request}/>
+                        <Route path="help" component={Help}>
+                            <Route path="community-input" component={HelpCommunityInput}/>
+                            <Route path="311-data" component={Help311Data}/>
+                        </Route>
                     </Route>
                 </Router>
             );

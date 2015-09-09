@@ -28,14 +28,20 @@ var Legend = React.createClass({
                 <h2>Filters</h2>
                 <YearPicker />
                 <section>
-                    <h3>Community Input</h3>
+                    <h3>
+                        Community Input
+                        <Link to="/help/community-input" className="legend-help">?</Link>
+                    </h3>
                     <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
                     <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" />
                     <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" />
                     <LegendItem name="Litter sightings" layer="request" label="sightings" />
                 </section>
                 <section>
-                    <h3>311 Data</h3>
+                    <h3>
+                        311 Data
+                        <Link to="/help/311-data" className="legend-help">?</Link>
+                    </h3>
                     <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
                     <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" />
                     <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
