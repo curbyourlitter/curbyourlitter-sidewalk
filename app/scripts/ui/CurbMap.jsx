@@ -6,7 +6,7 @@ import { Link, Navigation, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 
 import config from '../config/config';
-import { mapIsReady, pinDropMoved } from '../actions';
+import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from '../actions';
 import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 
@@ -333,6 +333,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
         map.setView([40.728,-73.95], 15);
 
+        var component = this;
         cartodb.createLayer(map, config.cartodbVisJson, {
             cartodb_logo: false,
             infowindow: false,
@@ -356,6 +357,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
                     if (layerIndex === 1 || layerIndex === 2) {
                         currentlyOver[layerIndex] = true;
+                        var table;
+                        if (layerIndex === 1) {
+                            table = 'report';
+                        }
+                        if (layerIndex === 2) {
+                            table = 'request';
+                        }
+                        this.props.dispatch(listRecordHovered(data.cartodb_id, table));
                     }
                     if (_.values(currentlyOver).filter((l) => l).length > 0) {
                         document.getElementById(id).style.cursor = 'pointer';
@@ -366,6 +375,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                     currentlyOver[layerIndex] = undefined;
                     if (_.values(currentlyOver).filter((l) => l).length === 0) {
                         document.getElementById(id).style.cursor = null;
+                        this.props.dispatch(listRecordUnhovered());
                     }
                 });
 
