@@ -380,9 +380,11 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
     render: function() {
         return (
-            <div className="map" ref="map" id="map">
-                <ListButton />
-                <AddButton />
+            <div className="map-container">
+                <div className="map" ref="map" id="map">
+                    <ListButton />
+                    <AddButton />
+                </div>
                 <Legend />
             </div>
         );
