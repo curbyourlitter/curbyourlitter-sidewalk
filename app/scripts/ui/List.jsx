@@ -42,7 +42,7 @@ export var ListContainer = connect()(React.createClass({
                 callback(data.rows);
             });
 
-        cartodbSql.execute("SELECT 'request' AS type, cartodb_id, can_type, added AS date FROM {{ table }}", {
+        cartodbSql.execute("SELECT 'request' AS type, cartodb_id, can_type, added AS date FROM {{ table }} WHERE the_geom IS NOT NULL AND can_type IS NOT NULL", {
             table: config.tables.request
         })
             .done(function (data) {
