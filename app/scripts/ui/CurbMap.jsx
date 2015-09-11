@@ -56,7 +56,7 @@ var highlightedRecordStyle = {
 };
 
 function getRequestSql() {
-    var sql = `SELECT *, added::text AS date FROM ${config.tables.request}`;
+    var sql = `SELECT *, (added AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.request}`;
     var yearCondition;
     var whereConditions = _.chain(requestFilters)
         .map(function (value, key) {
@@ -104,7 +104,7 @@ function getRequestSql() {
 }
 
 function getReportSql() {
-    var sql = `SELECT *, created_date::text AS date FROM ${config.tables.report}`;
+    var sql = `SELECT *, (created_date AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.report}`;
     var whereConditions = _.chain(reportFilters)
         .map(function (value, key) {
             if (key === 'sanitation_conditions' && value) {

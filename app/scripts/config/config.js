@@ -19,5 +19,6 @@ config.tables = {
     'report': 'threeoneone',
     'request': 'canrequests'
 };
+config.timezone = 'America/New_York';
 
 export default config;
