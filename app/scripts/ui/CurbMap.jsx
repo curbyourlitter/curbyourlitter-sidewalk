@@ -329,10 +329,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         });
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
 
-        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            minZoom: 11,
-            attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        config.tileLayer.addTo(map);
 
         highlightedRecordLayer = L.geoJson(null, {
             style: highlightedRecordStyle,
