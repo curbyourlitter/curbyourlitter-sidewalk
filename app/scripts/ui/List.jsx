@@ -12,12 +12,16 @@ var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
 export var List = React.createClass({
     render: function () {
+        var handlers = {
+            handleMouseEnter: this.props.handleMouseEnter,
+            handleMouseLeave: this.props.handleMouseLeave
+        };
         var list = this.props.items.map(item => {
             if (item.type === 'report') {
-                return <ReportListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} handleMouseLeave={this.props.handleMouseLeave} />
+                return <ReportListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
             }
             else if (item.type === 'request') {
-                return <RequestListItem key={item.cartodb_id} id={item.cartodb_id} {...item} handleMouseEnter={this.props.handleMouseEnter} handleMouseLeave={this.props.handleMouseLeave} />
+                return <RequestListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
             }
         });
         return (
