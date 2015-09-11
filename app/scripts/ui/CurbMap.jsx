@@ -279,7 +279,12 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         }, {
             format: 'GeoJSON' 
         }).done((data) => {
-            highlightedRecordLayer.addData(data);
+            // Only highlight if mouse is still over the feature
+            if (this.props.listRecordHovered &&
+                this.props.listRecordHovered.id === record.id && 
+                this.props.listRecordHovered.recordType === record.recordType) {
+                highlightedRecordLayer.addData(data);
+            }
         });
     },
 
