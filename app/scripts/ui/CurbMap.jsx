@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import moment from 'moment';
 import React from 'react';
 import joinClasses from 'react/lib/joinClasses';
 import { connect } from 'react-redux';
@@ -9,6 +10,7 @@ import config from '../config/config';
 import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from '../actions';
 import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
+import 'cartodbjs-hoverintent';
 
 var map,
     ratingLayer,
@@ -54,7 +56,7 @@ var highlightedRecordStyle = {
 };
 
 function getRequestSql() {
-    var sql = `SELECT * FROM ${config.tables.request}`;
+    var sql = `SELECT *, added::text AS date FROM ${config.tables.request}`;
     var yearCondition;
     var whereConditions = _.chain(requestFilters)
         .map(function (value, key) {
@@ -102,7 +104,7 @@ function getRequestSql() {
 }
 
 function getReportSql() {
-    var sql = `SELECT * FROM ${config.tables.report}`;
+    var sql = `SELECT *, created_date::text AS date FROM ${config.tables.report}`;
     var whereConditions = _.chain(reportFilters)
         .map(function (value, key) {
             if (key === 'sanitation_conditions' && value) {
@@ -346,13 +348,27 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 requestLayer = layer.getSubLayer(2);
 
                 reportLayer.setInteraction(true);
-                reportLayer.setInteractivity('cartodb_id,complaint_type');
+                reportLayer.setInteractivity('cartodb_id, date, complaint_type, agency');
                 requestLayer.setInteraction(true);
-                requestLayer.setInteractivity('cartodb_id');
+                requestLayer.setInteractivity('cartodb_id, can_type, date');
 
                 updateRatingSql();
                 updateReportSql();
                 updateRequestSql();
+
+                layer.hoverIntent({}, function (e, latlng, pos, data, layerIndex) {
+                    var content;
+                    switch(layerIndex) {
+                        case 1:
+                            content = data.complaint_type + '<br/>' + moment(data.date).format('h:mma MMMM Do YYYY');
+                            break;
+                        case 2:
+                            content = data.can_type + '<br/>' + moment(data.date).format('h:mma MMMM Do YYYY');
+                            break;
+                    }
+                    map.closePopup();
+                    map.openPopup(content, latlng);
+                });
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
                     if (layerIndex === 1 || layerIndex === 2) {
@@ -374,6 +390,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                     if (!layerIndex) return;
                     currentlyOver[layerIndex] = undefined;
                     if (_.values(currentlyOver).filter((l) => l).length === 0) {
+                        map.closePopup();
                         document.getElementById(id).style.cursor = null;
                         this.props.dispatch(listRecordUnhovered());
                     }
