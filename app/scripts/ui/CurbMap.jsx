@@ -402,6 +402,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 reportLayer.on('featureClick', (event, latlng, pos, data) => {
+                    console.log('featureClick', data.cartodb_id);
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
                 requestLayer.on('featureClick', (event, latlng, pos, data) => {

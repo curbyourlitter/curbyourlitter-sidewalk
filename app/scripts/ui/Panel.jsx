@@ -35,9 +35,9 @@ var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
 export var detailPanel = function (Component, table, className = 'detail-panel') {
     return React.createClass({
-        getData: function (callback) {
+        getData: function (id, callback) {
             cartodbSql.execute('SELECT * FROM {{ table }} WHERE cartodb_id = {{ id }}', {
-                id: this.props.routeParams.id,
+                id: id,
                 table: table
             })
                 .done(function (data) {
@@ -45,17 +45,17 @@ export var detailPanel = function (Component, table, className = 'detail-panel')
                 });
         },
 
-        updateData: function () {
-            this.getData((data) => this.setState(data));
+        updateData: function (id) {
+            this.getData(id, (data) => this.setState(data));
         },
 
         componentDidMount: function () {
-            this.updateData();
+            this.updateData(this.props.routeParams.id);
         },
 
         componentWillReceiveProps: function (nextProps) {
             if (this.props.routeParams.id !== nextProps.routeParams.id) {
-                this.updateData();
+                this.updateData(nextProps.routeParams.id);
             }
         },
 
