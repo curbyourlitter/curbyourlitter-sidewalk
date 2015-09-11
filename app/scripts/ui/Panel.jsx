@@ -1,7 +1,10 @@
 import _ from 'underscore';
 import config from '../config/config';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
+
+import { mapCenter } from '../actions';
 
 export var Panel = React.createClass({
     render: function () {
@@ -34,9 +37,9 @@ export var Panel = React.createClass({
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
 export var detailPanel = function (Component, table, className = 'detail-panel') {
-    return React.createClass({
+    return connect()(React.createClass({
         getData: function (id, callback) {
-            cartodbSql.execute('SELECT * FROM {{ table }} WHERE cartodb_id = {{ id }}', {
+            cartodbSql.execute('SELECT *, ST_X(the_geom) AS longitude, ST_Y(the_geom) AS latitude  FROM {{ table }} WHERE cartodb_id = {{ id }}', {
                 id: id,
                 table: table
             })
@@ -59,6 +62,10 @@ export var detailPanel = function (Component, table, className = 'detail-panel')
             }
         },
 
+        componentWillUpdate: function (nextProps, nextState) {
+            this.props.dispatch(mapCenter([nextState.latitude, nextState.longitude]));
+        },
+
         getInitialState: function () {
             return {};
         },
@@ -70,7 +77,7 @@ export var detailPanel = function (Component, table, className = 'detail-panel')
                 </Panel>
             );
         }
-    });
+    }));
 };
 
 export default Panel;

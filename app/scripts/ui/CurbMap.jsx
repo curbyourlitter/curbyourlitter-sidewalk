@@ -182,6 +182,7 @@ var goodPlacementIcon = L.AwesomeMarkers.icon({
 function mapStateToProps(state) {
     return {
         listRecordHovered: state.listRecordHovered,
+        mapCenter: state.mapCenter,
         pinDropActive: state.pinDropActive
     };
 }
@@ -313,6 +314,9 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         else if (!nextProps.listRecordHovered) {
             this.unhighlightRecordPoint();
         }
+        if (nextProps.mapCenter) {
+            map.setView(nextProps.mapCenter, 17);
+        }
     },
 
     getId: function () {
@@ -402,7 +406,6 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 reportLayer.on('featureClick', (event, latlng, pos, data) => {
-                    console.log('featureClick', data.cartodb_id);
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
                 requestLayer.on('featureClick', (event, latlng, pos, data) => {
