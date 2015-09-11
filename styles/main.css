@@ -4088,7 +4088,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 5000;
 }
 .panel {
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   height: 100%;
   position: absolute;
   top: 0;
