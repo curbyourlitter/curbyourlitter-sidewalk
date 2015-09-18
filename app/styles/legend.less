@@ -2,11 +2,12 @@
 
 .legend {
     background: rgba(255, 255, 255, 0.7);
-    height: ~"calc(100% - @{navbar-height})";
+    height: 100%;
     left: 0;
+    overflow-y: auto;
     padding: 25px;
     position: absolute;
-    top: @navbar-height;
+    top: 0;
     width: 33.33%;
     z-index: @leaflet-control-z-index - 1;
 
