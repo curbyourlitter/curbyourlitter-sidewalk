@@ -18,9 +18,9 @@
     }
 
     &-help {
-        background: lightgray;
+        border: 1px solid @blue;
         border-radius: 50%;
-        color: white;
+        color: @blue;
         display: inline-block;
         float: right;
         font-size: 16px;
@@ -29,6 +29,12 @@
         margin-right: @legend-padding;
         text-align: center;
         width: 20px;
+
+        &:hover {
+            background-color: @blue;
+            color: white;
+            text-decoration: none;
+        }
     }
 
     &-header {
