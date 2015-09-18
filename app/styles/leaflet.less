@@ -1,0 +1,38 @@
+@import "variables";
+
+.leaflet-control-zoom {
+    a {
+        background-color: @blue;
+        border: none;
+        color: white;
+
+        &:first-child,
+        &:last-child {
+            border-radius: 0;
+        }
+
+        &:first-child {
+            margin-bottom: 10px;
+        }
+
+        &:hover {
+            background-color: lighten(@blue, 15%);
+            border: none;
+            color: white;
+        }
+    }
+}
+
+.leaflet-left {
+    margin-left: @body-margin-side;
+}
+
+.leaflet-bar {
+    border: none;
+}
+
+.leaflet-touch {
+    .leaflet-bar {
+        .leaflet-bar();
+    }
+}
