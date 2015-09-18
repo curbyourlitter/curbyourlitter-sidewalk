@@ -22,10 +22,19 @@ var Legend = React.createClass({
         this.showLegend();
     },
 
+    clear: function (e) {
+        e.preventDefault();
+        console.log('clear');
+        // TODO clear all the filters
+    },
+
     render: function () {
         return (
             <div className={this.state.shown ? "legend visible" : "legend" }>
-                <h2 className="legend-header">Filters</h2>
+                <h2 className="legend-header">
+                    <span className="legend-header-label">filters</span>
+                    <a className="legend-header-clear" onClick={this.clear} href="#">clear</a>
+                </h2>
                 <div className="legend-body">
                     <YearPicker />
                     <section>
