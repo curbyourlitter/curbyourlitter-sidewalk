@@ -25,35 +25,37 @@ var Legend = React.createClass({
     render: function () {
         return (
             <div className={this.state.shown ? "legend visible" : "legend" }>
-                <h2>Filters</h2>
-                <YearPicker />
-                <section>
-                    <h3>
-                        Community Input
-                        <Link to="/help/community-input" className="legend-help">?</Link>
-                    </h3>
-                    <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
-                    <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" />
-                    <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" />
-                    <LegendItem name="Litter sightings" layer="request" label="sightings" />
-                </section>
-                <section>
-                    <h3>
-                        311 Data
-                        <Link to="/help/311-data" className="legend-help">?</Link>
-                    </h3>
-                    <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
-                    <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" />
-                    <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
-                </section>
-                <section>
-                    <h3>Block Ratings</h3>
-                    <LegendItem name="Poor" layer="rating" label="5" />
-                    <LegendItem name="Below Average" layer="rating" label="4" />
-                    <LegendItem name="Average" layer="rating" label="3" />
-                    <LegendItem name="Above Average" layer="rating" label="2" />
-                    <LegendItem name="Great" layer="rating" label="1" />
-                </section>
+                <h2 className="legend-header">Filters</h2>
+                <div className="legend-body">
+                    <YearPicker />
+                    <section>
+                        <h3>
+                            Community Input
+                            <Link to="/help/community-input" className="legend-help">?</Link>
+                        </h3>
+                        <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
+                        <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" />
+                        <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" />
+                        <LegendItem name="Litter sightings" layer="request" label="sightings" />
+                    </section>
+                    <section>
+                        <h3>
+                            311 Data
+                            <Link to="/help/311-data" className="legend-help">?</Link>
+                        </h3>
+                        <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
+                        <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" />
+                        <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
+                    </section>
+                    <section>
+                        <h3>Block Ratings</h3>
+                        <LegendItem name="Poor" layer="rating" label="5" />
+                        <LegendItem name="Below Average" layer="rating" label="4" />
+                        <LegendItem name="Average" layer="rating" label="3" />
+                        <LegendItem name="Above Average" layer="rating" label="2" />
+                        <LegendItem name="Great" layer="rating" label="1" />
+                    </section>
+                </div>
             </div>
         );
     }
