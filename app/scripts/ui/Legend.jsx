@@ -30,7 +30,7 @@ var Legend = React.createClass({
                     <YearPicker />
                     <section>
                         <h3>
-                            Community Input
+                            <span className="legend-section-header">Community Input</span>
                             <Link to="/help/community-input" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
@@ -40,7 +40,7 @@ var Legend = React.createClass({
                     </section>
                     <section>
                         <h3>
-                            311 Data
+                            <span className="legend-section-header">311 Data</span>
                             <Link to="/help/311-data" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
@@ -48,7 +48,9 @@ var Legend = React.createClass({
                         <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
                     </section>
                     <section>
-                        <h3>Block Ratings</h3>
+                        <h3>
+                            <span className="legend-section-header">Block Ratings</span>
+                        </h3>
                         <LegendItem name="Poor" layer="rating" label="5" />
                         <LegendItem name="Below Average" layer="rating" label="4" />
                         <LegendItem name="Average" layer="rating" label="3" />
