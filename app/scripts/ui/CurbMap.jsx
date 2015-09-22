@@ -12,11 +12,7 @@ import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 import 'cartodbjs-hoverintent';
 
-var map,
-    ratingLayer,
-    reportLayer,
-    requestLayer,
-    highlightedRecordLayer;
+var map;
 
 // Which layers on the map is the mouse currently over?
 var currentlyOver = {};
@@ -154,13 +150,13 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
             if (this.props.listRecordHovered &&
                 this.props.listRecordHovered.id === record.id && 
                 this.props.listRecordHovered.recordType === record.recordType) {
-                highlightedRecordLayer.addData(data);
+                this.highlightedRecordLayer.addData(data);
             }
         });
     },
 
     unhighlightRecordPoint: function () {
-        highlightedRecordLayer.clearLayers();
+        this.highlightedRecordLayer.clearLayers();
     },
 
     componentDidMount: function() {
@@ -226,8 +222,8 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     updateRatingSql: function () {
-        if (ratingLayer) {
-            ratingLayer.setSQL(this.getRatingSql());
+        if (this.ratingLayer) {
+            this.ratingLayer.setSQL(this.getRatingSql());
         }
     },
 
@@ -261,8 +257,8 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     updateReportSql: function () {
-        if (reportLayer) {
-            reportLayer.setSQL(this.getReportSql());
+        if (this.reportLayer) {
+            this.reportLayer.setSQL(this.getReportSql());
         }
     },
 
@@ -310,8 +306,8 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     updateRequestSql: function () {
-        if (requestLayer) {
-            requestLayer.setSQL(this.getRequestSql());
+        if (this.requestLayer) {
+            this.requestLayer.setSQL(this.getRequestSql());
         }
     },
 
@@ -327,7 +323,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
 
         config.tileLayer.addTo(map);
 
-        highlightedRecordLayer = L.geoJson(null, {
+        this.highlightedRecordLayer = L.geoJson(null, {
             style: highlightedRecordStyle,
 
             pointToLayer: (feature, latlng) => {
@@ -345,14 +341,14 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         })
             .addTo(map)
             .on('done', (layer) => {
-                ratingLayer = layer.getSubLayer(0);
-                reportLayer = layer.getSubLayer(1);
-                requestLayer = layer.getSubLayer(2);
+                this.ratingLayer = layer.getSubLayer(0);
+                this.reportLayer = layer.getSubLayer(1);
+                this.requestLayer = layer.getSubLayer(2);
 
-                reportLayer.setInteraction(true);
-                reportLayer.setInteractivity('cartodb_id, date, complaint_type, agency');
-                requestLayer.setInteraction(true);
-                requestLayer.setInteractivity('cartodb_id, can_type, date');
+                this.reportLayer.setInteraction(true);
+                this.reportLayer.setInteractivity('cartodb_id, date, complaint_type, agency');
+                this.requestLayer.setInteraction(true);
+                this.requestLayer.setInteractivity('cartodb_id, can_type, date');
 
                 this.updateRatingSql();
                 this.updateReportSql();
@@ -398,10 +394,10 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                     }
                 });
 
-                reportLayer.on('featureClick', (event, latlng, pos, data) => {
+                this.reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/reports/' + data.cartodb_id);
                 });
-                requestLayer.on('featureClick', (event, latlng, pos, data) => {
+                this.requestLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.transitionTo('/requests/' + data.cartodb_id);
                 });
             });
