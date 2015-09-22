@@ -40,3 +40,26 @@
         .leaflet-bar();
     }
 }
+
+.leaflet-control-scale {
+    bottom: 10px;
+    left: 45px;
+    margin-bottom: 0;
+    position: absolute;
+
+    &-line {
+        background: fadeout(@blue, 80%);
+        border-bottom: 0;
+        border-color: @blue;
+        color: @blue;
+
+        &:not(:first-child) {
+            border-top: 0;
+            margin-top: 5px;
+        }
+    }
+}
+
+.leaflet-bottom .leaflet-control-scale {
+    margin-bottom: 0;
+}

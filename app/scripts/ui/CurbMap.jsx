@@ -319,6 +319,7 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
             zoomControl: false
         });
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
+        L.control.scale({ position: 'bottomleft' }).addTo(map);
 
         config.tileLayer.addTo(map);
 
