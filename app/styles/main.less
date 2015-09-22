@@ -27,11 +27,17 @@ body {
 }
 
 header {
-    padding-left: 15px;
-    padding-right: 15px;
+    height: @header-height;
+    padding-left: @body-margin-side;
+    padding-right: @body-margin-side;
+    padding-top: @body-margin-top;
     position: absolute;
     width: 100%;
     z-index: @ui-z-index;
+
+    .container-fluid {
+        padding: 0;
+    }
 
     h3 {
         margin-top: 0;
@@ -40,8 +46,34 @@ header {
     }
 
     .navbar {
+        border-width: 0;
         font-size: 18px;
         font-weight: bold;
+        text-transform: uppercase;
+
+        .navbar-nav {
+            float: right;
+        }
+
+        .city {
+            font-size: 12px;
+        }
+
+        a {
+            font-size: 14px;
+        }
+
+        .navbar-brand {
+            font-size: @font-size-large;
+        }
+
+        a.active {
+            &, &:link, &:hover, &:active, &:focus {
+                color: white;
+                background-color: green;
+                border-radius: 10px;
+            }
+        }
     }
 }
 
