@@ -44,7 +44,7 @@ export var HelpCommunityInput = React.createClass({
                 <h1>The Data</h1>
                 <h2>
                     Community Input
-                    <Button className="help-download" href={this.downloadUrl()}>Download CSV</Button>
+                    <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
                 </h2>
                 <section>
                     <h3>Litter Basket Requests</h3>
@@ -93,7 +93,7 @@ export var Help311Data = React.createClass({
                 <h1>The Data</h1>
                 <h2>
                     311 Data
-                    <Button className="help-download" href={this.downloadUrl()}>Download CSV</Button>
+                    <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
                 </h2>
                 <section>
                     <h3>Sanitation Conditions</h3>
