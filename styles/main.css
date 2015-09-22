@@ -4216,11 +4216,31 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .panel-right {
   right: 0;
 }
-.panel-header {
+.panel-close {
+  background: #5194ff;
+  color: white;
+  display: inline-block;
+  float: right;
+  font-size: 35px;
+  line-height: 35px;
   height: 35px;
+  margin-right: 25px;
+  text-align: center;
+  width: 35px;
+}
+.panel-close,
+.panel-close:hover,
+.panel-close:focus,
+.panel-closeactive {
+  color: white;
+  text-decoration: none;
+}
+.panel-header {
+  height: 75px;
+  margin-top: 75px;
 }
 .panel-body {
-  height: calc(100% - 35px);
+  height: calc(100% - 150px);
   overflow-y: auto;
   padding: 25px;
 }
@@ -4310,6 +4330,20 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .entity-list-item:hover {
   background: gray;
   color: white;
+}
+.panel-list .panel-header h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 25px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+.panel-list .panel-body {
+  padding-top: 0;
+}
+.panel-list .list-items-count {
+  color: #9ec3ff;
+  margin-left: 15px;
 }
 .report-list-item-icon {
   background-color: orangered;

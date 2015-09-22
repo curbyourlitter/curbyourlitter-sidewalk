@@ -12,3 +12,17 @@
   background: gray;
   color: white;
 }
+.panel-list .panel-header h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 25px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
+.panel-list .panel-body {
+  padding-top: 0;
+}
+.panel-list .list-items-count {
+  color: #9ec3ff;
+  margin-left: 15px;
+}
