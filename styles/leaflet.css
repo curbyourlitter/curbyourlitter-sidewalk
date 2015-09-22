@@ -27,3 +27,22 @@
 .leaflet-touch .leaflet-bar {
   border: none;
 }
+.leaflet-control-scale {
+  bottom: 10px;
+  left: 45px;
+  margin-bottom: 0;
+  position: absolute;
+}
+.leaflet-control-scale-line {
+  background: rgba(81, 148, 255, 0.2);
+  border-bottom: 0;
+  border-color: #5194ff;
+  color: #5194ff;
+}
+.leaflet-control-scale-line:not(:first-child) {
+  border-top: 0;
+  margin-top: 5px;
+}
+.leaflet-bottom .leaflet-control-scale {
+  margin-bottom: 0;
+}

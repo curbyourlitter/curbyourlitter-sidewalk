@@ -1,10 +1,11 @@
 .panel {
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   height: 100%;
   position: absolute;
   top: 0;
   width: 33.33%;
-  z-index: 5100;
+  max-width: 350px;
+  z-index: 4999;
 }
 .panel-right {
   right: 0;
