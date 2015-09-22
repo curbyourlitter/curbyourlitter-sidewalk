@@ -2,6 +2,7 @@ export const FILTERS_CLEAR = 'FILTERS_CLEAR';
 export const FILTERS_UPDATE = 'FILTERS_UPDATE';
 export const MAP_CENTER = 'MAP_CENTER';
 export const MAP_IS_READY = 'MAP_IS_READY';
+export const PANEL_TOGGLE = 'PANEL_TOGGLE';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
 export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
@@ -17,6 +18,13 @@ export function filtersUpdate(layer, filter, value) {
         layer: layer,
         type: FILTERS_UPDATE,
         value: value
+    };
+}
+
+export function panelToggle(visible) {
+    return {
+        visible: visible,
+        type: PANEL_TOGGLE
     };
 }
 

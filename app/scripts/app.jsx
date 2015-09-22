@@ -1,6 +1,6 @@
 import React from 'react';
 import { combineReducers, createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 import BrowserHistory from 'react-router/lib/BrowserHistory';
 
@@ -19,19 +19,25 @@ var mountNode = document.getElementById("app");
 
 let store = createStore(combineReducers(reducers));
 
-var App = React.createClass({
+function mapStateToProps(state) {
+    return {
+        panelVisible: state.panelVisible
+    };
+}
+
+var App = connect(mapStateToProps)(React.createClass({
     render: function () {
         return (
             <div className="app-container">
                 <CurbMap />
-                <ListButton />
+                {!this.props.panelVisible ? <ListButton /> : ''}
                 <AddButton />
                 <Legend />
                 {this.props.children}
             </div>
         );
     }
-});
+}));
 
 React.render((
     <Provider store={store}>

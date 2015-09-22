@@ -7,6 +7,7 @@ import {
     LIST_RECORD_UNHOVERED,
     MAP_CENTER,
     MAP_IS_READY,
+    PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
     PIN_DROP_MOVED
 } from './actions';
@@ -120,6 +121,13 @@ export function pinDropValid(state = false, action) {
 export function pinDropLatlng(state = null, action) {
     if (action.type === PIN_DROP_MOVED) {
         return action.latlng;
+    }
+    return state;
+}
+
+export function panelVisible(state = false, action) {
+    if (action.type === PANEL_TOGGLE) {
+        return action.visible;
     }
     return state;
 }

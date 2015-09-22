@@ -4,9 +4,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { mapCenter } from '../actions';
+import { mapCenter, panelToggle } from '../actions';
 
-export var Panel = React.createClass({
+export var Panel = connect()(React.createClass({
+    componentDidMount: function () {
+        this.props.dispatch(panelToggle(true));
+    },
+
+    componentWillUnmount: function () {
+        this.props.dispatch(panelToggle(false));
+    },
+
     render: function () {
         var className = 'panel panel-right';
         if (this.props.className) {
@@ -33,7 +41,7 @@ export var Panel = React.createClass({
             </div>
         );
     }
-});
+}));
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
