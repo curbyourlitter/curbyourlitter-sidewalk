@@ -2,12 +2,13 @@
 @panel-header-height: 35px;
 
 .panel {
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     height: 100%;
     position: absolute;
     top: 0;
     width: 33.33%;
-    z-index: @ui-z-index + 100;
+    max-width: @sidebar-max-width;
+    z-index: @ui-z-index - 1;
 
     &-right {
         right: 0;
