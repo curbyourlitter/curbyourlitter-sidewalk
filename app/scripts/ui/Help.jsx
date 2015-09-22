@@ -9,7 +9,7 @@ export var Help = React.createClass({
         return (
             <div className="help">
                 <div className="help-body">
-                    <Link className="help-close" to="/">close</Link>
+                    <Link className="help-close" to="/" aria-label="close">&times;</Link>
                     {this.props.children}
                 </div>
             </div>
