@@ -18,7 +18,8 @@ export var Panel = React.createClass({
                     if (!this.props.header) {
                         return (
                             <div className="panel-header">
-                                <Link to="/">close</Link>
+                                <Link to="/" aria-label="close" className="panel-close">&times;</Link>
+                                {this.props.innerHeader ? this.props.innerHeader : ''}
                             </div>
                         );
                     }

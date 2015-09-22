@@ -1,5 +1,5 @@
 @import "variables";
-@panel-header-height: 35px;
+@panel-header-height: 75px;
 
 .panel {
     background: white;
@@ -14,12 +14,31 @@
         right: 0;
     }
 
+    &-close {
+        background: @blue;
+        color: white;
+        display: inline-block;
+        float: right;
+        font-size: 35px;
+        line-height: 35px;
+        height: 35px;
+        margin-right: @body-margin-side;
+        text-align: center;
+        width: 35px;
+
+        &, &:hover, &:focus, &active {
+            color: white;
+            text-decoration: none;
+        }
+    }
+
     &-header {
         height: @panel-header-height;
+        margin-top: @header-height;
     }
 
     &-body {
-        height: ~"calc(100% - 35px)";
+        height: ~"calc(100% - 150px)";
         overflow-y: auto;
         padding: @panel-body-padding;
     }

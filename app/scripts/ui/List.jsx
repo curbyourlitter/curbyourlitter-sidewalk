@@ -24,10 +24,14 @@ export var List = React.createClass({
                 return <RequestListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
             }
         });
+        var innerHeader = (
+            <h2>
+                on the map
+                <span className="list-items-count">{this.props.items.length}</span>
+            </h2>
+        );
         return (
-            <Panel>
-                <h2>on the map</h2>
-                {this.props.items.length} results
+            <Panel className="panel-list" innerHeader={innerHeader}>
                 <ul className="entity-list">
                     {list}
                 </ul>
