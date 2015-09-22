@@ -7,9 +7,10 @@ import BrowserHistory from 'react-router/lib/BrowserHistory';
 import collapse from '../bower_components/bootstrap/js/collapse';
 
 import * as reducers from './reducers';
-import { CurbMap } from './ui/CurbMap.jsx';
+import { AddButton, CurbMap, ListButton } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
 import { Help, Help311Data, HelpCommunityInput } from './ui/Help.jsx';
+import Legend from './ui/Legend.jsx';
 import { ListContainer } from './ui/List.jsx';
 import { Report } from './ui/Report.jsx';
 import { Request } from './ui/Request.jsx';
@@ -23,6 +24,9 @@ var App = React.createClass({
         return (
             <div className="app-container">
                 <CurbMap />
+                <ListButton />
+                <AddButton />
+                <Legend />
                 {this.props.children}
             </div>
         );

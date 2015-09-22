@@ -8,7 +8,6 @@ import { Button, Overlay, Popover } from 'react-bootstrap';
 
 import config from '../config/config';
 import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from '../actions';
-import Legend from './Legend.jsx';
 import PopoverButton from './PopoverButton.jsx';
 import 'cartodbjs-hoverintent';
 
@@ -404,18 +403,11 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     render: function() {
-        return (
-            <div className="map-container">
-                <div className="map" ref="map" id="map"></div>
-                <ListButton />
-                <AddButton />
-                <Legend />
-            </div>
-        );
+        return <div className="map" ref="map" id="map"></div>;
     }
 }));
 
-var AddButton = React.createClass({
+export var AddButton = React.createClass({
     mixins: [PopoverButton],
 
     handleClick: function () {
@@ -439,7 +431,7 @@ var AddButton = React.createClass({
     }
 });
 
-var ListButton = React.createClass({
+export var ListButton = React.createClass({
     mixins: [PopoverButton],
 
     handleClick: function () {
