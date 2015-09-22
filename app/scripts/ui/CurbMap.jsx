@@ -406,10 +406,9 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
     render: function() {
         return (
             <div className="map-container">
-                <div className="map" ref="map" id="map">
-                    <ListButton />
-                    <AddButton />
-                </div>
+                <div className="map" ref="map" id="map"></div>
+                <ListButton />
+                <AddButton />
                 <Legend />
             </div>
         );
@@ -426,8 +425,8 @@ var AddButton = React.createClass({
     render: function () {
         return (
             <div>
-                <Link to="/add" onClick={this.handleClick} className="btn btn-add" ref="button">
-                    add
+                <Link to="/add" onClick={this.handleClick} className="btn btn-default btn-add" ref="button">
+                    <div>+</div>
                 </Link>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
                     <Popover>
