@@ -1,25 +1,83 @@
 .legend {
   background: rgba(255, 255, 255, 0.7);
-  height: calc(100% - 50px);
+  height: 100%;
   left: 0;
-  padding: 25px;
+  padding-left: 25px;
   position: absolute;
-  top: 50px;
+  top: 0;
   width: 33.33%;
+  max-width: 350px;
   z-index: 999;
 }
 .legend.visible {
   display: block;
 }
 .legend-help {
-  background: lightgray;
+  border: 1px solid #5194ff;
   border-radius: 50%;
-  color: white;
+  color: #5194ff;
   display: inline-block;
   float: right;
   font-size: 16px;
   height: 20px;
   margin-top: 3px;
+  margin-right: 25px;
   text-align: center;
   width: 20px;
+}
+.legend-help:hover {
+  background-color: #5194ff;
+  color: white;
+  text-decoration: none;
+}
+.legend-header {
+  font-size: 22px;
+  height: 50px;
+  margin: 0;
+  margin-top: 50px;
+}
+.legend-header-label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.legend-header-clear {
+  float: right;
+  margin-right: 25px;
+  text-transform: uppercase;
+}
+.legend-header-clear,
+.legend-header-clear:focus,
+.legend-header-clear:visited {
+  color: rgba(81, 148, 255, 0.5);
+  text-decoration: none;
+}
+.legend-header-clear:hover,
+.legend-header-clear:active {
+  color: #5194ff;
+  text-decoration: none;
+}
+.legend-body {
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+.legend-section-header {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.legend-year-picker .form-group {
+  display: inline-block;
+  width: 30%;
+}
+.legend-year-picker .form-group:last-child {
+  margin-left: 10px;
+}
+.legend-year-picker select {
+  background-color: #eaf2ff;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #5194ff;
+  font-weight: bold;
 }

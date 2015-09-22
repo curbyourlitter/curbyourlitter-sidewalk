@@ -1,0 +1,29 @@
+.leaflet-control-zoom a {
+  background-color: #5194ff;
+  border: none;
+  color: white;
+}
+.leaflet-control-zoom a:first-child,
+.leaflet-control-zoom a:last-child {
+  border-radius: 0;
+}
+.leaflet-control-zoom a:first-child {
+  margin-bottom: 10px;
+}
+.leaflet-control-zoom a:hover {
+  background-color: #9ec3ff;
+  border: none;
+  color: white;
+}
+.leaflet-left {
+  margin-left: 25px;
+}
+.leaflet-left .leaflet-control {
+  margin-left: 0;
+}
+.leaflet-bar {
+  border: none;
+}
+.leaflet-touch .leaflet-bar {
+  border: none;
+}

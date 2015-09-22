@@ -3315,18 +3315,18 @@ tbody.collapse.in {
   border-color: rgba(0, 0, 0, 0);
 }
 .navbar-default .navbar-brand {
-  color: blue;
+  color: #5194ff;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
-  color: #0000cc;
+  color: #1e75ff;
   background-color: transparent;
 }
 .navbar-default .navbar-text {
-  color: blue;
+  color: #5194ff;
 }
 .navbar-default .navbar-nav > li > a {
-  color: blue;
+  color: #5194ff;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
@@ -3367,7 +3367,7 @@ tbody.collapse.in {
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-    color: blue;
+    color: #5194ff;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -3388,13 +3388,13 @@ tbody.collapse.in {
   }
 }
 .navbar-default .navbar-link {
-  color: blue;
+  color: #5194ff;
 }
 .navbar-default .navbar-link:hover {
   color: #333333;
 }
 .navbar-default .btn-link {
-  color: blue;
+  color: #5194ff;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus {
@@ -4036,30 +4036,117 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
     display: none !important;
   }
 }
+.leaflet-control-zoom a {
+  background-color: #5194ff;
+  border: none;
+  color: white;
+}
+.leaflet-control-zoom a:first-child,
+.leaflet-control-zoom a:last-child {
+  border-radius: 0;
+}
+.leaflet-control-zoom a:first-child {
+  margin-bottom: 10px;
+}
+.leaflet-control-zoom a:hover {
+  background-color: #9ec3ff;
+  border: none;
+  color: white;
+}
+.leaflet-left {
+  margin-left: 25px;
+}
+.leaflet-left .leaflet-control {
+  margin-left: 0;
+}
+.leaflet-bar {
+  border: none;
+}
+.leaflet-touch .leaflet-bar {
+  border: none;
+}
 .legend {
   background: rgba(255, 255, 255, 0.7);
-  height: calc(100% - 50px);
+  height: 100%;
   left: 0;
-  padding: 25px;
+  padding-left: 25px;
   position: absolute;
-  top: 50px;
+  top: 0;
   width: 33.33%;
+  max-width: 350px;
   z-index: 999;
 }
 .legend.visible {
   display: block;
 }
 .legend-help {
-  background: lightgray;
+  border: 1px solid #5194ff;
   border-radius: 50%;
-  color: white;
+  color: #5194ff;
   display: inline-block;
   float: right;
   font-size: 16px;
   height: 20px;
   margin-top: 3px;
+  margin-right: 25px;
   text-align: center;
   width: 20px;
+}
+.legend-help:hover {
+  background-color: #5194ff;
+  color: white;
+  text-decoration: none;
+}
+.legend-header {
+  font-size: 22px;
+  height: 50px;
+  margin: 0;
+  margin-top: 50px;
+}
+.legend-header-label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.legend-header-clear {
+  float: right;
+  margin-right: 25px;
+  text-transform: uppercase;
+}
+.legend-header-clear,
+.legend-header-clear:focus,
+.legend-header-clear:visited {
+  color: rgba(81, 148, 255, 0.5);
+  text-decoration: none;
+}
+.legend-header-clear:hover,
+.legend-header-clear:active {
+  color: #5194ff;
+  text-decoration: none;
+}
+.legend-body {
+  height: calc(100% - 100px);
+  overflow-y: auto;
+  padding-bottom: 100px;
+}
+.legend-section-header {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.legend-year-picker .form-group {
+  display: inline-block;
+  width: 30%;
+}
+.legend-year-picker .form-group:last-child {
+  margin-left: 10px;
+}
+.legend-year-picker select {
+  background-color: #eaf2ff;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: #5194ff;
+  font-weight: bold;
 }
 .map-container,
 .map {
@@ -4197,6 +4284,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 html,
 body {
+  color: #5194ff;
   height: 100%;
   width: 100%;
 }
