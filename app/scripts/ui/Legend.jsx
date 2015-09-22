@@ -1,10 +1,23 @@
+import _ from 'underscore';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, Input } from 'react-bootstrap';
 
+import { filtersClear, filtersUpdate } from '../actions';
+import config from '../config/config';
 import map from './CurbMap.jsx';
 
-var Legend = React.createClass({
+function mapStateToProps(state) {
+    return {
+        ratingFilters: _.extend({}, state.ratingFilters),
+        reportFilters: _.extend({}, state.reportFilters),
+        requestFilters: _.extend({}, state.requestFilters),
+        yearFilters: _.extend({}, state.yearFilters)
+    };
+}
+
+var Legend = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
             shown: false
@@ -24,8 +37,7 @@ var Legend = React.createClass({
 
     clear: function (e) {
         e.preventDefault();
-        console.log('clear');
-        // TODO clear all the filters
+        this.props.dispatch(filtersClear());
     },
 
     render: function () {
@@ -33,44 +45,44 @@ var Legend = React.createClass({
             <div className={this.state.shown ? "legend visible" : "legend" }>
                 <h2 className="legend-header">
                     <span className="legend-header-label">filters</span>
-                    <a className="legend-header-clear" onClick={this.clear} href="#">clear</a>
+                    <a className="legend-header-clear" onClick={this.clear} href="#">reset</a>
                 </h2>
                 <div className="legend-body">
-                    <YearPicker />
+                    <YearPicker dispatch={this.props.dispatch} range={this.props.yearFilters} />
                     <section>
                         <h3>
                             <span className="legend-section-header">Community Input</span>
                             <Link to="/help/community-input" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Litter Basket Requests" layer="request" label="litter" />
-                        <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" />
-                        <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" />
-                        <LegendItem name="Litter sightings" layer="request" label="sightings" />
+                        <LegendItem name="Litter Basket Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
+                        <LegendItem name="BigBelly Requests" layer="request" label="bigbelly" dispatch={this.props.dispatch} shown={this.props.requestFilters.bigbelly} />
+                        <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" dispatch={this.props.dispatch} shown={this.props.requestFilters.recycling} />
+                        <LegendItem name="Litter sightings" layer="request" label="sightings" dispatch={this.props.dispatch} shown={this.props.requestFilters.sightings} />
                     </section>
                     <section>
                         <h3>
                             <span className="legend-section-header">311 Data</span>
                             <Link to="/help/311-data" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" />
-                        <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" />
-                        <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" />
+                        <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
+                        <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />
+                        <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.dirty_conditions} />
                     </section>
                     <section>
                         <h3>
                             <span className="legend-section-header">Block Ratings</span>
                         </h3>
-                        <LegendItem name="Poor" layer="rating" label="5" />
-                        <LegendItem name="Below Average" layer="rating" label="4" />
-                        <LegendItem name="Average" layer="rating" label="3" />
-                        <LegendItem name="Above Average" layer="rating" label="2" />
-                        <LegendItem name="Great" layer="rating" label="1" />
+                        <LegendItem name="Poor" layer="rating" label="5" dispatch={this.props.dispatch} shown={this.props.ratingFilters[5]} />
+                        <LegendItem name="Below Average" layer="rating" label="4" dispatch={this.props.dispatch} shown={this.props.ratingFilters[4]} />
+                        <LegendItem name="Average" layer="rating" label="3" dispatch={this.props.dispatch} shown={this.props.ratingFilters[3]} />
+                        <LegendItem name="Above Average" layer="rating" label="2" dispatch={this.props.dispatch} shown={this.props.ratingFilters[2]} />
+                        <LegendItem name="Great" layer="rating" label="1" dispatch={this.props.dispatch} shown={this.props.ratingFilters[1]} />
                     </section>
                 </div>
             </div>
         );
     }
-});
+}));
 
 var YearButton = React.createClass({
     handleClick: function () {
@@ -87,50 +99,41 @@ var YearButton = React.createClass({
 });
 
 var YearPicker = React.createClass({
-    getInitialState: function () {
-        return {
-            year: null
-        }
-    },
-
-    handleClick: function (value) {
-        this.setState({ year: value });
-        map.updateFilters(null, { year: value });
+    handleChange: function (name, value) {
+        this.props.dispatch(filtersUpdate('year', name, parseInt(value)));
     },
 
     render: function () {
         return (
-            <div>
-                <ButtonGroup>
-                    <Button onClick={() => this.handleClick(null)} active={this.state.year === null}>All</Button>
-                    {[2015, 2016, 2017].map(year => {
-                        return <YearButton key={year} onClick={this.handleClick} active={this.state.year === year} year={year} />;
-                    })}
-                </ButtonGroup>
+            <div className="legend-year-picker">
+                <YearSelect name="start" onChange={e => this.handleChange('start', e.target.value)} selected={this.props.range.start} min={config.minYear} max={config.maxYear} minAllowed={config.minYear} maxAllowed={this.props.range.end} /> to
+                <YearSelect name="end" onChange={e => this.handleChange('end', e.target.value)} selected={this.props.range.end} min={config.minYear} max={config.maxYear} minAllowed={this.props.range.start} maxAllowed={config.maxYear} />
             </div>
         );
     }
 });
 
-var LegendItem = React.createClass({
-    getInitialState: function () {
-        return {
-            shown: true
-        };
-    },
+var YearSelect = React.createClass({
+    render: function () {
+        return (
+            <Input type="select" name={this.props.name} onChange={this.props.onChange} value={this.props.selected}>
+                {_.range(this.props.min, this.props.max + 1).map(year => {
+                    return <option key={year} value={year} disabled={year < this.props.minAllowed || year > this.props.maxAllowed}>{year}</option>;
+                })}
+            </Input>
+        );
+    }
+});
 
+var LegendItem = React.createClass({
     handleChange: function () {
-        var shown = !this.state.shown;
-        this.setState({ shown: shown });
-        var filters = {};
-        filters[this.props.label] = shown;
-        map.updateFilters(this.props.layer, filters);
+        this.props.dispatch(filtersUpdate(this.props.layer, this.props.label, !this.props.shown));
     },
 
     render: function () {
         return (
             <div className="legend-item">
-                <input id={this.props.label} type="checkbox" onChange={this.handleChange} checked={this.state.shown} />
+                <input id={this.props.label} type="checkbox" onChange={this.handleChange} checked={this.props.shown} />
                 <label htmlFor={this.props.label}>{this.props.name}</label>
             </div>
         );

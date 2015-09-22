@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'moment-timezone';
+
 import dev from './development';
 import prod from './production';
 
@@ -19,6 +22,8 @@ config.tables = {
     'report': 'threeoneone',
     'request': 'canrequests'
 };
+config.minYear = 2010;
+config.maxYear = Math.min(moment().tz('America/New_York').year(), 2017);
 config.timezone = 'America/New_York';
 
 export default config;

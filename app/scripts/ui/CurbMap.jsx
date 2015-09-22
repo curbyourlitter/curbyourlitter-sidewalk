@@ -25,28 +25,6 @@ var globalFilters = {
     year: null
 };
 
-var ratingFilters = {
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true
-};
-
-var reportFilters = {
-    dirty_conditions: true,
-    overflowing_litter_basket: true,
-    sanitation_conditions: true,
-    year: null
-};
-
-var requestFilters = {
-    litter: true,
-    bigbelly: true,
-    recycling: true,
-    sightings: null
-};
-
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 var geocoder = new google.maps.Geocoder;
 
@@ -54,118 +32,6 @@ var highlightedRecordStyle = {
     color: 'yellow',
     weight: 2
 };
-
-function getRequestSql() {
-    var sql = `SELECT *, (added AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.request}`;
-    var yearCondition;
-    var whereConditions = _.chain(requestFilters)
-        .map(function (value, key) {
-            switch(key) {
-                case 'bigbelly':
-                    if (value) {
-                        return "can_type = 'bigbelly'";
-                    }
-                    break;
-                case 'litter':
-                    if (value) {
-                        return "can_type = 'trash'";
-                    }
-                    break;
-                case 'recycling':
-                    if (value) {
-                        return "can_type = 'recycling'";
-                    }
-                    break;
-                case 'sightings':
-                    if (value) {
-                        return 'can_type IS NULL';
-                    }
-                    break;
-            }
-            return null;
-        })
-        .filter(function (value) {
-            return value !== null;
-        })
-        .value();
-    if (globalFilters.year) {
-        yearCondition = `extract(year from added) = ${globalFilters.year}`;
-    }
-    if (whereConditions.length > 0) {
-        sql += ` WHERE (${whereConditions.join(' OR ')})`;
-        if (yearCondition) {
-            sql += ' AND ' + yearCondition;
-        }
-    }
-    else if (yearCondition) {
-        sql += ' WHERE ' + yearCondition;
-    }
-    return sql;
-}
-
-function getReportSql() {
-    var sql = `SELECT *, (created_date AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.report}`;
-    var whereConditions = _.chain(reportFilters)
-        .map(function (value, key) {
-            if (key === 'sanitation_conditions' && value) {
-                return "descriptor IN ('15 Street Cond/Dump-Out/Drop-Off')";
-            }
-            if (key === 'overflowing_litter_basket' && value) {
-                return "descriptor IN ('6 Overflowing Litter Baskets')";
-            }
-            if (key === 'dirty_conditions' && value) {
-                return "descriptor IN ('E1 Improper Disposal', 'E2 Receptacle Violation', 'E3 Dirty Sidewalk', 'E3A Dirty Area/Alleyway', 'E5 Loose Rubbish', 'E11 Litter Surveillance', 'E12 Illegal Dumping Surveillance')";
-            }
-            return null;
-        })
-        .filter(function (value) {
-            return value !== null;
-        })
-        .value();
-    var yearCondition = null;
-    if (globalFilters.year) {
-        yearCondition = `extract(year from created_date) = ${globalFilters.year}`;
-    }
-    if (whereConditions.length > 0) {
-        sql += ` WHERE (${whereConditions.join(' OR ')})`;
-        if (yearCondition) {
-            sql += ' AND ' + yearCondition;
-        }
-    }
-    else if (yearCondition) {
-        sql += ' WHERE ' + yearCondition;
-    }
-    return sql;
-}
-
-function getRatingSql() {
-    var sql = 'SELECT streets.the_geom_webmercator, ratings.rating FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
-    var selectedRatings = _.chain(ratingFilters)
-        .map(function (value, key) {
-            if (value) {
-                return key;
-            }
-            return null;
-        })
-        .filter(function (value) {
-            return value !== null;
-        })
-        .value();
-    sql += ' WHERE rating IN (' + selectedRatings.join(',') + ')';
-    return sql;
-}
-
-function updateRatingSql() {
-    ratingLayer.setSQL(getRatingSql());
-}
-
-function updateReportSql() {
-    reportLayer.setSQL(getReportSql());
-}
-
-function updateRequestSql() {
-    requestLayer.setSQL(getRequestSql());
-}
 
 var badPlacementIcon = L.AwesomeMarkers.icon({
     icon: 'ion-sad',
@@ -183,7 +49,11 @@ function mapStateToProps(state) {
     return {
         listRecordHovered: state.listRecordHovered,
         mapCenter: state.mapCenter,
-        pinDropActive: state.pinDropActive
+        pinDropActive: state.pinDropActive,
+        ratingFilters: _.extend({}, state.ratingFilters),
+        reportFilters: _.extend({}, state.reportFilters),
+        requestFilters: _.extend({}, state.requestFilters),
+        yearFilters: _.extend({}, state.yearFilters)
     };
 }
 
@@ -319,6 +189,132 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         }
     },
 
+    componentDidUpdate: function (prevProps, prevState) {
+        if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
+            this.updateRatingSql();
+        }
+        if (this.props.reportFilters && !_.isEqual(this.props.reportFilters, prevProps.reportFilters)) {
+            this.updateReportSql();
+        }
+        if (this.props.requestFilters && !_.isEqual(this.props.requestFilters, prevProps.requestFilters)) {
+            this.updateRequestSql();
+        }
+        if (this.props.yearFilters && !_.isEqual(this.props.yearFilters, prevProps.yearFilters)) {
+            this.updateRatingSql();
+            this.updateReportSql();
+            this.updateRequestSql();
+        }
+    },
+
+    getRatingSql: function(filters) {
+        var sql = 'SELECT ST_collect(streets.the_geom_webmercator) AS the_geom_webmercator, AVG(ratings.rating) AS avg FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
+        var yearCondition = `extract(year from collected) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
+        var selectedRatings = _.chain(filters || this.props.ratingFilters)
+            .map(function (value, key) {
+                if (value) {
+                    return key;
+                }
+                return null;
+            })
+            .filter(function (value) {
+                return value !== null;
+            })
+            .value();
+        sql += ` WHERE rating IN (${selectedRatings.join(',')}) AND ${yearCondition}`;
+        sql += ' GROUP BY streets.cartodb_id';
+        return sql;
+    },
+
+    updateRatingSql: function () {
+        if (ratingLayer) {
+            ratingLayer.setSQL(this.getRatingSql());
+        }
+    },
+
+    getReportSql: function (filters) {
+        var sql = `SELECT *, (created_date AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.report}`;
+        var whereConditions = _.chain(filters || this.props.reportFilters)
+            .map(function (value, key) {
+                if (key === 'sanitation_conditions' && value) {
+                    return "descriptor IN ('15 Street Cond/Dump-Out/Drop-Off')";
+                }
+                if (key === 'overflowing_litter_basket' && value) {
+                    return "descriptor IN ('6 Overflowing Litter Baskets')";
+                }
+                if (key === 'dirty_conditions' && value) {
+                    return "descriptor IN ('E1 Improper Disposal', 'E2 Receptacle Violation', 'E3 Dirty Sidewalk', 'E3A Dirty Area/Alleyway', 'E5 Loose Rubbish', 'E11 Litter Surveillance', 'E12 Illegal Dumping Surveillance')";
+                }
+                return null;
+            })
+            .filter(function (value) {
+                return value !== null;
+            })
+            .value();
+        var yearCondition = `extract(year from created_date) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
+        if (whereConditions.length > 0) {
+            sql += ` WHERE (${whereConditions.join(' OR ')}) AND ${yearCondition}`;
+        }
+        else {
+            sql += ` WHERE  ${yearCondition}`;
+        }
+        return sql;
+    },
+
+    updateReportSql: function () {
+        if (reportLayer) {
+            reportLayer.setSQL(this.getReportSql());
+        }
+    },
+
+    getRequestSql: function (filters) {
+        var sql = `SELECT *, (added AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.request}`;
+        var yearCondition;
+        var whereConditions = _.chain(filters || this.props.requestFilters)
+            .map(function (value, key) {
+                switch(key) {
+                    case 'bigbelly':
+                        if (value) {
+                            return "can_type = 'bigbelly'";
+                        }
+                        break;
+                    case 'litter':
+                        if (value) {
+                            return "can_type = 'trash'";
+                        }
+                        break;
+                    case 'recycling':
+                        if (value) {
+                            return "can_type = 'recycling'";
+                        }
+                        break;
+                    case 'sightings':
+                        if (value) {
+                            return 'can_type IS NULL';
+                        }
+                        break;
+                }
+                return null;
+            })
+            .filter(function (value) {
+                return value !== null;
+            })
+            .value();
+        var yearCondition = `extract(year from added) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
+        if (whereConditions.length > 0) {
+            sql += ` WHERE (${whereConditions.join(' OR ')}) AND ${yearCondition}`;
+        }
+        else {
+            sql += ` WHERE ${yearCondition}`;
+        }
+        return sql;
+    },
+
+    updateRequestSql: function () {
+        if (requestLayer) {
+            requestLayer.setSQL(this.getRequestSql());
+        }
+    },
+
     getId: function () {
         return React.findDOMNode(this.refs.map).id;
     },
@@ -358,9 +354,9 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
                 requestLayer.setInteraction(true);
                 requestLayer.setInteractivity('cartodb_id, can_type, date');
 
-                updateRatingSql();
-                updateReportSql();
-                updateRequestSql();
+                this.updateRatingSql();
+                this.updateReportSql();
+                this.updateRequestSql();
 
                 layer.hoverIntent({}, function (e, latlng, pos, data, layerIndex) {
                     var content;
@@ -473,28 +469,6 @@ var ListButton = React.createClass({
 });
 
 export default {
-
-    updateFilters: function (layer, newFilters) {
-        switch (layer) {
-            case 'rating':
-                _.extend(ratingFilters, newFilters);
-                updateRatingSql();
-                break;
-            case 'report':
-                _.extend(reportFilters, newFilters);
-                updateReportSql();
-                break;
-            case 'request':
-                _.extend(requestFilters, newFilters);
-                updateRequestSql();
-                break;
-            case null:
-                _.extend(globalFilters, newFilters);
-                updateReportSql();
-                updateRequestSql();
-                break;
-        }
-    },
 
     CurbMap: CurbMap
 

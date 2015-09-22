@@ -1,4 +1,8 @@
+import config from './config/config';
+
 import {
+    FILTERS_CLEAR,
+    FILTERS_UPDATE,
     LIST_RECORD_HOVERED,
     LIST_RECORD_UNHOVERED,
     MAP_CENTER,
@@ -6,6 +10,84 @@ import {
     PIN_DROP_ACTIVE,
     PIN_DROP_MOVED
 } from './actions';
+
+var DEFAULT_RATING_FILTERS = {
+    1: true,
+    2: true,
+    3: true,
+    4: true,
+    5: true
+};
+
+var DEFAULT_REPORT_FILTERS = {
+    dirty_conditions: true,
+    overflowing_litter_basket: true,
+    sanitation_conditions: true
+};
+
+var DEFAULT_REQUEST_FILTERS = {
+    litter: true,
+    bigbelly: true,
+    recycling: true,
+    sightings: true
+};
+
+var DEFAULT_YEAR_FILTERS = {
+    start: config.minYear,
+    end: config.maxYear
+};
+
+export function ratingFilters(state, action) {
+    if (!state || action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_RATING_FILTERS);
+    }
+    if (action.type === FILTERS_UPDATE && action.layer === 'rating') {
+        state[action.filter] = action.value;
+    }
+    if (action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_RATING_FILTERS);
+    }
+    return state;
+}
+
+export function reportFilters(state, action) {
+    if (!state || action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_REPORT_FILTERS);
+    }
+    if (action.type === FILTERS_UPDATE && action.layer === 'report') {
+        state[action.filter] = action.value;
+    }
+    if (action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_REPORT_FILTERS);
+    }
+    return state;
+}
+
+export function requestFilters(state, action) {
+    if (!state || action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_REQUEST_FILTERS);
+    }
+    if (action.type === FILTERS_UPDATE && action.layer === 'request') {
+        state[action.filter] = action.value;
+    }
+    if (action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_REQUEST_FILTERS);
+    }
+    return state;
+}
+
+export function yearFilters(state, action) {
+    if (!state || action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_YEAR_FILTERS);
+    }
+    if (action.type === FILTERS_UPDATE && action.layer === 'year') {
+        state[action.filter] = action.value;
+    }
+    if (action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_YEAR_FILTERS);
+    }
+    return state;
+}
 
 export function mapCenter(state = null, action) {
     if (action.type === MAP_CENTER) {
