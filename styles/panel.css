@@ -15,7 +15,9 @@
   color: white;
   display: inline-block;
   float: right;
+  font-family: 'Lucida Console', Monaco, monospace;
   font-size: 35px;
+  font-weight: normal;
   line-height: 35px;
   height: 35px;
   margin-right: 25px;

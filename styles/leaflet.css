@@ -2,6 +2,8 @@
   background-color: #5194ff;
   border: none;
   color: white;
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: normal;
 }
 .leaflet-control-zoom a:first-child,
 .leaflet-control-zoom a:last-child {
@@ -23,9 +25,11 @@
 }
 .leaflet-bar {
   border: none;
+  box-shadow: none;
 }
 .leaflet-touch .leaflet-bar {
   border: none;
+  box-shadow: none;
 }
 .leaflet-control-scale {
   bottom: 10px;

@@ -8,13 +8,11 @@
   z-index: 5005;
 }
 .help h1 {
-  font-weight: bold;
   margin: 0;
   text-transform: uppercase;
 }
 .help h2 {
   border-bottom: 1px solid #5194ff;
-  font-weight: bold;
   padding-bottom: 10px;
 }
 .help-body {

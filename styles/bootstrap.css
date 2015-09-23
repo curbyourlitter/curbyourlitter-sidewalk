@@ -2087,7 +2087,7 @@ select[multiple].input-lg {
 .btn {
   display: inline-block;
   margin-bottom: 0;
-  font-weight: bold;
+  font-weight: normal;
   text-align: center;
   vertical-align: middle;
   -ms-touch-action: manipulation;
@@ -4039,4 +4039,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .btn {
   border: none;
   text-transform: uppercase;
+}
+label,
+.label {
+  font-weight: normal;
 }

@@ -2087,7 +2087,7 @@ select[multiple].input-lg {
 .btn {
   display: inline-block;
   margin-bottom: 0;
-  font-weight: bold;
+  font-weight: normal;
   text-align: center;
   vertical-align: middle;
   -ms-touch-action: manipulation;
@@ -4040,10 +4040,16 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border: none;
   text-transform: uppercase;
 }
+label,
+.label {
+  font-weight: normal;
+}
 .leaflet-control-zoom a {
   background-color: #5194ff;
   border: none;
   color: white;
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-weight: normal;
 }
 .leaflet-control-zoom a:first-child,
 .leaflet-control-zoom a:last-child {
@@ -4065,9 +4071,11 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .leaflet-bar {
   border: none;
+  box-shadow: none;
 }
 .leaflet-touch .leaflet-bar {
   border: none;
+  box-shadow: none;
 }
 .leaflet-control-scale {
   bottom: 10px;
@@ -4127,7 +4135,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   margin-top: 75px;
 }
 .legend-header-label {
-  font-weight: bold;
+  font-weight: normal;
   text-transform: uppercase;
 }
 .legend-header-clear {
@@ -4152,9 +4160,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding-bottom: 100px;
 }
 .legend-section-header {
+  border-bottom: 1px solid #5194ff;
   font-size: 20px;
-  font-weight: bold;
-  text-decoration: underline;
+  font-weight: normal;
 }
 .legend-year-picker .form-group {
   display: inline-block;
@@ -4169,7 +4177,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border-radius: 0;
   box-shadow: none;
   color: #5194ff;
-  font-weight: bold;
+  font-weight: normal;
 }
 .map {
   height: 100%;
@@ -4178,16 +4186,19 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .btn-add {
   border-radius: 50%;
   bottom: 25px;
-  font-size: 30px;
+  font-family: 'Lucida Console', Monaco, monospace;
+  font-size: 35px;
   font-weight: normal;
   height: 40px;
+  line-height: 35px;
   position: absolute;
   right: 25px;
   width: 40px;
   z-index: 5000;
 }
 .btn-add div {
-  margin-top: -6px;
+  margin-left: -2px;
+  margin-top: -3px;
   text-align: center;
 }
 .btn-list {
@@ -4221,7 +4232,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   color: white;
   display: inline-block;
   float: right;
+  font-family: 'Lucida Console', Monaco, monospace;
   font-size: 35px;
+  font-weight: normal;
   line-height: 35px;
   height: 35px;
   margin-right: 25px;
@@ -4288,13 +4301,11 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   z-index: 5005;
 }
 .help h1 {
-  font-weight: bold;
   margin: 0;
   text-transform: uppercase;
 }
 .help h2 {
   border-bottom: 1px solid #5194ff;
-  font-weight: bold;
   padding-bottom: 10px;
 }
 .help-body {
@@ -4333,7 +4344,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 .panel-list .panel-header h2 {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   margin-left: 25px;
   padding-top: 10px;
   text-transform: uppercase;
@@ -4411,7 +4422,7 @@ header h3 {
 header .navbar {
   border-width: 0;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: normal;
   text-transform: uppercase;
 }
 header .navbar .navbar-nav {
