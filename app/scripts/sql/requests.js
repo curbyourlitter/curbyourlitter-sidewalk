@@ -44,9 +44,10 @@ function where(filters, yearRange) {
         .filter(function (value) { return value !== null; })
         .value();
     var yearCondition = `extract(year from added) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
-    var where = ` WHERE ${yearCondition}`;
-    if (whereConditions.length > 0) {
-        where += ` AND (${whereConditions.join(' OR ')})`;
+    var where = ` WHERE ${yearCondition} AND (${whereConditions.join(' OR ')})`;
+    if (whereConditions.length === 0) {
+        // Intentionally pick nothing
+        where = ' WHERE true = false';
     }
     return where;
 }
@@ -55,7 +56,6 @@ export function getRequestSql(filters, yearRange, columns = requestColumnsMap) {
     return `SELECT ${columns.join(',')} FROM ${config.tables.request} ${where(filters, yearRange)}`;
 }
 
-// TODO no filters, return nothing?
 export function getRequests(filters, yearRange, callback, columns) {
     cartodbSql.execute(getRequestSql(filters, yearRange, columns))
         .done(function (data) {
