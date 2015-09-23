@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'NationalWeb-Book';
+  src: url('../fonts/NationalWeb-Book.eot');
+  /* IE9 Compat Modes */
+  src: url('../fonts/NationalWeb-Book.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/NationalWeb-Book.woff') format('woff');
+}
+@font-face {
+  font-family: 'NationalWeb-Semibold';
+  src: url('../fonts/NationalWeb-Semibold.eot');
+  /* IE9 Compat Modes */
+  src: url('../fonts/NationalWeb-Semibold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('../fonts/NationalWeb-Semibold.woff') format('woff');
+}
