@@ -5,11 +5,13 @@ import joinClasses from 'react/lib/joinClasses';
 import { connect } from 'react-redux';
 import { Link, Navigation, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
+import 'cartodbjs-hoverintent';
 
 import config from '../config/config';
 import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from '../actions';
 import PopoverButton from './PopoverButton.jsx';
-import 'cartodbjs-hoverintent';
+import { getRequestSql } from '../sql/requests';
+import { getReportSql } from '../sql/reports';
 
 var map;
 
@@ -52,7 +54,7 @@ function mapStateToProps(state) {
     };
 }
 
-var CurbMap = connect(mapStateToProps)(React.createClass({
+export var CurbMap = connect(mapStateToProps)(React.createClass({
     mixins: [Navigation],
 
     addDropPinPopup: function () {
@@ -179,12 +181,12 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         else if (!nextProps.listRecordHovered) {
             this.unhighlightRecordPoint();
         }
-        if (nextProps.mapCenter) {
-            map.setView(nextProps.mapCenter, 17);
-        }
     },
 
     componentDidUpdate: function (prevProps, prevState) {
+        if (this.props.mapCenter && this.props.mapCenter[0] && this.props.mapCenter[1] && !_.isEqual(this.props.mapCenter, prevProps.mapCenter)) {
+            map.setView(this.props.mapCenter, 17);
+        }
         if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
             this.updateRatingSql();
         }
@@ -226,87 +228,15 @@ var CurbMap = connect(mapStateToProps)(React.createClass({
         }
     },
 
-    getReportSql: function (filters) {
-        var sql = `SELECT *, (created_date AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.report}`;
-        var whereConditions = _.chain(filters || this.props.reportFilters)
-            .map(function (value, key) {
-                if (key === 'sanitation_conditions' && value) {
-                    return "descriptor IN ('15 Street Cond/Dump-Out/Drop-Off')";
-                }
-                if (key === 'overflowing_litter_basket' && value) {
-                    return "descriptor IN ('6 Overflowing Litter Baskets')";
-                }
-                if (key === 'dirty_conditions' && value) {
-                    return "descriptor IN ('E1 Improper Disposal', 'E2 Receptacle Violation', 'E3 Dirty Sidewalk', 'E3A Dirty Area/Alleyway', 'E5 Loose Rubbish', 'E11 Litter Surveillance', 'E12 Illegal Dumping Surveillance')";
-                }
-                return null;
-            })
-            .filter(function (value) {
-                return value !== null;
-            })
-            .value();
-        var yearCondition = `extract(year from created_date) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
-        if (whereConditions.length > 0) {
-            sql += ` WHERE (${whereConditions.join(' OR ')}) AND ${yearCondition}`;
-        }
-        else {
-            sql += ` WHERE  ${yearCondition}`;
-        }
-        return sql;
-    },
-
     updateReportSql: function () {
         if (this.reportLayer) {
-            this.reportLayer.setSQL(this.getReportSql());
+            this.reportLayer.setSQL(getReportSql(this.props.reportFilters, this.props.yearFilters));
         }
-    },
-
-    getRequestSql: function (filters) {
-        var sql = `SELECT *, (added AT TIME ZONE '${config.timezone}')::text AS date FROM ${config.tables.request}`;
-        var yearCondition;
-        var whereConditions = _.chain(filters || this.props.requestFilters)
-            .map(function (value, key) {
-                switch(key) {
-                    case 'bigbelly':
-                        if (value) {
-                            return "can_type = 'bigbelly'";
-                        }
-                        break;
-                    case 'litter':
-                        if (value) {
-                            return "can_type = 'trash'";
-                        }
-                        break;
-                    case 'recycling':
-                        if (value) {
-                            return "can_type = 'recycling'";
-                        }
-                        break;
-                    case 'sightings':
-                        if (value) {
-                            return 'can_type IS NULL';
-                        }
-                        break;
-                }
-                return null;
-            })
-            .filter(function (value) {
-                return value !== null;
-            })
-            .value();
-        var yearCondition = `extract(year from added) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
-        if (whereConditions.length > 0) {
-            sql += ` WHERE (${whereConditions.join(' OR ')}) AND ${yearCondition}`;
-        }
-        else {
-            sql += ` WHERE ${yearCondition}`;
-        }
-        return sql;
     },
 
     updateRequestSql: function () {
         if (this.requestLayer) {
-            this.requestLayer.setSQL(this.getRequestSql());
+            this.requestLayer.setSQL(getRequestSql(this.props.requestFilters, this.props.yearFilters));
         }
     },
 
@@ -455,11 +385,3 @@ export var ListButton = React.createClass({
         );
     }
 });
-
-export default {
-
-    CurbMap: CurbMap
-
-};
-
-export { CurbMap as CurbMap };
