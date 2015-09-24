@@ -24,7 +24,7 @@
         font-weight: @text-button-font-weight;
         line-height: @text-button-font-size;
         height: 35px;
-        margin-right: @body-margin-side;
+        margin-right: @panel-body-padding;
         text-align: center;
         width: 35px;
 
@@ -37,6 +37,14 @@
     &-header {
         height: @panel-header-height;
         margin-top: @header-height;
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            margin-left: @panel-body-padding;
+            padding-top: 10px;
+            text-transform: uppercase;
+        }
     }
 
     &-body {
@@ -53,5 +61,9 @@
 .detail-panel {
     img {
         max-width: 100%;
+    }
+
+    .panel-body {
+        padding-top: 0;
     }
 }

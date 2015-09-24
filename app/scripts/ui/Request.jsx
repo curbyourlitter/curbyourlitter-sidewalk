@@ -2,7 +2,7 @@ import _ from 'underscore';
 import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
-import { History, Link } from 'react-router';
+import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
@@ -15,9 +15,8 @@ export var Request = detailPanel(React.createClass({
     render: function () {
         return (
             <div>
-                <Link to="/list/">&lt; List View</Link>
-                <h2>{this.props.can_subtype} {this.props.can_type} can request</h2>
                 {this.props.image ? <img src={this.props.image} /> : ''}
+                <h2>{this.props.can_subtype} {this.props.can_type} can request</h2>
                 {this.props.comment ? <div>{this.props.comment}</div> : ''}
             </div>
         );

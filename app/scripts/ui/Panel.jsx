@@ -80,8 +80,13 @@ export var detailPanel = function (Component, table, className = 'detail-panel')
         },
 
         render: function () {
+            var innerHeader = (
+                <h2>
+                    <Link to="/list/">&lt; list</Link>
+                </h2>
+            );
             return (
-                <Panel className={className}>
+                <Panel className={className} innerHeader={innerHeader}>
                     <Component {...this.props} {...this.state} />
                 </Panel>
             );

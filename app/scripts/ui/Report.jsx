@@ -2,7 +2,7 @@ import _ from 'underscore';
 import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
-import { History, Link } from 'react-router';
+import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
@@ -11,7 +11,6 @@ export var Report = detailPanel(React.createClass({
     render: function () {
         return (
             <div>
-                <Link to="/list/">&lt; List View</Link>
                 <h2>{this.props.descriptor}</h2>
                 <div>{moment(this.props.created_date).format('h:mma MMMM Do YYYY')}</div>
                 <div>agency: {this.props.agency}</div>
