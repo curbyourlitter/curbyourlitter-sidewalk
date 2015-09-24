@@ -2,7 +2,7 @@ import _ from 'underscore';
 import config from '../config/config';
 import moment from 'moment';
 import React from 'react';
-import { Link, Navigation } from 'react-router';
+import { History, Link } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
@@ -25,10 +25,10 @@ export var Report = detailPanel(React.createClass({
 }), config.tables.report);
 
 export var ReportListItem = hoverIntent(React.createClass({
-    mixins: [Navigation],
+    mixins: [History],
 
     handleClick: function () {
-        this.transitionTo(`/reports/${this.props.id}`);
+        this.history.pushState(null, `/reports/${this.props.id}`);
     },
 
     onHoverIntent: function () {

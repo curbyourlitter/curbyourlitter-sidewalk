@@ -3,7 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import joinClasses from 'react/lib/joinClasses';
 import { connect } from 'react-redux';
-import { Link, Navigation, Router } from 'react-router';
+import { History, Link, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 import 'cartodbjs-hoverintent';
 
@@ -55,7 +55,7 @@ function mapStateToProps(state) {
 }
 
 export var CurbMap = connect(mapStateToProps)(React.createClass({
-    mixins: [Navigation],
+    mixins: [History],
 
     addDropPinPopup: function () {
         geocoder.geocode({'location': this.pin.getLatLng()}, (results, status) => {
@@ -325,10 +325,10 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 this.reportLayer.on('featureClick', (event, latlng, pos, data) => {
-                    this.transitionTo('/reports/' + data.cartodb_id);
+                    this.history.pushState(null, `/reports/${data.cartodb_id}`);
                 });
                 this.requestLayer.on('featureClick', (event, latlng, pos, data) => {
-                    this.transitionTo('/requests/' + data.cartodb_id);
+                    this.history.pushState(null, `/requests/${data.cartodb_id}`);
                 });
             });
     },

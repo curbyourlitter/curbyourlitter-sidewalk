@@ -2,7 +2,7 @@ import React from 'react';
 import { combineReducers, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
-import BrowserHistory from 'react-router/lib/BrowserHistory';
+import createHistory from 'history/lib/createBrowserHistory';
 
 import collapse from '../bower_components/bootstrap/js/collapse';
 
@@ -17,6 +17,7 @@ import { Request } from './ui/Request.jsx';
 
 var mountNode = document.getElementById("app");
 
+let history = createHistory();
 let store = createStore(combineReducers(reducers));
 
 function mapStateToProps(state) {
@@ -43,7 +44,7 @@ React.render((
     <Provider store={store}>
         {() => {
             return (
-                <Router history={new BrowserHistory()}>
+                <Router history={history}>
                     <Route path="/" component={App}>
                         <Route path="add" component={AddRequest}/>
                         <Route path="list" component={ListContainer}/>
