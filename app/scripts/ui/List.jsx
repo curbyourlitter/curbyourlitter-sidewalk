@@ -13,8 +13,8 @@ import { getReports, reportColumnsData } from '../sql/reports';
 export var List = React.createClass({
     render: function () {
         var handlers = {
-            handleMouseEnter: this.props.handleMouseEnter,
-            handleMouseLeave: this.props.handleMouseLeave
+            highlightFeature: this.props.highlightFeature,
+            unhighlightFeature: this.props.unhighlightFeature
         };
         var list = this.props.items.map(item => {
             if (item.type === 'report') {
@@ -55,11 +55,11 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
         getRequests(requestFilters,yearFilters, callback, requestColumnsData);
     },
 
-    handleMouseEnter: function (id, type) {
+    highlightFeature: function (id, type) {
         this.props.dispatch(listRecordHovered(id, type));
     },
 
-    handleMouseLeave: function () {
+    unhighlightFeature: function () {
         this.props.dispatch(listRecordUnhovered());
     },
 
@@ -105,6 +105,6 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} handleMouseEnter={this.handleMouseEnter} handleMouseLeave={this.handleMouseLeave}/>
+        return <List items={this.state.rows} highlightFeature={this.highlightFeature} unhighlightFeature={this.unhighlightFeature}/>
     }
 }));

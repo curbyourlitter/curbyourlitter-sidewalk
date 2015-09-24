@@ -4,6 +4,7 @@ import moment from 'moment';
 import React from 'react';
 import { Link, Navigation } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
+import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
 
 export var Report = detailPanel(React.createClass({
@@ -23,24 +24,31 @@ export var Report = detailPanel(React.createClass({
     }
 }), config.tables.report);
 
-export var ReportListItem = React.createClass({
+export var ReportListItem = hoverIntent(React.createClass({
     mixins: [Navigation],
 
     handleClick: function () {
         this.transitionTo(`/reports/${this.props.id}`);
     },
 
-    handleMouseEnter: function () {
-        this.props.handleMouseEnter(this.props.id, this.props.type);
+    onHoverIntent: function () {
+        this.props.highlightFeature(this.props.id, 'report');
     },
 
     handleMouseLeave: function () {
-        this.props.handleMouseLeave(this.props.id, this.props.type);
+        this.props.onMouseLeave();
+        this.props.unhighlightFeature();
+    },
+
+    shouldComponentUpdate: function () {
+        // NB: currently nothing should make this list item need an update,
+        // so always return false for speed-up
+        return false;
     },
 
     render: function () {
         return (
-            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
                         <Col xs={2}>
@@ -57,4 +65,4 @@ export var ReportListItem = React.createClass({
             </li>
         );
     }
-});
+}), 300);
