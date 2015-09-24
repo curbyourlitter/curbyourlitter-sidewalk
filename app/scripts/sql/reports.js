@@ -6,7 +6,10 @@ export var reportColumnsData = [
     "'report' AS type",
     'complaint_type',
     'cartodb_id',
-    'created_date AS date'
+    'incident_address',
+    'intersection_street1',
+    'intersection_street2',
+    `(created_date AT TIME ZONE '${config.timezone}')::text AS date`
 ];
 
 export var reportColumnsMap = [

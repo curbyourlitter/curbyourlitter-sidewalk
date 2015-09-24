@@ -56,9 +56,11 @@ export var ReportListItem = hoverIntent(React.createClass({
                         </Col>
                         <Col xs={10}>
                             <div className="report-list-item-complaint">{this.props.complaint_type}</div>
-                            <div className="report-list-item-date">
-                                {moment(this.props.date).format('h:mma MMMM Do YYYY')}
-                            </div>
+                            <div className="report-list-item-address">{
+                                this.props.incident_address ?
+                                this.props.incident_address :
+                                `${this.props.intersection_street1} & ${this.props.intersection_street2}`
+                            }</div>
                         </Col>
                     </Row>
                 </Grid>
