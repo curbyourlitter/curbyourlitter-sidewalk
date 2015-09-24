@@ -1,3 +1,10 @@
+.report-list-item {
+  background-color: #f4f8ff;
+  color: #5194ff;
+}
+.report-list-item:hover {
+  background-color: #5194ff;
+}
 .report-list-item-icon {
   background-color: orangered;
   border-radius: 50%;
@@ -5,4 +12,11 @@
   margin: 15px;
   margin-left: 5px;
   width: 15px;
+}
+.report-list-item-complaint {
+  font-size: 18px;
+}
+.report-list-item-address {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
 }

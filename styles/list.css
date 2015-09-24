@@ -3,13 +3,11 @@
   padding: 0;
 }
 .entity-list-item {
-  border-top: 1px solid lightgray;
   cursor: pointer;
-  padding: 5px 25px;
+  padding: 15px 25px;
   margin: 0 -25px;
 }
 .entity-list-item:hover {
-  background: gray;
   color: white;
 }
 .panel-list .panel-header h2 {

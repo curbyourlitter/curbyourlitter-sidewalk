@@ -4333,13 +4333,11 @@ label,
   padding: 0;
 }
 .entity-list-item {
-  border-top: 1px solid lightgray;
   cursor: pointer;
-  padding: 5px 25px;
+  padding: 15px 25px;
   margin: 0 -25px;
 }
 .entity-list-item:hover {
-  background: gray;
   color: white;
 }
 .panel-list .panel-header h2 {
@@ -4356,6 +4354,13 @@ label,
   color: #9ec3ff;
   margin-left: 15px;
 }
+.report-list-item {
+  background-color: #f4f8ff;
+  color: #5194ff;
+}
+.report-list-item:hover {
+  background-color: #5194ff;
+}
 .report-list-item-icon {
   background-color: orangered;
   border-radius: 50%;
@@ -4364,6 +4369,20 @@ label,
   margin-left: 5px;
   width: 15px;
 }
+.report-list-item-complaint {
+  font-size: 18px;
+}
+.report-list-item-address {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
+}
+.request-list-item {
+  background-color: #eaf8ec;
+  color: #00a71f;
+}
+.request-list-item:hover {
+  background-color: #65ca78;
+}
 .request-list-item-icon {
   background-color: darkblue;
   border-radius: 50%;
@@ -4371,6 +4390,13 @@ label,
   margin: 15px;
   margin-left: 5px;
   width: 15px;
+}
+.request-list-item-can-type {
+  font-size: 18px;
+}
+.request-list-item-date {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
 }
 @font-face {
   font-family: 'NationalWeb-Book';
@@ -4444,7 +4470,7 @@ header .navbar a.active:hover,
 header .navbar a.active:active,
 header .navbar a.active:focus {
   color: white;
-  background-color: green;
+  background-color: #00a71f;
   border-radius: 10px;
 }
 .container {

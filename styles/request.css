@@ -1,3 +1,10 @@
+.request-list-item {
+  background-color: #eaf8ec;
+  color: #00a71f;
+}
+.request-list-item:hover {
+  background-color: #65ca78;
+}
 .request-list-item-icon {
   background-color: darkblue;
   border-radius: 50%;
@@ -5,4 +12,11 @@
   margin: 15px;
   margin-left: 5px;
   width: 15px;
+}
+.request-list-item-can-type {
+  font-size: 18px;
+}
+.request-list-item-date {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
 }
