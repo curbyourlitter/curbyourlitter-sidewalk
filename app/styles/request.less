@@ -1,4 +1,13 @@
+@import "variables";
+
 .request-list-item {
+    background-color: lighten(@green-mid, 35%);
+    color: @green;
+
+    &:hover {
+        background-color: @green-mid;
+    }
+
     &-icon {
         background-color: darkblue;
         border-radius: 50%;
@@ -6,5 +15,9 @@
         margin: 15px;
         margin-left: 5px;
         width: 15px;
+    }
+
+    &-can-type {
+        font-size: 18px;
     }
 }

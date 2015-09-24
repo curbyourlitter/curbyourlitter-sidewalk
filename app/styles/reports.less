@@ -1,4 +1,13 @@
+@import "variables";
+
 .report-list-item {
+    background-color: lighten(@blue, 32%);
+    color: @blue;
+
+    &:hover {
+        background-color: @blue;
+    }
+
     &-icon {
         background-color: orangered;
         border-radius: 50%;
@@ -6,5 +15,9 @@
         margin: 15px;
         margin-left: 5px;
         width: 15px;
+    }
+
+    &-complaint {
+        font-size: 18px;
     }
 }
