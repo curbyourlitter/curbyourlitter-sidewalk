@@ -44,6 +44,7 @@ var Legend = connect(mapStateToProps)(React.createClass({
         return (
             <div className={this.state.shown ? "legend visible" : "legend" }>
                 <h2 className="legend-header">
+                    <span className="legend-header-icon"></span>
                     <span className="legend-header-label">filters</span>
                     <a className="legend-header-clear" onClick={this.clear} href="#">reset</a>
                 </h2>

@@ -1,3 +1,4 @@
+@import "icons";
 @import "variables";
 
 .map {
@@ -26,14 +27,10 @@
 }
 
 .btn-list {
-    background-image: data-uri("/images/list.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 35px;
+    .icon('list');
     position: absolute;
     right: @panel-body-padding;
     top: @panel-header-height;
-    width: 35px;
     z-index: @ui-z-index;
 }
 

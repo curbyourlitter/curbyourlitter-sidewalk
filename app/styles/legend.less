@@ -1,3 +1,4 @@
+@import "icons";
 @import "variables";
 
 @legend-padding: 25px;
@@ -43,8 +44,15 @@
         margin: 0;
         margin-top: @header-height;
 
+        &-icon {
+            .icon('filters');
+            display: inline-block;
+            float: left;
+        }
+
         &-label {
             font-weight: normal;
+            margin-left: 15px;
             text-transform: uppercase;
         }
 
