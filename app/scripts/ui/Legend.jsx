@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Button, Input } from 'react-bootstrap';
 
-import { filtersClear, filtersUpdate } from '../actions';
+import { filtersClear, filtersHide, filtersShow, filtersUpdate } from '../actions';
 import config from '../config/config';
 import map from './CurbMap.jsx';
 
 function mapStateToProps(state) {
     return {
+        filtersVisible: state.filtersVisible,
         ratingFilters: _.extend({}, state.ratingFilters),
         reportFilters: _.extend({}, state.reportFilters),
         requestFilters: _.extend({}, state.requestFilters),
@@ -17,22 +18,16 @@ function mapStateToProps(state) {
     };
 }
 
-var Legend = connect(mapStateToProps)(React.createClass({
+export var Legend = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
             shown: false
         };
     },
 
-    showLegend: function () {
-        this.setState({
-            shown: !this.state.shown
-        });
-    },
-
-    handleClick: function () {
-        this.setState({ popoverShown: false });
-        this.showLegend();
+    hide: function (e) {
+        e.preventDefault();
+        this.props.dispatch(filtersHide());
     },
 
     clear: function (e) {
@@ -42,9 +37,9 @@ var Legend = connect(mapStateToProps)(React.createClass({
 
     render: function () {
         return (
-            <div className={this.state.shown ? "legend visible" : "legend" }>
+            <div className={this.props.filtersVisible ? "legend visible" : "legend" }>
                 <h2 className="legend-header">
-                    <span className="legend-header-icon"></span>
+                    <a href="#" onClick={this.hide} className="legend-header-icon"></a>
                     <span className="legend-header-label">filters</span>
                     <a className="legend-header-clear" onClick={this.clear} href="#">reset</a>
                 </h2>
@@ -150,4 +145,15 @@ var LegendItem = React.createClass({
     }
 });
 
-export default Legend;
+export var LegendButton = connect()(React.createClass({
+    show: function (e) {
+        this.props.dispatch(filtersShow());
+        e.preventDefault();
+    },
+
+    render: function () {
+        return (
+            <a href="#" onClick={this.show} className="btn btn-legend" ref="button"></a>
+        );
+    }
+}));

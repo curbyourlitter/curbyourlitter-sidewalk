@@ -1,4 +1,5 @@
 export const FILTERS_CLEAR = 'FILTERS_CLEAR';
+export const FILTERS_TOGGLE = 'FILTERS_TOGGLE';
 export const FILTERS_UPDATE = 'FILTERS_UPDATE';
 export const MAP_CENTER = 'MAP_CENTER';
 export const MAP_IS_READY = 'MAP_IS_READY';
@@ -10,6 +11,20 @@ export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
 
 export function filtersClear() {
     return { type: FILTERS_CLEAR };
+}
+
+export function filtersHide() {
+    return {
+        type: FILTERS_TOGGLE,
+        visible: false
+    };
+}
+
+export function filtersShow() {
+    return {
+        type: FILTERS_TOGGLE,
+        visible: true
+    };
 }
 
 export function filtersUpdate(layer, filter, value) {

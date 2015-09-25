@@ -2,6 +2,7 @@ import config from './config/config';
 
 import {
     FILTERS_CLEAR,
+    FILTERS_TOGGLE,
     FILTERS_UPDATE,
     LIST_RECORD_HOVERED,
     LIST_RECORD_UNHOVERED,
@@ -37,6 +38,13 @@ var DEFAULT_YEAR_FILTERS = {
     start: config.minYear,
     end: config.maxYear
 };
+
+export function filtersVisible(state = true, action) {
+    if (action.type === FILTERS_TOGGLE) {
+        return action.visible;
+    }
+    return state;
+}
 
 export function ratingFilters(state, action) {
     if (!state || action.type === FILTERS_CLEAR) {

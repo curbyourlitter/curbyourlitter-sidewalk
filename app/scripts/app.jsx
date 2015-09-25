@@ -10,7 +10,7 @@ import * as reducers from './reducers';
 import { AddButton, CurbMap, ListButton } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
 import { Help, Help311Data, HelpCommunityInput } from './ui/Help.jsx';
-import Legend from './ui/Legend.jsx';
+import { Legend, LegendButton } from './ui/Legend.jsx';
 import { ListContainer } from './ui/List.jsx';
 import { Report } from './ui/Report.jsx';
 import { Request } from './ui/Request.jsx';
@@ -33,6 +33,7 @@ var App = connect(mapStateToProps)(React.createClass({
                 <CurbMap />
                 {!this.props.panelVisible ? <ListButton /> : ''}
                 <AddButton />
+                <LegendButton />
                 <Legend />
                 {this.props.children}
             </div>
