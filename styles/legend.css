@@ -36,8 +36,18 @@
   margin: 0;
   margin-top: 75px;
 }
+.legend-header-icon {
+  background-image: url("/images/filters.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+  display: inline-block;
+  float: left;
+}
 .legend-header-label {
   font-weight: normal;
+  margin-left: 15px;
   text-transform: uppercase;
 }
 .legend-header-clear {

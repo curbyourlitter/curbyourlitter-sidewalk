@@ -6,12 +6,15 @@
   background-color: #65ca78;
 }
 .request-list-item-icon {
-  background-color: darkblue;
-  border-radius: 50%;
-  height: 15px;
-  margin: 15px;
-  margin-left: 5px;
-  width: 15px;
+  margin: 0 auto;
+  background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 40px;
+  width: 40px;
+}
+.request-list-item-icon-column {
+  padding: 0;
 }
 .request-list-item-can-type {
   font-size: 18px;

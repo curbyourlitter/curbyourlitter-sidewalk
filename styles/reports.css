@@ -6,12 +6,31 @@
   background-color: #5194ff;
 }
 .report-list-item-icon {
-  background-color: orangered;
-  border-radius: 50%;
-  height: 15px;
-  margin: 15px;
-  margin-left: 5px;
-  width: 15px;
+  margin: 0 auto;
+}
+.report-list-item-icon-column {
+  padding: 0;
+}
+.report-list-item-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-list-item-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-list-item-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
 }
 .report-list-item-complaint {
   font-size: 18px;

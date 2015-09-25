@@ -20,7 +20,7 @@
   font-weight: normal;
   line-height: 35px;
   height: 35px;
-  margin-right: 25px;
+  margin-right: 35px;
   text-align: center;
   width: 35px;
 }
@@ -35,10 +35,17 @@
   height: 75px;
   margin-top: 75px;
 }
+.panel-header h2 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-left: 35px;
+  padding-top: 10px;
+  text-transform: uppercase;
+}
 .panel-body {
   height: calc(100% - 150px);
   overflow-y: auto;
-  padding: 25px;
+  padding: 35px;
 }
 @media (max-width: 767px) {
   .panel {
@@ -47,4 +54,7 @@
 }
 .detail-panel img {
   max-width: 100%;
+}
+.detail-panel .panel-body {
+  padding-top: 0;
 }
