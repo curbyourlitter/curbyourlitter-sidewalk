@@ -32,7 +32,7 @@
   text-decoration: none;
 }
 .panel-header {
-  height: 75px;
+  height: 80px;
   letter-spacing: 1px;
   margin-top: 80px;
 }
@@ -44,7 +44,7 @@
   text-transform: uppercase;
 }
 .panel-body {
-  height: calc(100% - 155px);
+  height: calc(100% - 160px);
   overflow-y: auto;
   padding: 35px;
 }

@@ -4106,8 +4106,19 @@ label,
 .leaflet-bottom .leaflet-control-scale {
   margin-bottom: 0;
 }
+.btn-legend {
+  background-image: url("/images/filters.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 32px;
+  width: 32px;
+  left: 25px;
+  position: absolute;
+  top: 90px;
+}
 .legend {
   background: rgba(255, 255, 255, 0.7);
+  display: none;
   height: 100%;
   left: 0;
   padding-left: 25px;
@@ -4205,7 +4216,127 @@ label,
 .legend-item label {
   font-family: 'NationalWeb-Book', sans-serif;
   font-size: 13px;
-  margin-left: 5px;
+}
+.legend-item input {
+  display: none;
+}
+.legend-item-indicator {
+  background-color: #eef4ff;
+  display: inline-block;
+  height: 12px;
+  margin-right: 5px;
+  width: 12px;
+}
+.legend-item-indicator-inner {
+  background-color: #5194ff;
+  display: none;
+  height: 6px;
+  left: 3px;
+  position: relative;
+  width: 6px;
+  top: 3px;
+}
+.legend-item-litter .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-litter .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-litter .legend-item-indicator-inner {
+  background-color: #00a61f;
+}
+.legend-item-bigbelly .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-bigbelly .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-bigbelly .legend-item-indicator-inner {
+  background-color: #00a61f;
+}
+.legend-item-recycling .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-recycling .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-recycling .legend-item-indicator-inner {
+  background-color: #00a61f;
+}
+.legend-item-sanitation_conditions .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-sanitation_conditions .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-sanitation_conditions .legend-item-indicator-inner {
+  background-color: #5194ff;
+}
+.legend-item-overflowing_litter_basket .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-overflowing_litter_basket .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-overflowing_litter_basket .legend-item-indicator-inner {
+  background-color: #5194ff;
+}
+.legend-item-dirty_conditions .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-dirty_conditions .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-dirty_conditions .legend-item-indicator-inner {
+  background-color: #5194ff;
+}
+.legend-item-5 .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-5 .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-5 .legend-item-indicator-inner {
+  background-color: #ae4fbc;
+}
+.legend-item-4 .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-4 .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-4 .legend-item-indicator-inner {
+  background-color: #5343ed;
+}
+.legend-item-3 .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-3 .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-3 .legend-item-indicator-inner {
+  background-color: #009ce4;
+}
+.legend-item-2 .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-2 .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-2 .legend-item-indicator-inner {
+  background-color: #37d2d0;
+}
+.legend-item-1 .legend-item-indicator {
+  border-radius: 50%;
+}
+.legend-item-1 .legend-item-indicator-inner {
+  border-radius: 50%;
+}
+.legend-item-1 .legend-item-indicator-inner {
+  background-color: #2ad864;
+}
+.legend-item.active .legend-item-indicator-inner {
+  display: block;
 }
 .map {
   height: 100%;
@@ -4235,14 +4366,7 @@ label,
   width: 32px;
   position: absolute;
   right: 35px;
-  top: 75px;
-  z-index: 5000;
-}
-.btn-legend {
-  background: white;
-  bottom: 25px;
-  left: 50px;
-  position: absolute;
+  top: 80px;
   z-index: 5000;
 }
 .panel {
@@ -4279,7 +4403,7 @@ label,
   text-decoration: none;
 }
 .panel-header {
-  height: 75px;
+  height: 80px;
   letter-spacing: 1px;
   margin-top: 80px;
 }
@@ -4291,7 +4415,7 @@ label,
   text-transform: uppercase;
 }
 .panel-body {
-  height: calc(100% - 155px);
+  height: calc(100% - 160px);
   overflow-y: auto;
   padding: 35px;
 }

@@ -26,13 +26,6 @@
   width: 32px;
   position: absolute;
   right: 35px;
-  top: 75px;
-  z-index: 5000;
-}
-.btn-legend {
-  background: white;
-  bottom: 25px;
-  left: 50px;
-  position: absolute;
+  top: 80px;
   z-index: 5000;
 }
