@@ -132,10 +132,19 @@ var LegendItem = React.createClass({
     },
 
     render: function () {
+        var classes = `legend-item legend-item-${this.props.label}`;
+        if (this.props.shown) {
+            classes += ' active';
+        }
         return (
-            <div className="legend-item">
+            <div className={classes}>
                 <input id={this.props.label} type="checkbox" onChange={this.handleChange} checked={this.props.shown} />
-                <label htmlFor={this.props.label}>{this.props.name}</label>
+                <label htmlFor={this.props.label}>
+                    <span className="legend-item-indicator">
+                        <span className="legend-item-indicator-inner"></span>
+                    </span>
+                    {this.props.name}
+                </label>
             </div>
         );
     }

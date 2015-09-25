@@ -5,6 +5,20 @@
 @legend-body-offset: @header-height + @legend-header-height;
 @legend-padding: 25px;
 
+.legend-indicator(@round: false; @color: @blue) {
+    & when (@round = true) {
+        .legend-item-indicator {
+            border-radius: 50%;
+            &-inner {
+                border-radius: 50%;
+            }
+        }
+    }
+    .legend-item-indicator-inner {
+        background-color: @color;
+    }
+}
+
 .legend {
     background: rgba(255, 255, 255, 0.7);
     height: 100%;
@@ -114,7 +128,76 @@
         label {
             font-family: @book-font-family;
             font-size: 13px;
-            margin-left: 5px;
+        }
+
+        input {
+            display: none;
+        }
+
+        &-indicator {
+            background-color: @blue-light-light;
+            display: inline-block;
+            height: 12px;
+            margin-right: 5px;
+            width: 12px;
+
+            &-inner {
+                background-color: @blue;
+                display: none;
+                height: 6px;
+                left: 3px;
+                position: relative;
+                width: 6px;
+                top: 3px;
+            }
+        }
+
+        &-litter {
+            .legend-indicator(true; @green);
+        }
+
+        &-bigbelly {
+            .legend-indicator(true; @green);
+        }
+
+        &-recycling {
+            .legend-indicator(true; @green);
+        }
+
+        &-sanitation_conditions {
+            .legend-indicator(true);
+        }
+
+        &-overflowing_litter_basket {
+            .legend-indicator(true);
+        }
+
+        &-dirty_conditions {
+            .legend-indicator(true);
+        }
+
+        &-5 {
+            .legend-indicator(true; @rating-poor);
+        }
+
+        &-4 {
+            .legend-indicator(true; @rating-below-average);
+        }
+
+        &-3 {
+            .legend-indicator(true; @rating-average);
+        }
+
+        &-2 {
+            .legend-indicator(true; @rating-above-average);
+        }
+
+        &-1 {
+            .legend-indicator(true; @rating-great);
+        }
+
+        &.active .legend-item-indicator-inner {
+            display: block;
         }
     }
 }
