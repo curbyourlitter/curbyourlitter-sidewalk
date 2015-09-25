@@ -58,19 +58,37 @@ header {
 
         .navbar-nav {
             float: right;
+            margin-top: 5px;
         }
 
-        .city {
-            font-size: 12px;
-        }
-
-        a {
-            font-size: 14px;
-            padding: @nav-link-padding;
+        .logo {
+            background-image: data-uri('/images/logo.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+            float: left;
+            height: 54px;
+            width: 54px;
         }
 
         .navbar-brand {
             font-size: @font-size-large;
+            padding-left: @body-margin-side;
+            margin-left: 0;
+            margin-top: 5px;
+
+            .brand-text {
+                float: left;
+                margin-left: 15px;
+            }
+
+            .city {
+                font-size: 12px;
+            }
+        }
+
+        a {
+            font-size: 18px;
+            padding: @nav-link-padding;
         }
 
         a.active {

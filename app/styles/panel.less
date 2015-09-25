@@ -1,5 +1,7 @@
 @import "variables";
 
+@panel-body-offset: @header-height + @panel-header-height;
+
 .panel {
     background: white;
     height: 100%;
@@ -47,7 +49,7 @@
     }
 
     &-body {
-        height: ~"calc(100% - 150px)";
+        height: ~"calc(100% - @{panel-body-offset})";
         overflow-y: auto;
         padding: @panel-body-padding;
     }
