@@ -4,7 +4,7 @@
   position: absolute;
   top: 0;
   width: 33.33%;
-  max-width: 350px;
+  max-width: 320px;
   z-index: 4999;
 }
 .panel-right {
@@ -16,13 +16,13 @@
   display: inline-block;
   float: right;
   font-family: 'Lucida Console', Monaco, monospace;
-  font-size: 35px;
+  font-size: 32px;
   font-weight: normal;
-  line-height: 35px;
-  height: 35px;
+  line-height: 32px;
+  height: 32px;
   margin-right: 35px;
   text-align: center;
-  width: 35px;
+  width: 32px;
 }
 .panel-close,
 .panel-close:hover,
@@ -33,7 +33,8 @@
 }
 .panel-header {
   height: 75px;
-  margin-top: 75px;
+  letter-spacing: 1px;
+  margin-top: 80px;
 }
 .panel-header h2 {
   font-size: 18px;
@@ -43,7 +44,7 @@
   text-transform: uppercase;
 }
 .panel-body {
-  height: calc(100% - 150px);
+  height: calc(100% - 155px);
   overflow-y: auto;
   padding: 35px;
 }

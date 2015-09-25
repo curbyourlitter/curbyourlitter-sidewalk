@@ -10,7 +10,7 @@
   border-radius: 0;
 }
 .leaflet-control-zoom a:first-child {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .leaflet-control-zoom a:hover {
   background-color: #9ec3ff;
@@ -27,9 +27,17 @@
   border: none;
   box-shadow: none;
 }
+.leaflet-bar a {
+  height: 32px;
+  width: 32px;
+}
 .leaflet-touch .leaflet-bar {
   border: none;
   box-shadow: none;
+}
+.leaflet-touch .leaflet-bar a {
+  height: 32px;
+  width: 32px;
 }
 .leaflet-control-scale {
   bottom: 10px;
@@ -38,10 +46,12 @@
   position: absolute;
 }
 .leaflet-control-scale-line {
-  background: rgba(81, 148, 255, 0.2);
+  background: #eef4ff;
   border-bottom: 0;
   border-color: #5194ff;
   color: #5194ff;
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 10px;
 }
 .leaflet-control-scale-line:not(:first-child) {
   border-top: 0;

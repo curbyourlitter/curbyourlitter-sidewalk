@@ -6,7 +6,7 @@
   position: absolute;
   top: 0;
   width: 33.33%;
-  max-width: 350px;
+  max-width: 320px;
   z-index: 999;
 }
 .legend.visible {
@@ -18,8 +18,9 @@
   color: #5194ff;
   display: inline-block;
   float: right;
-  font-size: 16px;
+  font-size: 14px;
   height: 20px;
+  line-height: 17px;
   margin-top: 3px;
   margin-right: 25px;
   text-align: center;
@@ -32,16 +33,18 @@
 }
 .legend-header {
   font-size: 22px;
-  height: 50px;
+  height: 60px;
+  letter-spacing: 1px;
   margin: 0;
-  margin-top: 75px;
+  margin-top: 80px;
+  padding-top: 10px;
 }
 .legend-header-icon {
   background-image: url("/images/filters.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 35px;
-  width: 35px;
+  height: 32px;
+  width: 32px;
   display: inline-block;
   float: left;
 }
@@ -67,13 +70,13 @@
   text-decoration: none;
 }
 .legend-body {
-  height: calc(100% - 125px);
+  height: calc(100% - 140px);
   overflow-y: auto;
   padding-bottom: 100px;
 }
 .legend-section-header {
   border-bottom: 1px solid #5194ff;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: normal;
 }
 .legend-year-picker .form-group {
@@ -84,10 +87,15 @@
   margin-left: 10px;
 }
 .legend-year-picker select {
-  background-color: #eaf2ff;
+  background-color: #eef4ff;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   color: #5194ff;
   font-weight: normal;
+}
+.legend-item label {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 13px;
+  margin-left: 5px;
 }

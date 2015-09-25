@@ -1,25 +1,26 @@
 .request-list-item {
-  background-color: #eaf8ec;
-  color: #00a71f;
+  background-color: rgba(0, 166, 31, 0.05);
+  color: #00a61f;
 }
 .request-list-item:hover {
-  background-color: #65ca78;
+  background-color: #00a61f;
 }
 .request-list-item-icon {
   margin: 0 auto;
   background-image: url("/images/bin-request.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
 }
 .request-list-item-icon-column {
   padding: 0;
 }
 .request-list-item-can-type {
-  font-size: 18px;
+  font-size: 16px;
 }
 .request-list-item-date {
   font-family: 'NationalWeb-Book', sans-serif;
-  font-size: 14px;
+  font-size: 10px;
+  letter-spacing: 1px;
 }

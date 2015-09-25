@@ -1,9 +1,9 @@
 .report-list-item {
-  background-color: #f4f8ff;
+  background-color: rgba(81, 148, 255, 0.05);
   color: #5194ff;
 }
 .report-list-item:hover {
-  background-color: #5194ff;
+  background-color: #99c0fd;
 }
 .report-list-item-icon {
   margin: 0 auto;
@@ -15,27 +15,28 @@
   background-image: url("/images/dirty-conditions.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
 }
 .report-list-item-icon-overflowing-litter-baskets {
   background-image: url("/images/overflowing-litter-baskets.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
 }
 .report-list-item-icon-sanitation-condition {
   background-image: url("/images/sanitation-condition.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 50px;
-  width: 50px;
+  height: 30px;
+  width: 30px;
 }
 .report-list-item-complaint {
-  font-size: 18px;
+  font-size: 16px;
 }
 .report-list-item-address {
   font-family: 'NationalWeb-Book', sans-serif;
-  font-size: 14px;
+  font-size: 10px;
+  letter-spacing: 1px;
 }
