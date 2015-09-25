@@ -372,9 +372,7 @@ export var ListButton = React.createClass({
     render: function () {
         return (
             <div>
-                <Link to="/list" onClick={this.handleClick} className="btn btn-list" ref="button">
-                    list
-                </Link>
+                <Link to="/list" onClick={this.handleClick} className="btn btn-list" ref="button"></Link>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="bottom" containerPadding={20}>
                     <Popover>
                         <div>List all records</div>

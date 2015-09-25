@@ -26,10 +26,14 @@
 }
 
 .btn-list {
-    background: white;
-    top: 50px;
+    background-image: data-uri("/images/list.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 35px;
     position: absolute;
-    right: 25px;
+    right: @panel-body-padding;
+    top: @panel-header-height;
+    width: 35px;
     z-index: @ui-z-index;
 }
 
