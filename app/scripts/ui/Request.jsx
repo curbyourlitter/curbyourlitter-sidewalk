@@ -50,7 +50,7 @@ export var RequestListItem = hoverIntent(React.createClass({
             <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
-                        <Col xs={2}>
+                        <Col className="request-list-item-icon-column" xs={2}>
                             <div className="request-list-item-icon"></div>
                         </Col>
                         <Col xs={10}>

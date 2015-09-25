@@ -1,3 +1,4 @@
+@import "icons";
 @import "variables";
 
 .request-list-item {
@@ -9,12 +10,12 @@
     }
 
     &-icon {
-        background-color: darkblue;
-        border-radius: 50%;
-        height: 15px;
-        margin: 15px;
-        margin-left: 5px;
-        width: 15px;
+        margin: 0 auto;
+        .icon('bin-request', 40px);
+
+        &-column {
+            padding: 0;
+        }
     }
 
     &-can-type {
