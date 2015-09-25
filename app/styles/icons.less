@@ -1,9 +1,9 @@
 @icon-dir: "/images";
 
-.icon(@name) {
+.icon(@name; @size: 35px) {
     background-image: data-uri("@{icon-dir}/@{name}.png");
     background-repeat: no-repeat;
     background-size: contain;
-    height: 35px;
-    width: 35px;
+    height: @size;
+    width: @size;
 }

@@ -1,3 +1,4 @@
+@import "icons";
 @import "variables";
 
 .report-list-item {
@@ -9,12 +10,21 @@
     }
 
     &-icon {
-        background-color: orangered;
-        border-radius: 50%;
-        height: 15px;
-        margin: 15px;
-        margin-left: 5px;
-        width: 15px;
+        &-column {
+            padding: 0;
+        }
+
+        &-dirty-conditions {
+            .icon('dirty-conditions', 50px);
+        }
+
+        &-overflowing-litter-baskets {
+            .icon('overflowing-litter-baskets', 50px);
+        }
+
+        &-sanitation-condition {
+            .icon('sanitation-condition', 50px);
+        }
     }
 
     &-complaint {
