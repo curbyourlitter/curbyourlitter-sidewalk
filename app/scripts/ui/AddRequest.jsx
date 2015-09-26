@@ -265,10 +265,11 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             }
         }
 
+        var headerClasses = `panel-header add-request-panel-header add-request-panel-header-step-${this.state.step}`;
         var header = (
-            <div className="panel-header add-request-panel-header">
+            <div className={headerClasses}>
                 <h2>
-                    {(this.state.step && this.state.step > 1) ? <a className="panel-header-back" href="#" onClick={this.backward}>back</a> : ''}
+                    <a className="panel-header-back" href="#" onClick={this.backward}>back</a>
                     <span className="panel-header-label">{heading}</span>
                     <Link className="panel-header-cancel" to="/">cancel</Link>
                 </h2>
