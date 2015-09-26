@@ -1,5 +1,6 @@
 @import "icons";
 @import "variables";
+@import "mixins";
 
 @legend-header-height: 60px;
 @legend-body-offset: @header-height + @legend-header-height;
@@ -84,19 +85,10 @@
         }
 
         &-clear {
+            .sidebar-header-link();
             float: right;
             margin-right: @legend-padding;
             text-transform: uppercase;
-
-            &, &:focus, &:visited {
-                color: fadeout(@blue, 50%);
-                text-decoration: none;
-            }
-
-            &:hover, &:active {
-                color: @blue;
-                text-decoration: none;
-            }
         }
     }
 
