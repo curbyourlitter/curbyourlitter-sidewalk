@@ -151,6 +151,25 @@ function mapStateToProps(state) {
     };
 }
 
+var Steps = React.createClass({
+    render: function () {
+        var arrows = [];
+        for (var i = 0; i < this.props.count; i++) {
+            var classes = 'step-arrow';
+            if (i < this.props.current) {
+                classes += ' active';
+            }
+            arrows.push(<div className={classes}></div>);
+        }
+        return (
+            <div className="add-request-steps">
+                {arrows.reverse()}
+                <div className="clearfix"></div>
+            </div>
+        );
+    }
+});
+
 export var AddRequest = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
@@ -253,7 +272,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     <span className="panel-header-label">{heading}</span>
                     <Link className="panel-header-cancel" to="/">cancel</Link>
                 </h2>
-                {this.state.step ? <div>step {this.state.step}</div> : ''}
+                <Steps count={4} current={this.state.step}/>
             </div>
         );
 

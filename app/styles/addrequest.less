@@ -1,18 +1,17 @@
+@import "variables";
+
+@add-request-header-padding: 20px;
+
 .add-request {
     &-panel-header {
-        a {
-            color: white;
-            font-size: 12px;
-        }
+        height: auto;
+        padding: @add-request-header-padding;
 
         h2 {
             margin: 0;
+            margin-bottom: 25px;
+            padding: 0;
         }
-
-        background: black;
-        color: white;
-        height: auto;
-        padding: 20px;
 
         .panel-header {
             &-back,
@@ -29,6 +28,50 @@
                 display: inline-block;
                 text-align: center;
                 width: 60%;
+            }
+        }
+    }
+
+    &-steps {
+        margin-left: -@add-request-header-padding;
+        margin-right: -@add-request-header-padding;
+
+        .step-arrow {
+            background: @blue-light-light;
+            position: relative;
+            height: 9px;
+            width: 25%;
+            float: right;
+
+            &.active {
+                background: @blue;
+
+                &:after {
+                    border-left-color: @blue;
+                }
+            }
+
+            &:after, &:before {
+                left: 100%;
+                top: 50%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            &:after {
+                border-left-color: @blue-light-light;
+                border-width: 4px;
+                margin-top: -4px;
+            }
+
+            &:before {
+                border-left-color: white;
+                border-width: 5px;
+                margin-top: -5px;
             }
         }
     }
