@@ -79,6 +79,10 @@ var PlaceBin = React.createClass({
         this.props.dispatch(pinDropActive(true));
     },
 
+    componentWillUnmount: function () {
+        this.props.dispatch(pinDropActive(false));
+    },
+
     submit: function (e) {
         this.props.onSubmit(this.state);
         e.preventDefault();
