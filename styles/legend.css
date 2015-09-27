@@ -72,7 +72,7 @@
 .legend-header-clear,
 .legend-header-clear:focus,
 .legend-header-clear:visited {
-  color: rgba(81, 148, 255, 0.5);
+  color: #99c0fd;
   text-decoration: none;
 }
 .legend-header-clear:hover,
