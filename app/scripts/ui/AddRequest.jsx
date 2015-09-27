@@ -66,14 +66,12 @@ var RequestTypeForm = React.createClass({
     render: function () {
         return (
             <div>
-                <Button onClick={() => this.props.onSelect('garbage')} block>
-                    request a trash bin
+                <div className="add-request-prompt">What type of request would you like to make?</div>
+                <Button bsSize="large" onClick={() => this.props.onSelect('garbage')} block>
+                    Litter Bin Request
                 </Button>
-                <Button onClick={() => this.props.onSelect('recycling')} block>
-                    request a recycling bin
-                </Button>
-                <Button onClick={() => this.props.onSelect('bigbelly')} block>
-                    request a big belly bin
+                <Button bsSize="large" onClick={() => this.props.onSelect('recycling')} block>
+                    Recycling Bin Request
                 </Button>
             </div>
         );
@@ -278,7 +276,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         );
 
         return (
-            <Panel header={header}>
+            <Panel className="add-request-panel" header={header}>
                 {bodyPanel}
             </Panel>
         );
