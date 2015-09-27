@@ -31,11 +31,23 @@ var ImageInput = React.createClass({
     }
 });
 
-var AddRequestForm = React.createClass({
-    componentDidMount: function () {
-        this.props.dispatch(pinDropActive(true));
-    },
+var RequestTypeForm = React.createClass({
+    render: function () {
+        return (
+            <div>
+                <div className="add-request-prompt">What type of request would you like to make?</div>
+                <Button bsSize="large" onClick={() => this.props.onSelect('garbage')} block>
+                    Litter Bin Request
+                </Button>
+                <Button bsSize="large" onClick={() => this.props.onSelect('recycling')} block>
+                    Recycling Bin Request
+                </Button>
+            </div>
+        );
+    }
+});
 
+var BinType = React.createClass({
     getInitialState: function () {
         return {
             canSubType: 'small'
@@ -56,24 +68,28 @@ var AddRequestForm = React.createClass({
                     <option value="medium">medium</option>
                     <option value="large">large</option>
                 </Input>
-                <Button type="submit" disabled={!this.props.pinDropValid}>next</Button>
+                <Button block bsSize="large" type="submit">Next</Button>
             </form>
         );
     }
 });
 
-var RequestTypeForm = React.createClass({
+var PlaceBin = React.createClass({
+    componentDidMount: function () {
+        this.props.dispatch(pinDropActive(true));
+    },
+
+    submit: function (e) {
+        this.props.onSubmit(this.state);
+        e.preventDefault();
+    },
+
     render: function () {
         return (
-            <div>
-                <div className="add-request-prompt">What type of request would you like to make?</div>
-                <Button bsSize="large" onClick={() => this.props.onSelect('garbage')} block>
-                    Litter Bin Request
-                </Button>
-                <Button bsSize="large" onClick={() => this.props.onSelect('recycling')} block>
-                    Recycling Bin Request
-                </Button>
-            </div>
+            <form onSubmit={this.submit}>
+                <div className="add-request-prompt">Drag and Drop your receptacle to the corner you would like to see it installed. When finished hit ‘Next’.</div>
+                <Button block bsSize="large" type="submit" disabled={!this.props.pinDropValid}>Next</Button>
+            </form>
         );
     }
 });
@@ -252,10 +268,14 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     heading = 'Make a request';
                     break;
                 case 2:
-                    bodyPanel = <AddRequestForm onSubmit={this.forward} {...this.props} />;
-                    heading = 'Place your bin';
+                    bodyPanel = <BinType onSubmit={this.forward} {...this.props} />;
+                    heading = 'Type of bin';
                     break;
                 case 3:
+                    bodyPanel = <PlaceBin onSubmit={this.forward} {...this.props} />;
+                    heading = 'Place your bin';
+                    break;
+                case 4:
                     bodyPanel = <CommentPictureForm onSubmit={this.forward} submitting={this.state.submitting} />;
                     heading = 'Final step';
                     break;
