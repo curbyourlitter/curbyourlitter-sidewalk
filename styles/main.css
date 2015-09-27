@@ -4525,10 +4525,54 @@ label,
   padding: 0;
 }
 .add-request-panel .bin-type-list-item {
-  padding: 15px 25px;
+  min-height: 120px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
+.add-request-panel .bin-type-list-item.active,
 .add-request-panel .bin-type-list-item:hover {
   background-color: #eef4ff;
+}
+.add-request-panel .bin-type-list-item-subtype {
+  font-size: 20px;
+}
+.add-request-panel .bin-type-list-item-text {
+  font-family: 'NationalWeb-Book', sans-serif;
+}
+.add-request-panel .bin-type-list-item-image-column {
+  padding: 0;
+}
+.add-request-panel .bin-type-list-item img {
+  border: 3px solid #5194ff;
+  border-radius: 10px;
+  max-width: 100%;
+}
+.add-request-panel .bin-type-list-item input {
+  display: none;
+}
+.add-request-panel .bin-type-list-item-input {
+  background-color: #bbd3ff;
+  border-radius: 50%;
+  display: inline-block;
+  height: 16px;
+  position: relative;
+  top: 37px;
+  width: 16px;
+}
+.add-request-panel .bin-type-list-item-input-inner {
+  background-color: #5194ff;
+  border-radius: 50%;
+  display: none;
+  height: 10px;
+  left: 3px;
+  position: relative;
+  top: 3px;
+  width: 10px;
+}
+.add-request-panel .bin-type-list-item.active .bin-type-list-item-input-inner {
+  display: block;
 }
 .help {
   background: rgba(81, 148, 255, 0.75);
