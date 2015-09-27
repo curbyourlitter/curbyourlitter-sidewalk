@@ -156,7 +156,7 @@ gulp.task('extras', function() {
 });
 
 // Watch
-gulp.task('watch', ['html', 'images', 'fonts', 'bundle'], function() {
+gulp.task('watch', ['html', 'images', 'fonts', 'json', 'bundle'], function() {
     browserSync({
         browser: 'chromium-browser',
         notify: false,

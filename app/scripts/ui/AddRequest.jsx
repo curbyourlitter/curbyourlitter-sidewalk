@@ -37,7 +37,7 @@ var RequestTypeForm = React.createClass({
         return (
             <div>
                 <div className="add-request-prompt">What type of request would you like to make?</div>
-                <Button bsSize="large" onClick={() => this.props.onSelect('garbage')} block>
+                <Button bsSize="large" onClick={() => this.props.onSelect('litter')} block>
                     Litter Bin Request
                 </Button>
                 <Button bsSize="large" onClick={() => this.props.onSelect('recycling')} block>
@@ -51,12 +51,12 @@ var RequestTypeForm = React.createClass({
 var BinTypeRadio = React.createClass({
     handleClick: function (e) {
         e.preventDefault();
-        this.props.onSelect(this.props.subtype);
+        this.props.onSelect(this.props.label);
     },
 
     render: function () {
         var classes = "bin-type-list-item",
-            selected = this.props.subtype === this.props.selected;
+            selected = this.props.label === this.props.selected;
         if (selected) {
             classes += ' active';
         }
@@ -70,12 +70,12 @@ var BinTypeRadio = React.createClass({
                                 <span className="bin-type-list-item-input-inner"></span>
                             </span>
                         </Col>
-                        <Col xs={4}>
-                            <img/>
+                        <Col xs={4} className="bin-type-list-item-image-column">
+                            <img src={this.props.image} />
                         </Col>
                         <Col xs={6}>
-                            <div className="bin-type-list-item-subtype">{this.props.subtype}</div>
-                            <p className="bin-type-list-item-text">{this.props.text}</p>
+                            <div className="bin-type-list-item-subtype">{this.props.display}</div>
+                            <p className="bin-type-list-item-text">{this.props.description}</p>
                         </Col>
                     </Row>
                 </Grid>
@@ -87,8 +87,19 @@ var BinTypeRadio = React.createClass({
 var BinType = React.createClass({
     getInitialState: function () {
         return {
+            bintypes: null,
             subType: 'small'
         };
+    },
+
+    componentDidMount: function () {
+        qwest.get('/scripts/json/bintypes.json')
+            .then((xhr, response) => {
+                this.setState({ bintypes: response });
+            })
+            .catch((xhr, response, e) => {
+                console.log(e);
+            });
     },
 
     onRadioSelected: function (selectedSubType) {
@@ -101,16 +112,17 @@ var BinType = React.createClass({
     },
 
     render: function () {
-        // TODO with custom subtypes for each type--we need a json or yml or
-        // something for these
-        var subTypes = ['standard', 'bigbelly'];
+        var subTypes = [];
+        if (this.state.bintypes) {
+            subTypes = this.state.bintypes[this.props.canType].subtypes;
+        }
         return (
             <form onSubmit={this.submit}>
                 <div className="add-request-prompt">Select the type of litter bin. When finished hit ‘Next’.</div>
                 <ul className="bin-type-list">
                     {subTypes.map(subType => {
                         return (
-                            <BinTypeRadio onSelect={this.onRadioSelected} selected={this.state.subType} subtype={subType} text="Text for this type" />
+                            <BinTypeRadio key={subType.label} onSelect={this.onRadioSelected} selected={this.state.subType} {...subType} />
                         );
                     })}
                 </ul>
@@ -223,7 +235,7 @@ var Steps = React.createClass({
             if (i < this.props.current) {
                 classes += ' active';
             }
-            arrows.push(<div className={classes}></div>);
+            arrows.push(<div key={i} className={classes}></div>);
         }
         return (
             <div className="add-request-steps">
@@ -318,7 +330,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     heading = 'Make a request';
                     break;
                 case 2:
-                    bodyPanel = <BinType onSubmit={this.forward} {...this.props} />;
+                    bodyPanel = <BinType canType={this.state.requestType} onSubmit={this.forward} {...this.props} />;
                     heading = 'Type of bin';
                     break;
                 case 3:
