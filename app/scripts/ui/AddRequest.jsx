@@ -1,7 +1,8 @@
 import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Input } from 'react-bootstrap';
+import { Button, Col, Grid, Input, Row } from 'react-bootstrap';
+import {} from 'react-bootstrap';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 
@@ -47,11 +48,51 @@ var RequestTypeForm = React.createClass({
     }
 });
 
+var BinTypeRadio = React.createClass({
+    handleClick: function (e) {
+        e.preventDefault();
+        this.props.onSelect(this.props.subtype);
+    },
+
+    render: function () {
+        var classes = "bin-type-list-item",
+            selected = this.props.subtype === this.props.selected;
+        if (selected) {
+            classes += ' active';
+        }
+        return (
+            <li className={classes} onClick={this.handleClick}>
+                <Grid>
+                    <Row>
+                        <Col xs={2}>
+                            <input ref="input" type="radio" name="bin-type" onChange={(e) => {}} checked={selected}></input>
+                            <span className="bin-type-list-item-input">
+                                <span className="bin-type-list-item-input-inner"></span>
+                            </span>
+                        </Col>
+                        <Col xs={4}>
+                            <img/>
+                        </Col>
+                        <Col xs={6}>
+                            <div className="bin-type-list-item-subtype">{this.props.subtype}</div>
+                            <p className="bin-type-list-item-text">{this.props.text}</p>
+                        </Col>
+                    </Row>
+                </Grid>
+            </li>
+        );
+    }
+});
+
 var BinType = React.createClass({
     getInitialState: function () {
         return {
-            canSubType: 'small'
+            subType: 'small'
         };
+    },
+
+    onRadioSelected: function (selectedSubType) {
+        this.setState({ subType: selectedSubType });
     },
 
     submit: function (e) {
@@ -60,14 +101,19 @@ var BinType = React.createClass({
     },
 
     render: function () {
-        // TODO with custom subtypes for each type
+        // TODO with custom subtypes for each type--we need a json or yml or
+        // something for these
+        var subTypes = ['standard', 'bigbelly'];
         return (
             <form onSubmit={this.submit}>
-                <Input type="select" onChange={(e) => this.setState({ canSubType: e.target.value })} label="Can type" value={this.state.canSubType}>
-                    <option value="small">small</option>
-                    <option value="medium">medium</option>
-                    <option value="large">large</option>
-                </Input>
+                <div className="add-request-prompt">Select the type of litter bin. When finished hit ‘Next’.</div>
+                <ul className="bin-type-list">
+                    {subTypes.map(subType => {
+                        return (
+                            <BinTypeRadio onSelect={this.onRadioSelected} selected={this.state.subType} subtype={subType} text="Text for this type" />
+                        );
+                    })}
+                </ul>
                 <Button block bsSize="large" type="submit">Next</Button>
             </form>
         );
@@ -215,8 +261,8 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             if (this.state.requestType) {
                 formData.append('can_type', this.state.requestType);
             }
-            if (this.state.canSubType) {
-                formData.append('can_subtype', this.state.canSubType);
+            if (this.state.subType) {
+                formData.append('can_subtype', this.state.subType);
             }
             if (this.state.comment) {
                 formData.append('comment', this.state.comment);

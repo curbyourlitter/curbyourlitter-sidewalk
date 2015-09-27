@@ -2,6 +2,7 @@
 @import "variables";
 
 @add-request-header-padding: 20px;
+@add-request-body-padding: 25px;
 
 .add-request {
     &-panel-header {
@@ -52,7 +53,7 @@
 
     &-panel {
         .panel-body {
-            padding: 25px;
+            padding: @add-request-body-padding;
             padding-top: 0;
         }
     }
@@ -102,6 +103,74 @@
                 border-left-color: white;
                 border-width: 5px;
                 margin-top: -5px;
+            }
+        }
+    }
+}
+
+
+@bin-type-list-item-height: 120px;
+@bin-type-list-item-bottom-padding: 15px;
+@bin-type-list-item-top-padding: 15px;
+@radio-outer-size: 16px;
+@radio-inner-size: 10px;
+
+.add-request-panel {
+    .bin-type-list {
+        list-style: none;
+        margin-left: -@add-request-body-padding;
+        margin-right: -@add-request-body-padding;
+        padding: 0;
+
+        &-item {
+            height: @bin-type-list-item-height;
+            padding-left: @add-request-body-padding;
+            padding-right: @add-request-body-padding;
+            padding-top: @bin-type-list-item-top-padding;
+            padding-bottom: @bin-type-list-item-bottom-padding;
+
+            &.active,
+            &:hover {
+                background-color: @blue-light-light;
+            }
+
+            &-subtype {
+                font-size: 20px;
+            }
+
+            &-text {
+                font-family: @book-font-family;
+            }
+
+            input {
+                display: none;
+            }
+
+            &-input {
+                background-color: darken(@blue-light-light, 10%);
+                border-radius: 50%;
+                display: inline-block;
+                height: @radio-outer-size;
+                position: relative;
+                top: (@bin-type-list-item-height / 2) - @bin-type-list-item-top-padding - (@radio-outer-size / 2);
+                width: @radio-outer-size;
+
+                &-inner {
+                    background-color: @blue;
+                    border-radius: 50%;
+                    display: none;
+                    height: @radio-inner-size;
+                    left: (@radio-outer-size - @radio-inner-size) / 2;
+                    position: relative;
+                    top: (@radio-outer-size - @radio-inner-size) / 2;
+                    width: @radio-inner-size;
+                }
+            }
+
+            &.active {
+                .bin-type-list-item-input-inner {
+                    display: block;
+                }
             }
         }
     }
