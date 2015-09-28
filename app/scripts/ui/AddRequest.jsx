@@ -156,6 +156,10 @@ var PlaceBin = React.createClass({
         this.props.dispatch(pinDropActive(false));
     },
 
+    getInitialState: function () {
+        return {};
+    },
+
     submit: function (e) {
         this.props.onSubmit(this.state);
         e.preventDefault();
@@ -213,24 +217,11 @@ var InformationForm = React.createClass({
 var Success = React.createClass({
     render: function () {
         return (
-            <div>
-                <div>You're all done</div>
-                <div>
-                    Have another request?
-                    <Button block>Make another request</Button>
-                </div>
-                <div>
-                    About the project
-                    <Button block>Go to the about page</Button>
-                </div>
-                <div>
-                    Want to volunteer?
-                    <Button block>Get involved</Button>
-                </div>
-                <div>
-                    Why are we doing this?
-                    <Button block>The problem</Button>
-                </div>
+            <div className="add-request-success">
+                <h2>Thanks for your help in placing a bin!</h2>
+                <Button bsSize="large" block>Make another Request</Button>
+                <Button bsSize="large" block>Get Involved</Button>
+                <Button bsSize="large" block>What's the Problem?</Button>
             </div>
         );
     }
@@ -324,19 +315,24 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
 
     forward: function (state) {
         if (this.state.step <= 3) {
-            this.setState({ step: this.state.step + 1 })
+            state.step = this.state.step + 1;
+            this.setState(state);
         }
-        this.setState(state, () => {
-            this.submitRequest();
-        });
+        else {
+            this.setState(state, () => {
+                this.submitRequest();
+            });
+        }
     },
 
     render: function () {
         var bodyPanel,
-            heading;
+            heading,
+            cancelLabel = 'cancel';
 
         if (this.state.success) {
-            heading = 'Thanks!'
+            cancelLabel = 'done';
+            heading = 'Success!';
             bodyPanel = <Success />;
         }
         else {
@@ -361,13 +357,19 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
             }
         }
 
-        var headerClasses = `panel-header add-request-panel-header add-request-panel-header-step-${this.state.step}`;
+        var headerClasses = `panel-header add-request-panel-header`;
+        if (this.state.step) {
+            headerClasses += ` add-request-panel-header-step-${this.state.step}`;
+        }
+        if (this.state.success) {
+            headerClasses += ' add-request-panel-header-success';
+        }
         var header = (
             <div className={headerClasses}>
                 <h2>
                     <a className="panel-header-back" href="#" onClick={this.backward}>&lt; back</a>
                     <span className="panel-header-label">{heading}</span>
-                    <Link className="panel-header-cancel" to="/">cancel</Link>
+                    <Link className="panel-header-cancel" to="/">{cancelLabel}</Link>
                 </h2>
                 <Steps count={4} current={this.state.step}/>
             </div>
