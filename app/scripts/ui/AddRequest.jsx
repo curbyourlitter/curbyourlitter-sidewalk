@@ -265,7 +265,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         return {
             requestType: null,
             submitting: false,
-            step: 1,
+            step: 3,
             success: false
         };
     },

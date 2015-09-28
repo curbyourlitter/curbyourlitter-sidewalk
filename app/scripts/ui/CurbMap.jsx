@@ -30,16 +30,25 @@ var highlightedRecordStyle = {
     weight: 2
 };
 
-var badPlacementIcon = L.AwesomeMarkers.icon({
-    icon: 'ion-sad',
-    markerColor: 'red',
-    prefix: 'ion'
+var placementIconSize = [35, 50],
+    placementIconAnchor = [17, 50];
+
+var badPlacementIcon = L.icon({
+    iconAnchor: placementIconAnchor,
+    iconSize: placementIconSize,
+    iconUrl: '/images/map-place-bin-invalid.svg'
 });
 
-var goodPlacementIcon = L.AwesomeMarkers.icon({
-    icon: 'ion-happy',
-    markerColor: 'green',
-    prefix: 'ion'
+var goodPlacementIcon = L.icon({
+    iconAnchor: placementIconAnchor,
+    iconSize: placementIconSize,
+    iconUrl: '/images/map-place-bin-valid.svg'
+});
+
+var dragPlacementIcon = L.icon({
+    iconAnchor: placementIconAnchor,
+    iconSize: placementIconSize,
+    iconUrl: '/images/map-place-bin-drag.svg'
 });
 
 function mapStateToProps(state) {
@@ -90,6 +99,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         });
 
         // When marker is dragged, update latlng
+        this.pin.on('dragstart', () => {
+            this.pin.setIcon(dragPlacementIcon);
+        });
         this.pin.on('dragend', () => {
             this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
                 if (valid) {
@@ -98,27 +110,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
             });
         });
-
-        cartodbSql.execute('SELECT * FROM {{ table }}', {
-            table: config.tables.intersections
-        }, {
-            format: 'GeoJSON'
-        })
-            .done((data) => {
-                this.intersectionLayer = L.geoJson(data, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.circle(latlng, config.cartodbIntersectionRadius);
-                    },
-
-                    style: {
-                        clickable: false,
-                        color: 'green',
-                        fillColor: 'green',
-                        fillOpacity: 0.1,
-                        weight: 2
-                    }
-                }).addTo(map);
-            });
     },
 
     checkDropPinValid: function (latlng, callback) {
@@ -135,7 +126,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     deactivateDropPin: function () {
-        map.removeLayer(this.intersectionLayer);
         map.removeLayer(this.pin);
     },
 
