@@ -365,7 +365,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         var header = (
             <div className={headerClasses}>
                 <h2>
-                    <a className="panel-header-back" href="#" onClick={this.backward}>back</a>
+                    <a className="panel-header-back" href="#" onClick={this.backward}>&lt; back</a>
                     <span className="panel-header-label">{heading}</span>
                     <Link className="panel-header-cancel" to="/">cancel</Link>
                 </h2>
