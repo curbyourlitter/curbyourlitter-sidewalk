@@ -103,7 +103,8 @@ var BinType = React.createClass({
     getInitialState: function () {
         return {
             bintypes: null,
-            subType: 'small'
+            subType: 'small',
+            valid: false
         };
     },
 
@@ -118,10 +119,14 @@ var BinType = React.createClass({
     },
 
     onRadioSelected: function (selectedSubType) {
-        this.setState({ subType: selectedSubType });
+        this.setState({
+            subType: selectedSubType,
+            valid: selectedSubType !== null
+        });
     },
 
     submit: function (e) {
+        if (!this.state.valid) return false;
         this.props.onSubmit(this.state);
         e.preventDefault();
     },
@@ -141,7 +146,7 @@ var BinType = React.createClass({
                         );
                     })}
                 </ul>
-                <Button block bsSize="large" type="submit">Next</Button>
+                <Button block bsSize="large" type="submit" disabled={!this.state.valid}>Next</Button>
             </form>
         );
     }
@@ -181,19 +186,21 @@ var InformationForm = React.createClass({
             comment: null,
             email: null,
             image: null,
-            name: null
+            name: null,
+            valid: false
         };
     },
 
-    commentChange: function (e) {
-        this.setState({ comment: e.target.value });
-    },
-
     fieldChange: function (updates) {
-        this.setState(updates);
+        this.setState(updates, (state) => {
+            this.setState({
+                valid: this.state.email !== null && this.state.name !== null
+            });
+        });
     },
 
     submit: function (e) {
+        if (!this.state.valid) return false;
         e.preventDefault();
         this.props.onSubmit(this.state);
     },
@@ -202,11 +209,11 @@ var InformationForm = React.createClass({
         return (
             <form onSubmit={this.submit}>
                 <label>Your Information</label>
-                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} placeholder="Name" value={this.state.name} />
-                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} placeholder="Email" value={this.state.email} />
-                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Tell us why it should be here (optional)" placeholder="Write something..." />
+                <Input type="text" onChange={(e) => this.fieldChange({ name: e.target.value })} placeholder="Name" value={this.state.name} />
+                <Input type="email" onChange={(e) => this.fieldChange({ email: e.target.value })} placeholder="Email" value={this.state.email} />
+                <Input type="textarea" onChange={(e) => this.fieldChange({ comment: e.target.value })} value={this.state.comment} label="Tell us why it should be here (optional)" placeholder="Write something..." />
                 <ImageInput onChangeCallback={this.fieldChange} label="Give us some visual proof (optional)" />
-                <Button type="submit" disabled={this.props.submitting} bsSize="large" block>
+                <Button type="submit" disabled={!this.state.valid || this.props.submitting} bsSize="large" block>
                     {this.props.submitting ?  'Submitting...' : 'Submit'}
                 </Button>
             </form>
