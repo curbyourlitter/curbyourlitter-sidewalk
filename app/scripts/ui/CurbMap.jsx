@@ -289,8 +289,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             break;
                     }
                     if (!this.pin) {
-                        map.closePopup();
-                        map.openPopup(content, latlng);
+                        //map.closePopup();
+                        map.openPopup(content, latlng, { closeButton: false });
                     }
                 });
 
@@ -315,7 +315,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     currentlyOver[layerIndex] = undefined;
                     if (_.values(currentlyOver).filter((l) => l).length === 0) {
                         if (!this.pin) {
-                            map.closePopup();
+                            //map.closePopup();
                         }
                         document.getElementById(id).style.cursor = null;
                         this.props.dispatch(listRecordUnhovered());

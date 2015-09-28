@@ -73,3 +73,25 @@
 .leaflet-bottom .leaflet-control-scale {
     margin-bottom: 0;
 }
+
+.leaflet-popup {
+    &-content-wrapper,
+    &-tip {
+        box-shadow: none;
+    }
+
+    &-content-wrapper {
+        border: 2px solid @green-light-light;
+        border-radius: 5px;
+        font-family: @semibold-font-family;
+        font-size: 20px;
+    }
+
+    &-tip {
+        border: 2px solid @green-light-light;
+    }
+
+    &-tip-container {
+        top: -2px;
+    }
+}
