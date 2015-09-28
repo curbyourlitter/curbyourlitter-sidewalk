@@ -135,21 +135,24 @@
             display: none;
         }
 
+        @item-indicator-outer-size: 14px;
+        @item-indicator-inner-size: 8px;
+
         &-indicator {
             background-color: @blue-light-light;
             display: inline-block;
-            height: 12px;
+            height: @item-indicator-outer-size;
             margin-right: 5px;
-            width: 12px;
+            width: @item-indicator-outer-size;
 
             &-inner {
                 background-color: @blue;
                 display: none;
-                height: 6px;
-                left: 3px;
+                height: @item-indicator-inner-size;
+                left: (@item-indicator-outer-size - @item-indicator-inner-size) / 2;
                 position: relative;
-                width: 6px;
-                top: 3px;
+                width: @item-indicator-inner-size;
+                top: (@item-indicator-outer-size - @item-indicator-inner-size) / 2;
             }
         }
 
