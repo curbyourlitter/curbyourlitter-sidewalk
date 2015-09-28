@@ -282,15 +282,19 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     var content;
                     switch(layerIndex) {
                         case 1:
-                            content = data.complaint_type + '<br/>' + moment(data.date).format('h:mma MMMM Do YYYY');
+                            content = (
+                                <div>{data.complaint_type}<br/>{moment(data.date).format('h:mma MMMM Do YYYY')}</div>
+                            );
                             break;
                         case 2:
-                            content = data.can_type + '<br/>' + moment(data.date).format('h:mma MMMM Do YYYY');
+                            content = (
+                                <div>{data.can_type}<br/>{moment(data.date).format('h:mma MMMM Do YYYY')}</div>
+                            );
                             break;
                     }
                     if (!this.pin) {
                         map.closePopup();
-                        map.openPopup(content, latlng, { closeButton: false });
+                        map.openPopup(React.renderToString(content), latlng, { closeButton: false });
                     }
                 });
 
