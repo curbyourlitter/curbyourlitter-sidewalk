@@ -18,14 +18,9 @@ function where(filters, yearRange) {
     var whereConditions = _.chain(filters)
         .map(function (value, key) {
             switch(key) {
-                case 'bigbelly':
-                    if (value) {
-                        return "can_type = 'bigbelly'";
-                    }
-                    break;
                 case 'litter':
                     if (value) {
-                        return "can_type = 'trash'";
+                        return "can_type = 'litter'";
                     }
                     break;
                 case 'recycling':
