@@ -24,6 +24,7 @@
   background-size: contain;
   height: 32px;
   width: 32px;
+  border-radius: 0;
   position: absolute;
   right: 35px;
   top: 80px;

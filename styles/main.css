@@ -4114,6 +4114,7 @@ label,
   background-size: contain;
   height: 32px;
   width: 32px;
+  border-radius: 0;
   left: 25px;
   position: absolute;
   top: 90px;
@@ -4197,7 +4198,7 @@ label,
 }
 .legend-section-header {
   border-bottom: 1px solid #5194ff;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: normal;
 }
 .legend-year-picker .form-group {
@@ -4217,7 +4218,7 @@ label,
 }
 .legend-item label {
   font-family: 'NationalWeb-Book', sans-serif;
-  font-size: 13px;
+  font-size: 16px;
 }
 .legend-item input {
   display: none;
@@ -4225,17 +4226,17 @@ label,
 .legend-item-indicator {
   background-color: #eef4ff;
   display: inline-block;
-  height: 12px;
+  height: 14px;
   margin-right: 5px;
-  width: 12px;
+  width: 14px;
 }
 .legend-item-indicator-inner {
   background-color: #5194ff;
   display: none;
-  height: 6px;
+  height: 8px;
   left: 3px;
   position: relative;
-  width: 6px;
+  width: 8px;
   top: 3px;
 }
 .legend-item-litter .legend-item-indicator {
@@ -4366,6 +4367,7 @@ label,
   background-size: contain;
   height: 32px;
   width: 32px;
+  border-radius: 0;
   position: absolute;
   right: 35px;
   top: 80px;
@@ -4415,6 +4417,17 @@ label,
   margin-left: 35px;
   padding-top: 10px;
   text-transform: uppercase;
+}
+.panel-header a:not(.panel-close),
+.panel-header a:not(.panel-close):focus,
+.panel-header a:not(.panel-close):visited {
+  color: #99c0fd;
+  text-decoration: none;
+}
+.panel-header a:not(.panel-close):hover,
+.panel-header a:not(.panel-close):active {
+  color: #5194ff;
+  text-decoration: none;
 }
 .panel-body {
   height: calc(100% - 160px);

@@ -43,6 +43,17 @@
   padding-top: 10px;
   text-transform: uppercase;
 }
+.panel-header a:not(.panel-close),
+.panel-header a:not(.panel-close):focus,
+.panel-header a:not(.panel-close):visited {
+  color: #99c0fd;
+  text-decoration: none;
+}
+.panel-header a:not(.panel-close):hover,
+.panel-header a:not(.panel-close):active {
+  color: #5194ff;
+  text-decoration: none;
+}
 .panel-body {
   height: calc(100% - 160px);
   overflow-y: auto;
