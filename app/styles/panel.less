@@ -1,3 +1,4 @@
+@import "mixins";
 @import "variables";
 
 @panel-body-offset: @header-height + @panel-header-height;
@@ -46,6 +47,10 @@
             margin-left: @panel-body-padding;
             padding-top: 10px;
             text-transform: uppercase;
+        }
+
+        a:not(.panel-close) {
+            .sidebar-header-link();
         }
     }
 
