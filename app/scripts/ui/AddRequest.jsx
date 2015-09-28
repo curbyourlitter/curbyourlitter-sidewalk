@@ -25,9 +25,24 @@ var ImageInput = React.createClass({
         this.props.onChangeCallback({ image: e.target.files[0] });
     },
 
+    clickInput: function () {
+        var input = React.findDOMNode(this.refs.input);
+        var event = new MouseEvent('click', {
+            'view': window, 
+            'bubbles': true, 
+            'cancelable': false
+        });
+        input.dispatchEvent(event);
+    },
+
     render: function () {
         return (
-            <Input onChange={this.handleChange} type="file" label={this.props.label} value={this.state.value} />
+            <div className="image-input">
+                <label htmlFor="image-file-input">
+                    <Input id="image-file-input" ref="input" onChange={this.handleChange} accept="image/*" type="file" label={this.props.label} value={this.state.value} />
+                    <Button onClick={this.clickInput} bsSize="large" block>Choose a Photo</Button>
+                </label>
+            </div>
         );
     }
 });
@@ -156,7 +171,7 @@ var PlaceBin = React.createClass({
     }
 });
 
-var CommentPictureForm = React.createClass({
+var InformationForm = React.createClass({
     getInitialState: function () {
         return {
             comment: null,
@@ -182,12 +197,13 @@ var CommentPictureForm = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Comment (optional)" />
-                <ImageInput onChangeCallback={this.fieldChange} label="Photo (optional)" />
-                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} label="Name" value={this.state.name} />
-                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} label="Email Address" value={this.state.email} />
-                <Button type="submit" disabled={this.props.submitting}>
-                    {this.props.submitting ?  'submitting...' : 'submit'}
+                <label>Your Information</label>
+                <Input type="text" onChange={(e) => this.setState({ name: e.target.value })} placeholder="Name" value={this.state.name} />
+                <Input type="email" onChange={(e) => this.setState({ email: e.target.value })} placeholder="Email" value={this.state.email} />
+                <Input type="textarea" onChange={this.commentChange} value={this.state.comment} label="Tell us why it should be here (optional)" placeholder="Write something..." />
+                <ImageInput onChangeCallback={this.fieldChange} label="Give us some visual proof (optional)" />
+                <Button type="submit" disabled={this.props.submitting} bsSize="large" block>
+                    {this.props.submitting ?  'Submitting...' : 'Submit'}
                 </Button>
             </form>
         );
@@ -338,7 +354,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     heading = 'Place your bin';
                     break;
                 case 4:
-                    bodyPanel = <CommentPictureForm onSubmit={this.forward} submitting={this.state.submitting} />;
+                    bodyPanel = <InformationForm onSubmit={this.forward} submitting={this.state.submitting} />;
                     heading = 'Final step';
                     break;
                 // TODO error panel
