@@ -93,7 +93,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
         // Give initial latlng
         this.checkDropPinValid(this.pin.getLatLng(), (valid) => {
-            // TODO show popup with address if valid
             if (valid) {
                 this.addDropPinPopup();
             }
@@ -102,6 +101,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
         // When marker is dragged, update latlng
         this.pin.on('dragstart', () => {
+            this.pin.unbindPopup();
             this.pin.setIcon(dragPlacementIcon);
         });
         this.pin.on('dragend', () => {
@@ -129,6 +129,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
     deactivateDropPin: function () {
         map.removeLayer(this.pin);
+        this.pin = undefined;
     },
 
     highlightRecordPoint: function (record) {
@@ -276,7 +277,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.updateReportSql();
                 this.updateRequestSql();
 
-                layer.hoverIntent({}, function (e, latlng, pos, data, layerIndex) {
+                layer.hoverIntent({}, (e, latlng, pos, data, layerIndex) => {
                     var content;
                     switch(layerIndex) {
                         case 1:
@@ -286,8 +287,10 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             content = data.can_type + '<br/>' + moment(data.date).format('h:mma MMMM Do YYYY');
                             break;
                     }
-                    map.closePopup();
-                    map.openPopup(content, latlng);
+                    if (!this.pin) {
+                        map.closePopup();
+                        map.openPopup(content, latlng);
+                    }
                 });
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
@@ -310,7 +313,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     if (!layerIndex) return;
                     currentlyOver[layerIndex] = undefined;
                     if (_.values(currentlyOver).filter((l) => l).length === 0) {
-                        map.closePopup();
+                        if (!this.pin) {
+                            map.closePopup();
+                        }
                         document.getElementById(id).style.cursor = null;
                         this.props.dispatch(listRecordUnhovered());
                     }
