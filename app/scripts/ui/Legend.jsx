@@ -48,7 +48,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">Community Input</span>
-                            <Link to="/help/community-input" className="legend-help">?</Link>
+                            <Link to="/help" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Litter Basket Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
                         <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" dispatch={this.props.dispatch} shown={this.props.requestFilters.recycling} />
@@ -57,7 +57,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">311 Data</span>
-                            <Link to="/help/311-data" className="legend-help">?</Link>
+                            <Link to="/help" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
                         <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />

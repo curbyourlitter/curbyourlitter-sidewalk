@@ -10,7 +10,9 @@ export var Help = React.createClass({
             <div className="help">
                 <div className="help-body">
                     <Link className="help-close" to="/" aria-label="close">&times;</Link>
-                    {this.props.children}
+                    <h1>The Data</h1>
+                    <HelpCommunityInput/>
+                    <Help311Data/>
                 </div>
             </div>
         );
@@ -41,7 +43,6 @@ export var HelpCommunityInput = React.createClass({
     render: function () {
         return (
             <div>
-                <h1>The Data</h1>
                 <h2>
                     Community Input
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -90,7 +91,6 @@ export var Help311Data = React.createClass({
     render: function () {
         return (
             <div>
-                <h1>The Data</h1>
                 <h2>
                     311 Data
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
