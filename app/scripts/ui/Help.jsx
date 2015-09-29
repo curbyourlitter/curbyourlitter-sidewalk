@@ -13,6 +13,7 @@ export var Help = React.createClass({
                     <h1>The Data</h1>
                     <HelpCommunityInput/>
                     <Help311Data/>
+                    <HelpBlockRatings/>
                 </div>
             </div>
         );
@@ -42,7 +43,7 @@ export var HelpCommunityInput = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <section className="help-type">
                 <h2>
                     Community Input
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -63,7 +64,7 @@ export var HelpCommunityInput = React.createClass({
                     <h3>Litter Sightings</h3>
                     <p>Text</p>
                 </section>
-            </div>
+            </section>
         );
     }
 });
@@ -90,7 +91,7 @@ export var Help311Data = React.createClass({
 
     render: function () {
         return (
-            <div>
+            <section className="help-type">
                 <h2>
                     311 Data
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -107,7 +108,59 @@ export var Help311Data = React.createClass({
                     <h3>Dirty Conditions</h3>
                     <p>Text</p>
                 </section>
-            </div>
+            </section>
+        );
+    }
+});
+
+export var HelpBlockRatings = React.createClass({
+    downloadUrl: function () {
+        var columns = [
+            'complaint_type',
+            'descriptor',
+            'incident_address',
+            'location_type',
+            'status',
+            'ST_X(the_geom) AS longitude',
+            'ST_Y(the_geom) AS latitude'
+        ],
+            sql = `SELECT ${columns.join(',')} FROM ${config.tables.report}`,
+            queryString = $.param({
+                q: sql,
+                filename: 'Curb Your Litter - 311 Data',
+                format: 'csv'
+            });
+        return `http://${config.cartodbUser}.cartodb.com/api/v2/sql?${queryString}`;
+    },
+
+    render: function () {
+        return (
+            <section className="help-type">
+                <h2>
+                    Block Ratings
+                    <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
+                </h2>
+                <section>
+                    <h3>Poor</h3>
+                    <p>Text</p>
+                </section>
+                <section>
+                    <h3>Below Average</h3>
+                    <p>Text</p>
+                </section>
+                <section>
+                    <h3>Average</h3>
+                    <p>Text</p>
+                </section>
+                <section>
+                    <h3>Above Average</h3>
+                    <p>Text</p>
+                </section>
+                <section>
+                    <h3>Great</h3>
+                    <p>Text</p>
+                </section>
+            </section>
         );
     }
 });

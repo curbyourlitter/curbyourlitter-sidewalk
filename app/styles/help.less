@@ -3,7 +3,7 @@
 @help-padding: 25px;
 
 .help {
-    background: fadeout(@blue, 25%);
+    background: fadeout(@blue-light, 25%);
     height: 100%;
     left: 0;
     position: absolute;
@@ -23,8 +23,9 @@
 
     &-body {
         background: white;
-        height: 75%;
-        margin: 5% 12.5%;
+        height: ~"calc(95% - 39px)";
+        margin: 0 12.5%;
+        margin-top: 5%;
         overflow-y: auto;
         padding: @help-padding;
     }
@@ -39,7 +40,14 @@
         }
     }
 
+    &-type {
+        margin-bottom: 50px;
+    }
+
     &-download {
+        border-radius: 0;
         float: right;
+        letter-spacing: 1px;
+        text-transform: uppercase;
     }
 }
