@@ -49,12 +49,11 @@ export var ReportListItem = hoverIntent(React.createClass({
         return false;
     },
 
-    slugifyComplaintType: function () {
-        return this.props.complaint_type.replace(/ /g, '-').toLowerCase();
-    },
-
     render: function () {
-        var iconClasses = `report-list-item-icon report-list-item-icon-${slugifyComplaintType(this.props.complaintType)}`;
+        var iconClasses = 'report-list-item-icon';
+        if (this.props.complaint_type) {
+            iconClasses += ` report-list-item-icon-${slugifyComplaintType(this.props.complaint_type)}`;
+        }
         return (
             <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
