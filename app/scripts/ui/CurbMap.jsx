@@ -12,6 +12,7 @@ import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from
 import PopoverButton from './PopoverButton.jsx';
 import { getRequestSql } from '../sql/requests';
 import { getReportSql } from '../sql/reports';
+import { slugifyComplaintType } from './Report.jsx';
 
 var map;
 
@@ -282,19 +283,28 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     var content;
                     switch(layerIndex) {
                         case 1:
+                            var iconClasses = `detail-popup-icon report-icon-${slugifyComplaintType(data.complaint_type)}`;
                             content = (
-                                <div>{data.complaint_type}<br/>{moment(data.date).format('h:mma MMMM Do YYYY')}</div>
+                                <div className="detail-popup report-popup">
+                                    <div className={iconClasses}></div>
+                                    <div className="detail-popup-text report-type">{data.complaint_type}</div>
+                                    <div className="clearfix"></div>
+                                </div>
                             );
                             break;
                         case 2:
                             content = (
-                                <div>{data.can_type}<br/>{moment(data.date).format('h:mma MMMM Do YYYY')}</div>
+                                <div className="detail-popup request-popup">
+                                    <div className="detail-popup-icon request-icon"></div>
+                                    <div className="detail-popup-text request-type">{data.can_type} bin request</div>
+                                    <div className="clearfix"></div>
+                                </div>
                             );
                             break;
                     }
                     if (!this.pin) {
                         map.closePopup();
-                        map.openPopup(React.renderToString(content), latlng, { closeButton: false });
+                        map.openPopup(React.renderToString(content), latlng, { closeButton: false, minWidth: 150 });
                     }
                 });
 

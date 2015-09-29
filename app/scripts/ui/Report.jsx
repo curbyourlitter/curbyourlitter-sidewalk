@@ -23,6 +23,10 @@ export var Report = detailPanel(React.createClass({
     }
 }), config.tables.report);
 
+export var slugifyComplaintType = function (complaintType) {
+        return complaintType.replace(/ /g, '-').toLowerCase();
+};
+
 export var ReportListItem = hoverIntent(React.createClass({
     mixins: [History],
 
@@ -50,7 +54,7 @@ export var ReportListItem = hoverIntent(React.createClass({
     },
 
     render: function () {
-        var iconClasses = `report-list-item-icon report-list-item-icon-${this.slugifyComplaintType()}`;
+        var iconClasses = `report-list-item-icon report-list-item-icon-${slugifyComplaintType(this.props.complaintType)}`;
         return (
             <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
