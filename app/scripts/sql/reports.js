@@ -12,6 +12,16 @@ export var reportColumnsData = [
     `(created_date AT TIME ZONE '${config.timezone}')::text AS date`
 ];
 
+export var reportColumnsDownload = [
+    'complaint_type',
+    'descriptor',
+    'incident_address',
+    'location_type',
+    'status',
+    'ST_X(the_geom) AS longitude',
+    'ST_Y(the_geom) AS latitude'
+];
+
 export var reportColumnsMap = [
     '*',
     `(created_date AT TIME ZONE '${config.timezone}')::text AS date`
@@ -33,8 +43,12 @@ function where(filters, yearRange) {
         })
         .filter(function (value) { return value !== null; })
         .value();
-    var yearCondition = `extract(year from created_date) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
-    var where = ` WHERE  ${yearCondition} AND (${whereConditions.join(' OR ')})`;
+    var yearCondition,
+        where = ` WHERE (${whereConditions.join(' OR ')})`;
+    if (yearRange) {
+        yearCondition = `extract(year from created_date) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
+        where += ` AND ${yearCondition}`;
+    }
     if (whereConditions.length === 0) {
         // Intentionally pick nothing
         where = ' WHERE true = false';
@@ -43,7 +57,11 @@ function where(filters, yearRange) {
 }
 
 export function getReportSql(filter, yearRange, columns = reportColumnsMap) {
-    return `SELECT ${columns} FROM ${config.tables.report} ${where(filter, yearRange)}`;
+    var sql = `SELECT ${columns} FROM ${config.tables.report} `;
+    if (filter || yearRange) {
+        sql += ` ${where(filter, yearRange)}`;
+    }
+    return sql;
 }
 
 export function getReports(filters, yearRange, callback, columns) {

@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
 import { ratingsColumnsDownload, getRatingSql } from '../sql/ratings';
+import { reportColumnsDownload, getReportSql } from '../sql/reports';
 import config from '../config/config';
 
 export var Help = React.createClass({
@@ -72,16 +73,7 @@ export var HelpCommunityInput = React.createClass({
 
 export var Help311Data = React.createClass({
     downloadUrl: function () {
-        var columns = [
-            'complaint_type',
-            'descriptor',
-            'incident_address',
-            'location_type',
-            'status',
-            'ST_X(the_geom) AS longitude',
-            'ST_Y(the_geom) AS latitude'
-        ],
-            sql = `SELECT ${columns.join(',')} FROM ${config.tables.report}`,
+        var sql = getReportSql(null, null, reportColumnsDownload),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - 311 Data',
