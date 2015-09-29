@@ -19,8 +19,10 @@ config.cartodbUser = 'curbyourlitter';
 config.cartodbVisJson = 'https://curbyourlitter.cartodb.com/api/v2/viz/57409c30-4add-11e5-8566-0e853d047bba/viz.json';
 config.tables = {
     'intersections': 'intersections',
+    'ratings': 'street_ratings',
     'report': 'threeoneone',
-    'request': 'canrequests'
+    'request': 'canrequests',
+    'streets': 'streets'
 };
 config.minYear = 2010;
 config.maxYear = Math.min(moment().tz('America/New_York').year(), 2017);

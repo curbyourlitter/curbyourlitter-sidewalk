@@ -2,6 +2,7 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router';
 
+import { ratingsColumnsDownload, getRatingSql } from '../sql/ratings';
 import config from '../config/config';
 
 export var Help = React.createClass({
@@ -115,19 +116,10 @@ export var Help311Data = React.createClass({
 
 export var HelpBlockRatings = React.createClass({
     downloadUrl: function () {
-        var columns = [
-            'complaint_type',
-            'descriptor',
-            'incident_address',
-            'location_type',
-            'status',
-            'ST_X(the_geom) AS longitude',
-            'ST_Y(the_geom) AS latitude'
-        ],
-            sql = `SELECT ${columns.join(',')} FROM ${config.tables.report}`,
+        var sql = getRatingSql(null, [config.minYear, config.maxYear], ratingsColumnsDownload),
             queryString = $.param({
                 q: sql,
-                filename: 'Curb Your Litter - 311 Data',
+                filename: 'Curb Your Litter - Block Ratings Data',
                 format: 'csv'
             });
         return `http://${config.cartodbUser}.cartodb.com/api/v2/sql?${queryString}`;
