@@ -9,6 +9,16 @@ export var requestColumnsData = [
     `(added AT TIME ZONE '${config.timezone}')::text AS date`
 ];
 
+export var requestColumnsDownload = [
+    'added',
+    'can_type',
+    'can_subtype',
+    'comment',
+    'image',
+    'ST_X(the_geom) AS longitude',
+    'ST_Y(the_geom) AS latitude'
+];
+
 export var requestColumnsMap = [
     '*',
     `(added AT TIME ZONE '${config.timezone}')::text AS date`
@@ -38,8 +48,12 @@ function where(filters, yearRange) {
         })
         .filter(function (value) { return value !== null; })
         .value();
-    var yearCondition = `extract(year from added) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
-    var where = ` WHERE ${yearCondition} AND (${whereConditions.join(' OR ')})`;
+    var yearCondition,
+        where = ` WHERE (${whereConditions.join(' OR ')})`;
+    if (yearRange) {
+        yearCondition = `extract(year from added) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
+        where += ` AND ${yearCondition}`;
+    }
     if (whereConditions.length === 0) {
         // Intentionally pick nothing
         where = ' WHERE true = false';
@@ -48,7 +62,11 @@ function where(filters, yearRange) {
 }
 
 export function getRequestSql(filters, yearRange, columns = requestColumnsMap) {
-    return `SELECT ${columns.join(',')} FROM ${config.tables.request} ${where(filters, yearRange)}`;
+    var sql = `SELECT ${columns.join(',')} FROM ${config.tables.request}`;
+    if (filters || yearRange) {
+        sql += ` ${where(filters, yearRange)}`;
+    }
+    return sql;
 }
 
 export function getRequests(filters, yearRange, callback, columns) {

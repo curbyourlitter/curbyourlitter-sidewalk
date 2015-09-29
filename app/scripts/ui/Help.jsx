@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import { ratingsColumnsDownload, getRatingSql } from '../sql/ratings';
 import { reportColumnsDownload, getReportSql } from '../sql/reports';
+import { requestColumnsDownload, getRequestSql } from '../sql/requests';
 import config from '../config/config';
 
 export var Help = React.createClass({
@@ -24,17 +25,7 @@ export var Help = React.createClass({
 
 export var HelpCommunityInput = React.createClass({
     downloadUrl: function () {
-        var columns = [
-            'name',
-            'added',
-            'can_type',
-            'can_subtype',
-            'comment',
-            'image',
-            'ST_X(the_geom) AS longitude',
-            'ST_Y(the_geom) AS latitude'
-        ],
-            sql = `SELECT ${columns.join(',')} FROM ${config.tables.request}`,
+        var sql = getRequestSql(null, null, requestColumnsDownload),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - Community Input',
