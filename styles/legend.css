@@ -107,8 +107,12 @@
   font-weight: normal;
 }
 .legend-item label {
+  color: #99c0fd;
   font-family: 'NationalWeb-Book', sans-serif;
   font-size: 16px;
+}
+.legend-item.active label {
+  color: #5194ff;
 }
 .legend-item input {
   display: none;

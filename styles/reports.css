@@ -40,3 +40,24 @@
   font-size: 10px;
   letter-spacing: 1px;
 }
+.report-popup .report-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-popup .report-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-popup .report-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}

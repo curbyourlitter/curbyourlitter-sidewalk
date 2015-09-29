@@ -4108,6 +4108,22 @@ label,
 .leaflet-bottom .leaflet-control-scale {
   margin-bottom: 0;
 }
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  box-shadow: none;
+}
+.leaflet-popup-content-wrapper {
+  border: 2px solid #b3e4bd;
+  border-radius: 5px;
+  font-family: 'NationalWeb-Semibold', sans-serif;
+  font-size: 20px;
+}
+.leaflet-popup-tip {
+  border: 2px solid #b3e4bd;
+}
+.leaflet-popup-tip-container {
+  top: -2px;
+}
 .btn-legend {
   background-image: url("/images/filters.png");
   background-repeat: no-repeat;
@@ -4217,8 +4233,12 @@ label,
   font-weight: normal;
 }
 .legend-item label {
+  color: #99c0fd;
   font-family: 'NationalWeb-Book', sans-serif;
   font-size: 16px;
+}
+.legend-item.active label {
+  color: #5194ff;
 }
 .legend-item input {
   display: none;
@@ -4371,7 +4391,18 @@ label,
   position: absolute;
   right: 35px;
   top: 80px;
-  z-index: 5000;
+  z-index: 4998;
+}
+.detail-popup-icon {
+  float: left;
+  width: 40%;
+}
+.detail-popup-text {
+  float: left;
+  line-height: 20px;
+  margin-left: 20px;
+  text-transform: capitalize;
+  width: 50%;
 }
 .panel {
   background: white;
@@ -4608,7 +4639,7 @@ label,
   display: none;
 }
 .help {
-  background: rgba(81, 148, 255, 0.75);
+  background: rgba(153, 192, 253, 0.75);
   height: 100%;
   left: 0;
   position: absolute;
@@ -4626,8 +4657,9 @@ label,
 }
 .help-body {
   background: white;
-  height: 75%;
-  margin: 5% 12.5%;
+  height: calc(95% - 39px);
+  margin: 0 12.5%;
+  margin-top: 5%;
   overflow-y: auto;
   padding: 25px;
 }
@@ -4641,8 +4673,14 @@ label,
 .help-close:focus {
   text-decoration: none;
 }
+.help-type {
+  margin-bottom: 50px;
+}
 .help-download {
+  border-radius: 0;
   float: right;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 .entity-list {
   list-style: none;
@@ -4705,6 +4743,27 @@ label,
   font-size: 10px;
   letter-spacing: 1px;
 }
+.report-popup .report-icon-dirty-conditions {
+  background-image: url("/images/dirty-conditions.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-popup .report-icon-overflowing-litter-baskets {
+  background-image: url("/images/overflowing-litter-baskets.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
+.report-popup .report-icon-sanitation-condition {
+  background-image: url("/images/sanitation-condition.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
 .request-list-item {
   background-color: rgba(0, 166, 31, 0.05);
   color: #00a61f;
@@ -4730,6 +4789,13 @@ label,
   font-family: 'NationalWeb-Book', sans-serif;
   font-size: 10px;
   letter-spacing: 1px;
+}
+.request-popup .request-icon {
+  background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
 }
 @font-face {
   font-family: 'NationalWeb-Book';

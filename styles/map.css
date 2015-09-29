@@ -28,5 +28,16 @@
   position: absolute;
   right: 35px;
   top: 80px;
-  z-index: 5000;
+  z-index: 4998;
+}
+.detail-popup-icon {
+  float: left;
+  width: 40%;
+}
+.detail-popup-text {
+  float: left;
+  line-height: 20px;
+  margin-left: 20px;
+  text-transform: capitalize;
+  width: 50%;
 }
