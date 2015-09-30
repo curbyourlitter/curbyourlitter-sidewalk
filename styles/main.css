@@ -4676,6 +4676,14 @@ label,
 .help-type {
   margin-bottom: 50px;
 }
+.help-item {
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+.help-item img {
+  border-radius: 10px;
+  max-width: 100%;
+}
 .help-download {
   border-radius: 0;
   float: right;

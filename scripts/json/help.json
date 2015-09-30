@@ -1,0 +1,74 @@
+{
+    "ratings": {
+        "items": [
+            {
+                "header": "Poor",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Below Average",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Average",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Above Average",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Great",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            }
+        ]
+    },
+    "requests": {
+        "items": [
+            {
+                "header": "Litter Bin Requests",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "BigBelly Requests",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Recycling Bin Requests",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Litter Sightings",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            }
+        ]
+    },
+    "reports": {
+        "items": [
+            {
+                "header": "Sanitation Conditions",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Overflowing Litter Basket",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            },
+            {
+                "header": "Dirty Conditions",
+                "body": "Text",
+                "image": "/images/bintypes/litter_standard.jpg"
+            }
+        ]
+    }
+}
