@@ -131,7 +131,7 @@ export var HelpBlockRatings = React.createClass({
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
                 </h2>
                 {this.props.items.map((item, i) => {
-                    return <HelpItem key={`reports-${i}`} {...item} />;
+                    return <HelpItem key={`ratings-${i}`} {...item} />;
                 })}
             </section>
         );
