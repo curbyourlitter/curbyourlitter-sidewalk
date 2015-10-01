@@ -24,5 +24,9 @@ function where(filters, yearRange) {
 }
 
 export function getRatingSql(filter, yearRange, columns = ratingsColumnsMap) {
-    return `SELECT ${columns} FROM ${config.tables.ratings} ratings LEFT JOIN ${config.tables.streets} ON ratings.segment_id = streets.cartodb_id`;
+    var sql = `SELECT ${columns} FROM ${config.tables.ratings} ratings LEFT JOIN ${config.tables.streets} ON ratings.segment_id = streets.cartodb_id`;
+    if (filter || yearRange) {
+        sql += ` ${where(filter, yearRange)}`;
+    }
+    return sql;
 }
