@@ -1,12 +1,38 @@
 import React from 'react';
 import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
+
+import config from '../config/config';
 import { hoverIntent } from './HoverIntent.jsx';
+import { detailPanel } from './Panel.jsx';
+import { canColumnsDetails } from '../sql/cans';
 
 
 export var slugifyCanType = function (canType) {
         return canType.replace(/ /g, '-').toLowerCase();
 };
+
+export var Can = detailPanel(React.createClass({
+    render: function () {
+        var iconClasses = 'detail-panel-can-icon';
+        if (this.props.complaint_type) {
+            iconClasses += ` detail-panel-can-icon-${slugifyCanType(this.props.type)}`;
+        }
+        return (
+            <div className="detail-panel-can">
+                <h2>
+                    <span className={iconClasses}></span>
+                    <span className="detail-panel-can-header">Existing Bin</span>
+                    <span className="clearfix"></span>
+                </h2>
+                <div className="detail-panel-row">
+                    <label>Type</label>
+                    <div>{this.props.type}</div>
+                </div>
+            </div>
+        );
+    }
+}), config.tables.can, canColumnsDetails);
 
 export var CanListItem = hoverIntent(React.createClass({
     mixins: [History],

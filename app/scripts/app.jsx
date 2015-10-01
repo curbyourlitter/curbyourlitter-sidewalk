@@ -10,6 +10,7 @@ import * as reducers from './reducers';
 import config from './config/config';
 import { AddButton, CurbMap, ListButton } from './ui/CurbMap.jsx';
 import { AddRequest } from './ui/AddRequest.jsx';
+import { Can } from './ui/Can.jsx';
 import { Help } from './ui/Help.jsx';
 import { Legend, LegendButton } from './ui/Legend.jsx';
 import { ListContainer } from './ui/List.jsx';
@@ -50,6 +51,7 @@ React.render((
                     <Route path="/" component={App}>
                         <Route path="add" component={AddRequest}/>
                         <Route path="list" component={ListContainer}/>
+                        <Route path="cans/:id" component={Can}/>
                         <Route path="reports/:id" component={Report}/>
                         <Route path="requests/:id" component={Request}/>
                         <Route path="help" component={Help}/>
