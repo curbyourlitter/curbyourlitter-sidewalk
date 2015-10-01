@@ -269,7 +269,10 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.ratingLayer = layer.getSubLayer(0);
                 this.reportLayer = layer.getSubLayer(1);
                 this.requestLayer = layer.getSubLayer(2);
+                this.canLayer = layer.getSubLayer(3);
 
+                this.canLayer.setInteraction(true);
+                this.canLayer.setInteractivity('cartodb_id, type');
                 this.reportLayer.setInteraction(true);
                 this.reportLayer.setInteractivity('cartodb_id, date, complaint_type, agency');
                 this.requestLayer.setInteraction(true);
@@ -282,6 +285,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 layer.hoverIntent({}, (e, latlng, pos, data, layerIndex) => {
                     var content;
                     switch(layerIndex) {
+                        // Reports
                         case 1:
                             var iconClasses = `detail-popup-icon report-icon-${slugifyComplaintType(data.complaint_type)}`;
                             content = (
@@ -292,11 +296,22 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                                 </div>
                             );
                             break;
+                        // Requests
                         case 2:
                             content = (
                                 <div className="detail-popup request-popup">
                                     <div className="detail-popup-icon request-icon"></div>
                                     <div className="detail-popup-text request-type">{data.can_type} bin request</div>
+                                    <div className="clearfix"></div>
+                                </div>
+                            );
+                            break;
+                        // Cans
+                        case 3:
+                            content = (
+                                <div className="detail-popup can-popup">
+                                    <div className="detail-popup-icon can-icon"></div>
+                                    <div className="detail-popup-text can-type">Existing Bin</div>
                                     <div className="clearfix"></div>
                                 </div>
                             );
@@ -309,7 +324,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
-                    if (layerIndex === 1 || layerIndex === 2) {
+                    if (layerIndex === 1 || layerIndex === 2 || layerIndex === 3) {
                         currentlyOver[layerIndex] = true;
                         var table;
                         if (layerIndex === 1) {
@@ -317,6 +332,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                         }
                         if (layerIndex === 2) {
                             table = 'request';
+                        }
+                        if (layerIndex === 3) {
+                            table = 'can';
                         }
                         this.props.dispatch(listRecordHovered(data.cartodb_id, table));
                     }
@@ -336,6 +354,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     }
                 });
 
+                this.canLayer.on('featureClick', (event, latlng, pos, data) => {
+                    this.history.pushState(null, `/cans/${data.cartodb_id}`);
+                });
                 this.reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.history.pushState(null, `/reports/${data.cartodb_id}`);
                 });
