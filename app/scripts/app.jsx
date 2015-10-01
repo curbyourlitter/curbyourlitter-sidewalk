@@ -3,7 +3,6 @@ import { combineReducers, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
-import qwest from 'qwest';
 
 import collapse from '../bower_components/bootstrap/js/collapse';
 
@@ -29,16 +28,6 @@ function mapStateToProps(state) {
 }
 
 var App = connect(mapStateToProps)(React.createClass({
-    componentDidMount: function () {
-        qwest.get('/scripts/json/bintypes.json')
-            .then((xhr, response) => {
-                config.bintypes = response;
-            })
-            .catch((xhr, response, e) => {
-                console.log(e);
-            });
-    },
-
     render: function () {
         return (
             <div className="app-container">

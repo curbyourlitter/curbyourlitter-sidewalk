@@ -13,6 +13,16 @@ export var Request = detailPanel(React.createClass({
         return {};
     },
 
+    getSubtypeDisplay: function() {
+        if (this.props.can_type) {
+            var match = _.findWhere(config.bintypes[this.props.can_type].subtypes, { label: this.props.can_subtype });
+            if (match) {
+                return match.display;
+            }
+        }
+        return '';
+    },
+
     render: function () {
         return (
             <div className="detail-panel-request">
@@ -24,7 +34,7 @@ export var Request = detailPanel(React.createClass({
                 </h2>
                 <div className="detail-panel-row">
                     <label>type</label>
-                    <div>{this.props.can_subtype}</div>
+                    <div>{this.getSubtypeDisplay()}</div>
                 </div>
                 <div className="detail-panel-row">
                     <label>requested</label>
