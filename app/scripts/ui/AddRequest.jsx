@@ -102,20 +102,9 @@ var BinTypeRadio = React.createClass({
 var BinType = React.createClass({
     getInitialState: function () {
         return {
-            bintypes: null,
             subType: 'small',
             valid: false
         };
-    },
-
-    componentDidMount: function () {
-        qwest.get('/scripts/json/bintypes.json')
-            .then((xhr, response) => {
-                this.setState({ bintypes: response });
-            })
-            .catch((xhr, response, e) => {
-                console.log(e);
-            });
     },
 
     onRadioSelected: function (selectedSubType) {
@@ -133,8 +122,8 @@ var BinType = React.createClass({
 
     render: function () {
         var subTypes = [];
-        if (this.state.bintypes) {
-            subTypes = this.state.bintypes[this.props.canType].subtypes;
+        if (config.bintypes) {
+            subTypes = config.bintypes[this.props.canType].subtypes;
         }
         return (
             <form onSubmit={this.submit}>
