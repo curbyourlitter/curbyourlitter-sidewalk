@@ -18,6 +18,7 @@ config.cartodbIntersectionRadius = 25;
 config.cartodbUser = 'curbyourlitter';
 config.cartodbVisJson = 'https://curbyourlitter.cartodb.com/api/v2/viz/57409c30-4add-11e5-8566-0e853d047bba/viz.json';
 config.tables = {
+    'can': 'cans',
     'intersections': 'intersections',
     'ratings': 'street_ratings',
     'report': 'threeoneone',

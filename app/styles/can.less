@@ -1,0 +1,25 @@
+@import "icons";
+@import "variables";
+
+
+.can-list-item {
+    background-color: @existing-light;
+    color: @existing;
+
+    &:hover {
+        background-color: @existing;
+    }
+
+    &-icon {
+        .icon('existing-bin', 30px);
+        margin: 0 auto;
+
+        &-column {
+            padding: 0;
+        }
+    }
+
+    &-type {
+        font-size: @list-title-font-size;
+    }
+}

@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import config from '../config/config';
 import { listRecordHovered, listRecordUnhovered } from '../actions';
 import { Panel } from './Panel.jsx';
+import { CanListItem } from './Can.jsx';
 import { ReportListItem } from './Report.jsx';
 import { RequestListItem } from './Request.jsx';
+import { getCans, canColumnsData } from '../sql/cans';
 import { getRequests, requestColumnsData } from '../sql/requests';
 import { getReports, reportColumnsData } from '../sql/reports';
 
@@ -17,6 +19,9 @@ export var List = React.createClass({
             unhighlightFeature: this.props.unhighlightFeature
         };
         var list = this.props.items.map(item => {
+            if (item.type === 'can') {
+                return <CanListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
+            }
             if (item.type === 'report') {
                 return <ReportListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
             }
@@ -51,6 +56,7 @@ function mapStateToProps(state) {
 export var ListContainer = connect(mapStateToProps)(React.createClass({
     getData: function (reportFilters, requestFilters, yearFilters, callback) {
         // TODO also take map bbox into account, sort
+        getCans(null, callback, canColumnsData);
         getReports(reportFilters, yearFilters, callback, reportColumnsData);
         getRequests(requestFilters,yearFilters, callback, requestColumnsData);
     },
