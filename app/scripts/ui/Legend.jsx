@@ -66,6 +66,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">Block Ratings</span>
+                            <Link to="/help" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Poor" layer="rating" label="5" dispatch={this.props.dispatch} shown={this.props.ratingFilters[5]} />
                         <LegendItem name="Below Average" layer="rating" label="4" dispatch={this.props.dispatch} shown={this.props.ratingFilters[4]} />
