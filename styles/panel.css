@@ -70,3 +70,14 @@
 .detail-panel .panel-body {
   padding-top: 0;
 }
+.detail-panel-row {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+.detail-panel-row label {
+  font-family: 'NationalWeb-Book', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
