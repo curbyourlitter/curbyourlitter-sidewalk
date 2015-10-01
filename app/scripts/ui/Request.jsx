@@ -14,10 +14,29 @@ export var Request = detailPanel(React.createClass({
 
     render: function () {
         return (
-            <div>
+            <div className="detail-panel-request">
                 {this.props.image ? <img src={this.props.image} /> : ''}
-                <h2>{this.props.can_subtype} {this.props.can_type} can request</h2>
-                {this.props.comment ? <div>{this.props.comment}</div> : ''}
+                <h2>
+                    <span className="detail-panel-request-icon"></span>
+                    <span className="detail-panel-request-header">{this.props.can_type} bin request</span>
+                    <span className="clearfix"></span>
+                </h2>
+                <div className="detail-panel-row">
+                    <label>type</label>
+                    <div>{this.props.can_subtype}</div>
+                </div>
+                <div className="detail-panel-row">
+                    <label>requested</label>
+                    <div>{this.props.added}</div>
+                </div>
+                {(() => {
+                    if (this.props.comment) {
+                        <div className="detail-panel-row">
+                            <label>comment</label>
+                            <div>{this.props.comment}</div>
+                        </div>
+                    }
+                })()}
             </div>
         );
     }
