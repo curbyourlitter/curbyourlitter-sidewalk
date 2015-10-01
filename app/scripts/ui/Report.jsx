@@ -6,26 +6,55 @@ import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
-
-export var Report = detailPanel(React.createClass({
-    render: function () {
-        return (
-            <div>
-                <h2>{this.props.descriptor}</h2>
-                <div>{moment(this.props.created_date).format('h:mma MMMM Do YYYY')}</div>
-                <div>agency: {this.props.agency}</div>
-                <div>
-                    <h3>Location</h3>
-                    {this.props.location_t}
-                </div>
-            </div>
-        );
-    }
-}), config.tables.report);
+import { reportColumnsDetails } from '../sql/reports';
 
 export var slugifyComplaintType = function (complaintType) {
         return complaintType.replace(/ /g, '-').toLowerCase();
 };
+
+export var Report = detailPanel(React.createClass({
+    render: function () {
+        var iconClasses = 'detail-panel-report-icon';
+        if (this.props.complaint_type) {
+            iconClasses += ` detail-panel-report-icon-${slugifyComplaintType(this.props.complaint_type)}`;
+        }
+        return (
+            <div className="detail-panel-report">
+                <h2>
+                    <span className={iconClasses}></span>
+                    <span className="detail-panel-report-header">{this.props.complaint_type}</span>
+                    <span className="clearfix"></span>
+                </h2>
+                <div className="detail-panel-row">
+                    <label>Complaint Type</label>
+                    <div>{this.props.descriptor}</div>
+                </div>
+                <div className="detail-panel-row">
+                    <label>Reported</label>
+                    <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
+                </div>
+                {(() => {
+                    if (this.props.incident_address) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>Location</label>
+                                <div>{this.props.incident_address}</div>
+                            </div>
+                        );
+                    }
+                    else if (this.props.intersection_street1 && this.props.intersection_street2) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>Location</label>
+                                <div>{this.props.intersection_street1} &amp; {this.props.intersection_street2}</div>
+                            </div>
+                        );
+                    }
+                })()}
+            </div>
+        );
+    }
+}), config.tables.report, reportColumnsDetails);
 
 export var ReportListItem = hoverIntent(React.createClass({
     mixins: [History],

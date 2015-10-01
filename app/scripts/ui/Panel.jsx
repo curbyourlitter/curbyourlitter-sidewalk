@@ -45,10 +45,10 @@ export var Panel = connect()(React.createClass({
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
-export var detailPanel = function (Component, table, className = 'detail-panel') {
+export var detailPanel = function (Component, table, columns, className = 'detail-panel') {
     return connect()(React.createClass({
         getData: function (id, callback) {
-            cartodbSql.execute('SELECT *, ST_X(the_geom) AS longitude, ST_Y(the_geom) AS latitude  FROM {{ table }} WHERE cartodb_id = {{ id }}', {
+            cartodbSql.execute(`SELECT ${columns.join(',')} FROM {{ table }} WHERE cartodb_id = {{ id }}`, {
                 id: id,
                 table: table
             })

@@ -9,6 +9,18 @@ export var requestColumnsData = [
     `(added AT TIME ZONE '${config.timezone}')::text AS date`
 ];
 
+export var requestColumnsDetails = [
+    "'request' AS type",
+    'cartodb_id',
+    'can_type',
+    'can_subtype',
+    'comment',
+    'image',
+    'ST_X(the_geom) AS longitude',
+    'ST_Y(the_geom) AS latitude',
+    `(added AT TIME ZONE '${config.timezone}')::text AS date`
+];
+
 export var requestColumnsDownload = [
     'added',
     'can_type',

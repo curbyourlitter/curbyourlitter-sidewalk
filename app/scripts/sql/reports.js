@@ -12,6 +12,19 @@ export var reportColumnsData = [
     `(created_date AT TIME ZONE '${config.timezone}')::text AS date`
 ];
 
+export var reportColumnsDetails = [
+    "'report' AS type",
+    'complaint_type',
+    'cartodb_id',
+    'descriptor',
+    'incident_address',
+    'intersection_street1',
+    'intersection_street2',
+    'ST_X(the_geom) AS longitude',
+    'ST_Y(the_geom) AS latitude',
+    `(created_date AT TIME ZONE '${config.timezone}')::text AS date`
+];
+
 export var reportColumnsDownload = [
     'complaint_type',
     'descriptor',

@@ -40,6 +40,38 @@
     }
 }
 
+.detail-panel-report {
+    h2 {
+        text-transform: capitalize;
+    }
+
+    &-icon {
+        &-dirty-conditions {
+            .icon('dirty-conditions', 50px);
+        }
+
+        &-overflowing-litter-baskets {
+            .icon('overflowing-litter-baskets', 50px);
+        }
+
+        &-sanitation-condition {
+            .icon('sanitation-condition', 50px);
+        }
+
+        display: inline-block;
+        float: left;
+        max-width: 25%;
+        margin-top: 10px;
+    }
+
+    &-header {
+        float: left;
+        font-size: 32px;
+        margin-left: 5%;
+        max-width: 70%;
+    }
+}
+
 .report-popup {
     .report-icon {
         &-dirty-conditions {

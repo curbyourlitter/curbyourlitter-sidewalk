@@ -6,6 +6,7 @@ import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
+import { requestColumnsDetails } from '../sql/requests';
 
 export var Request = detailPanel(React.createClass({
     getInitialState: function () {
@@ -27,20 +28,22 @@ export var Request = detailPanel(React.createClass({
                 </div>
                 <div className="detail-panel-row">
                     <label>requested</label>
-                    <div>{this.props.added}</div>
+                    <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
                 </div>
                 {(() => {
                     if (this.props.comment) {
-                        <div className="detail-panel-row">
-                            <label>comment</label>
-                            <div>{this.props.comment}</div>
-                        </div>
+                        return (
+                            <div className="detail-panel-row">
+                                <label>comment</label>
+                                <div>{this.props.comment}</div>
+                            </div>
+                        );
                     }
                 })()}
             </div>
         );
     }
-}), config.tables.request);
+}), config.tables.request, requestColumnsDetails);
 
 export var RequestListItem = hoverIntent(React.createClass({
     mixins: [History],
