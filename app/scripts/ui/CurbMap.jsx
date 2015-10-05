@@ -198,7 +198,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     getRatingSql: function(filters) {
-        var sql = 'SELECT ST_collect(streets.the_geom_webmercator) AS the_geom_webmercator, AVG(ratings.rating) AS avg FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
+        var sql = 'SELECT ST_collect(streets.the_geom_webmercator) AS the_geom_webmercator, AVG(ratings.rating) AS avg, streets.priority AS priority FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
         var yearCondition = `extract(year from collected) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
         var selectedRatings = _.chain(filters || this.props.ratingFilters)
             .map(function (value, key) {
