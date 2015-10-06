@@ -79,12 +79,16 @@ export var ReportListItem = hoverIntent(React.createClass({
     },
 
     render: function () {
-        var iconClasses = 'report-list-item-icon';
+        var itemClasses = 'report-list-item entity-list-item',
+            iconClasses = 'report-list-item-icon';
         if (this.props.complaint_type) {
             iconClasses += ` report-list-item-icon-${slugifyComplaintType(this.props.complaint_type)}`;
         }
+        if (this.props.in_bbox) {
+            itemClasses += ' in-view';
+        }
         return (
-            <li className="entity-list-item report-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <li className={itemClasses} onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
                         <Col className="report-list-item-icon-column" xs={2}>

@@ -2,6 +2,7 @@ export const FILTERS_CLEAR = 'FILTERS_CLEAR';
 export const FILTERS_TOGGLE = 'FILTERS_TOGGLE';
 export const FILTERS_UPDATE = 'FILTERS_UPDATE';
 export const MAP_CENTER = 'MAP_CENTER';
+export const MAP_MOVED = 'MAP_MOVED';
 export const MAP_IS_READY = 'MAP_IS_READY';
 export const PANEL_TOGGLE = 'PANEL_TOGGLE';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
@@ -47,6 +48,14 @@ export function mapCenter(latlng) {
     return {
         latlng: latlng,
         type: MAP_CENTER
+    };
+}
+
+export function mapMoved(bbox, latlng) {
+    return {
+        bbox: bbox,
+        latlng: latlng,
+        type: MAP_MOVED
     };
 }
 

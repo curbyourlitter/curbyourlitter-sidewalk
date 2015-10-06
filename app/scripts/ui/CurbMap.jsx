@@ -8,7 +8,13 @@ import { Button, Overlay, Popover } from 'react-bootstrap';
 import 'cartodbjs-hoverintent';
 
 import config from '../config/config';
-import { listRecordHovered, listRecordUnhovered, mapIsReady, pinDropMoved } from '../actions';
+import {
+    listRecordHovered,
+    listRecordUnhovered,
+    mapIsReady,
+    mapMoved,
+    pinDropMoved
+} from '../actions';
 import PopoverButton from './PopoverButton.jsx';
 import { getRequestSql } from '../sql/requests';
 import { getReportSql } from '../sql/reports';
@@ -245,6 +251,15 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         });
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
         L.control.scale({ position: 'bottomleft' }).addTo(map);
+
+        map.on({
+            moveend: () => {
+                this.props.dispatch(mapMoved(map.getBounds().toBBoxString().split(','), map.getCenter));
+            },
+            zoomend: () => {
+                this.props.dispatch(mapMoved(map.getBounds().toBBoxString().split(','), map.getCenter));
+            }
+        });
 
         config.tileLayer.addTo(map);
 

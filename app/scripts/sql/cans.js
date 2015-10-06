@@ -1,4 +1,5 @@
 import config from '../config/config';
+import { fromCenterOfBBox, inBBox } from './bbox';
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
@@ -18,11 +19,15 @@ export var canColumnsDetails = [
 export var canColumnsMap = ['*'];
 
 function where(filters) {
-    var whereConditions = [];
-    var where = ` WHERE ${whereConditions.join(' OR ')}`;
-    if (whereConditions.length === 0) {
-        // Intentionally pick nothing
-        where = ' WHERE true = false';
+    var whereConditions = _.chain(filters)
+        .map(function (value, key) {
+            return null;
+        })
+        .filter(function (value) { return value !== null; })
+        .value();
+    var where = '';
+    if (whereConditions.length !== 0) {
+        where = ` WHERE ${whereConditions.join(' OR ')}`;
     }
     return where;
 }
@@ -36,7 +41,12 @@ export function getCanSql(filters, columns = canColumnsMap) {
 }
 
 export function getCans(filters, callback, columns) {
-    cartodbSql.execute(getCanSql(filters, columns))
+    var bboxColumns = _.clone(columns);
+    if (filters.bbox) {
+        bboxColumns.push(`${inBBox(filters.bbox)} AS in_bbox`);
+        bboxColumns.push(`${fromCenterOfBBox(filters.bbox)} AS center_distance`);
+    }
+    cartodbSql.execute(getCanSql(filters, bboxColumns))
         .done(function (data) {
             callback(data.rows);
         });

@@ -78,8 +78,12 @@ export var RequestListItem = hoverIntent(React.createClass({
     },
 
     render: function () {
+        var itemClasses = 'request-list-item entity-list-item';
+        if (this.props.in_bbox) {
+            itemClasses += ' in-view';
+        }
         return (
-            <li className="entity-list-item request-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <li className={itemClasses} onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
                         <Col className="request-list-item-icon-column" xs={2}>

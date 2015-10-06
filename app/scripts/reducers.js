@@ -7,6 +7,7 @@ import {
     LIST_RECORD_HOVERED,
     LIST_RECORD_UNHOVERED,
     MAP_CENTER,
+    MAP_MOVED,
     MAP_IS_READY,
     PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
@@ -98,8 +99,15 @@ export function yearFilters(state, action) {
     return state;
 }
 
+export function mapBoundingBox(state = null, action) {
+    if (action.type === MAP_MOVED) {
+        return action.bbox;
+    }
+    return state;
+}
+
 export function mapCenter(state = null, action) {
-    if (action.type === MAP_CENTER) {
+    if (action.type === MAP_CENTER || action.type === MAP_MOVED) {
         return action.latlng;
     }
     return state;

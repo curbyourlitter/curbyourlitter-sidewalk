@@ -57,12 +57,16 @@ export var CanListItem = hoverIntent(React.createClass({
     },
 
     render: function () {
-        var iconClasses = 'can-list-item-icon';
+        var itemClasses = 'can-list-item entity-list-item',
+            iconClasses = 'can-list-item-icon';
         if (this.props.complaint_type) {
             iconClasses += ` can-list-item-icon-${slugifyCanType(this.props.type)}`;
         }
+        if (this.props.in_bbox) {
+            itemClasses += ' in-view';
+        }
         return (
-            <li className="entity-list-item can-list-item" onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            <li className={itemClasses} onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>
                 <Grid>
                     <Row>
                         <Col className="can-list-item-icon-column" xs={2}>

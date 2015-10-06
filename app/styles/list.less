@@ -1,28 +1,75 @@
 @import "variables";
 
+@list-header-height: 25px;
+
 .entity-list {
     list-style: none;
+    margin-bottom: 0;
+    margin-left: -@panel-body-padding;
+    margin-right: -@panel-body-padding;
     padding: 0;
+    padding-top: @list-header-height;
 
     &-item {
         cursor: pointer;
         height: 60px;
         padding: 10px @panel-body-padding;
-        margin: 0 -@panel-body-padding;
+        margin: 0;
+        opacity: 0.5;
 
         &:hover {
             color: white;
         }
+
+        &.in-view {
+            opacity: 1;
+        }
     }
+}
+
+.list-header() {
+    background: @blue-light;
+    color: white;
+    height: @list-header-height;
+    margin-left: -35px;
+    padding-left: 25px;
+    position: fixed;
+    text-transform: uppercase;
+    width: 100%;
+    z-index: @ui-z-index + 1;
 }
 
 .panel-list {
     .panel-body {
+        overflow-x: hidden;
+        padding-bottom: 0;
         padding-top: 0;
     }
 
     .list-items-count {
         color: @blue-light;
         margin-left: 15px;
+    }
+
+    .list-in-view {
+        .list-header();
+    }
+
+    .list-out-of-view {
+        .list-header();
+        margin-left: 0;
+        position: relative;
+        z-index: @ui-z-index;
+    }
+
+    .list-add-request {
+        background-color: @blue-light;
+        color: white;
+        height: 100px;
+        line-height: 100px;
+        margin-left: -@panel-body-padding;
+        margin-right: -@panel-body-padding;
+        text-align: center;
+        text-transform: uppercase;
     }
 }

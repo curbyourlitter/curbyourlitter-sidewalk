@@ -35,7 +35,7 @@ export var Panel = connect()(React.createClass({
                         return this.props.header;
                     }
                 })()}
-                <div className="panel-body">
+                <div className="panel-body" onScroll={this.props.onBodyScroll}>
                     {this.props.children}
                 </div>
             </div>

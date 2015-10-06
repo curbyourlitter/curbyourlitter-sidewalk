@@ -1,4 +1,5 @@
 import config from '../config/config';
+import { fromCenterOfBBox, inBBox } from './bbox';
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
@@ -66,6 +67,9 @@ function where(filters, yearRange) {
         yearCondition = `extract(year from added) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
         where += ` AND ${yearCondition}`;
     }
+    //if (filters.bbox) {
+    //where += ` AND ${bbox(filters.bbox)}`;
+    //}
     if (whereConditions.length === 0) {
         // Intentionally pick nothing
         where = ' WHERE true = false';
@@ -82,7 +86,12 @@ export function getRequestSql(filters, yearRange, columns = requestColumnsMap) {
 }
 
 export function getRequests(filters, yearRange, callback, columns) {
-    cartodbSql.execute(getRequestSql(filters, yearRange, columns))
+    var bboxColumns = _.clone(columns);
+    if (filters.bbox) {
+        bboxColumns.push(`${inBBox(filters.bbox)} AS in_bbox`);
+        bboxColumns.push(`${fromCenterOfBBox(filters.bbox)} AS center_distance`);
+    }
+    cartodbSql.execute(getRequestSql(filters, yearRange, bboxColumns))
         .done(function (data) {
             callback(data.rows);
         });
