@@ -24,20 +24,32 @@ export var Request = detailPanel(React.createClass({
     },
 
     render: function () {
+        var iconClasses = 'detail-panel-request-icon';
+        if (!this.props.can_type) {
+            iconClasses += ' detail-panel-request-icon-litter-sighting';
+        }
         return (
             <div className="detail-panel-request">
                 {this.props.image ? <img src={this.props.image} /> : ''}
                 <h2>
-                    <span className="detail-panel-request-icon"></span>
-                    <span className="detail-panel-request-header">{this.props.can_type} bin request</span>
+                    <span className={iconClasses}></span>
+                    <span className="detail-panel-request-header">
+                        {this.props.can_type ? `${this.props.can_type} bin request` : 'litter sighting'}
+                    </span>
                     <span className="clearfix"></span>
                 </h2>
+                {(() => {
+                    if (this.props.can_type) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>type</label>
+                                <div>{this.getSubtypeDisplay()}</div>
+                            </div>
+                        );
+                    }
+                })()}
                 <div className="detail-panel-row">
-                    <label>type</label>
-                    <div>{this.getSubtypeDisplay()}</div>
-                </div>
-                <div className="detail-panel-row">
-                    <label>requested</label>
+                    <label>{ this.props.can_type ? 'requested' : 'taken' }</label>
                     <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
                 </div>
                 {(() => {
@@ -76,7 +88,12 @@ export var RequestListItem = hoverIntent(React.createClass({
     },
 
     render: function () {
-        var itemClasses = 'request-list-item entity-list-item';
+        var iconClasses = 'request-list-item-icon',
+            itemClasses = 'request-list-item entity-list-item';
+        if (!this.props.can_type) {
+            iconClasses += ' request-list-item-icon-litter-sighting';
+            itemClasses += ' request-list-item-litter-sighting';
+        }
         if (this.props.in_bbox) {
             itemClasses += ' in-view';
         }
@@ -85,7 +102,7 @@ export var RequestListItem = hoverIntent(React.createClass({
                 <Grid>
                     <Row>
                         <Col className="request-list-item-icon-column" xs={2}>
-                            <div className="request-list-item-icon"></div>
+                            <div className={iconClasses}></div>
                         </Col>
                         <Col xs={10}>
                             <div className="request-list-item-can-type">

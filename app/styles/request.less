@@ -9,9 +9,22 @@
         background-color: @green-light;
     }
 
+    &-litter-sighting {
+        background-color: @blue-transparent;
+        color: @blue;
+
+        &:hover {
+            background-color: @blue-light;
+        }
+    }
+
     &-icon {
         margin: 0 auto;
         .icon('bin-request', 30px);
+
+        &-litter-sighting {
+            .icon('litter-sighting', 30px);
+        }
 
         &-column {
             padding: 0;
@@ -36,6 +49,11 @@
 
     &-icon {
         .icon('bin-request', 50px);
+
+        &-litter-sighting {
+            .icon('litter-sighting', 50px);
+        }
+
         display: inline-block;
         float: left;
         margin-top: 10px;

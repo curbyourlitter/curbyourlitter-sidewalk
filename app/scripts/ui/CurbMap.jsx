@@ -163,7 +163,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         if (data.type === 'request' && !data.can_type) {
             iconAnchor = [6, 6];
             iconSize = [12, 12];
-            iconUrl = '/images/litter-sighting.svg';
+            iconUrl = '/images/map-litter-sighting.svg';
         }
 
         return L.icon({
@@ -186,7 +186,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.props.listRecordHovered.id === record.id && 
                 this.props.listRecordHovered.recordType === record.recordType) {
                 data.features[0].properties.type = record.recordType;
-                console.log(data.features[0].properties);
                 this.highlightedRecordLayer.addData(data);
             }
         });
