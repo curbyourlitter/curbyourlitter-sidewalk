@@ -4046,6 +4046,55 @@ label,
 .label {
   font-weight: normal;
 }
+.can-list-item {
+  background-color: #ebf0ee;
+  color: #688979;
+}
+.can-list-item:hover {
+  background-color: #688979;
+}
+.can-list-item-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+}
+.can-list-item-icon-column {
+  padding: 0;
+}
+.can-list-item-type {
+  font-size: 16px;
+}
+.detail-panel-can h2 {
+  text-transform: capitalize;
+}
+.detail-panel-can-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  float: left;
+  max-width: 25%;
+  margin-top: 10px;
+}
+.detail-panel-can-header {
+  float: left;
+  font-size: 32px;
+  line-height: 60px;
+  margin-left: 5%;
+  max-width: 70%;
+}
+.can-popup .can-icon {
+  background-image: url("/images/existing-bin.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
+}
 .leaflet-control-zoom a {
   background-color: #5194ff;
   border: none;
@@ -4703,22 +4752,68 @@ label,
 }
 .entity-list {
   list-style: none;
+  margin-bottom: 0;
+  margin-left: -35px;
+  margin-right: -35px;
   padding: 0;
+  padding-top: 25px;
 }
 .entity-list-item {
   cursor: pointer;
-  padding: 5px 35px;
-  margin: 0 -35px;
+  height: 60px;
+  padding: 10px 35px;
+  margin: 0;
+  opacity: 0.5;
 }
 .entity-list-item:hover {
   color: white;
 }
+.entity-list-item.in-view {
+  opacity: 1;
+}
 .panel-list .panel-body {
+  overflow-x: hidden;
+  padding-bottom: 0;
   padding-top: 0;
 }
 .panel-list .list-items-count {
   color: #99c0fd;
   margin-left: 15px;
+}
+.panel-list .list-in-view {
+  background: #99c0fd;
+  color: white;
+  height: 25px;
+  margin-left: -35px;
+  padding-left: 25px;
+  position: fixed;
+  text-transform: uppercase;
+  width: 100%;
+  z-index: 5001;
+}
+.panel-list .list-out-of-view {
+  background: #99c0fd;
+  color: white;
+  height: 25px;
+  margin-left: -35px;
+  padding-left: 25px;
+  position: fixed;
+  text-transform: uppercase;
+  width: 100%;
+  z-index: 5001;
+  margin-left: 0;
+  position: relative;
+  z-index: 5000;
+}
+.panel-list .list-add-request {
+  background-color: #99c0fd;
+  color: white;
+  height: 100px;
+  line-height: 100px;
+  margin-left: -35px;
+  margin-right: -35px;
+  text-align: center;
+  text-transform: uppercase;
 }
 .report-list-item {
   background-color: rgba(81, 148, 255, 0.05);

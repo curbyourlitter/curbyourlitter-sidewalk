@@ -1,19 +1,65 @@
 .entity-list {
   list-style: none;
+  margin-bottom: 0;
+  margin-left: -35px;
+  margin-right: -35px;
   padding: 0;
+  padding-top: 25px;
 }
 .entity-list-item {
   cursor: pointer;
-  padding: 5px 35px;
-  margin: 0 -35px;
+  height: 60px;
+  padding: 10px 35px;
+  margin: 0;
+  opacity: 0.5;
 }
 .entity-list-item:hover {
   color: white;
 }
+.entity-list-item.in-view {
+  opacity: 1;
+}
 .panel-list .panel-body {
+  overflow-x: hidden;
+  padding-bottom: 0;
   padding-top: 0;
 }
 .panel-list .list-items-count {
   color: #99c0fd;
   margin-left: 15px;
+}
+.panel-list .list-in-view {
+  background: #99c0fd;
+  color: white;
+  height: 25px;
+  margin-left: -35px;
+  padding-left: 25px;
+  position: fixed;
+  text-transform: uppercase;
+  width: 100%;
+  z-index: 5001;
+}
+.panel-list .list-out-of-view {
+  background: #99c0fd;
+  color: white;
+  height: 25px;
+  margin-left: -35px;
+  padding-left: 25px;
+  position: fixed;
+  text-transform: uppercase;
+  width: 100%;
+  z-index: 5001;
+  margin-left: 0;
+  position: relative;
+  z-index: 5000;
+}
+.panel-list .list-add-request {
+  background-color: #99c0fd;
+  color: white;
+  height: 100px;
+  line-height: 100px;
+  margin-left: -35px;
+  margin-right: -35px;
+  text-align: center;
+  text-transform: uppercase;
 }
