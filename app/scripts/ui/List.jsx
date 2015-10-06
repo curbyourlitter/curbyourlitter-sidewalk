@@ -12,6 +12,10 @@ import { getCans, canColumnsData } from '../sql/cans';
 import { getRequests, requestColumnsData } from '../sql/requests';
 import { getReports, reportColumnsData } from '../sql/reports';
 
+var loadingCans = false,
+    loadingReports = false,
+    loadingRequests = false;
+
 export var List = React.createClass({
     getInitialState: function () {
         return {
@@ -82,19 +86,60 @@ function mapStateToProps(state) {
 }
 
 export var ListContainer = connect(mapStateToProps)(React.createClass({
-    getData: function (props, callback) {
-        var canFilters = {},
-            reportFilters = _.extend({}, props.reportFilters),
-            requestFilters = _.extend({}, props.requestFilters);
+    getInitialState: function () {
+        return {
+            canRows: [],
+            reportRows: [],
+            requestRows: [],
+            rows: []
+        };
+    },
 
-        if (props.mapBoundingBox) {
-            canFilters.bbox = props.mapBoundingBox;
-            reportFilters.bbox = props.mapBoundingBox;
-            requestFilters.bbox = props.mapBoundingBox;
-        }
-        getCans(canFilters, callback, canColumnsData);
-        getReports(reportFilters, props.yearFilters, callback, reportColumnsData);
-        getRequests(requestFilters, props.yearFilters, callback, requestColumnsData);
+    getData: function (props) {
+        var bboxFilters = { bbox: props.mapBoundingBox },
+            canFilters = _.extend({}, bboxFilters),
+            reportFilters = _.extend({}, bboxFilters, props.reportFilters),
+            requestFilters = _.extend({}, bboxFilters, props.requestFilters);
+
+        this.loadCans(canFilters);
+        this.loadReports(reportFilters, props.yearFilters);
+        this.loadRequests(requestFilters, props.yearFilters);
+    },
+
+    loadCans: function (filters) {
+        getCans(filters, data => {
+            if (this.isMounted()) {
+                var rows = [];
+                rows.push(...data, ...this.state.reportRows, ...this.state.requestRows);
+                this.setRows(rows);
+                this.setState({ canRows: data });
+                this.forceUpdate();
+            }
+        }, canColumnsData);
+    },
+
+    loadReports: function (filters, yearFilters, callback) {
+        getReports(filters, yearFilters, data => {
+            if (this.isMounted()) {
+                var rows = [];
+                rows.push(...data, ...this.state.canRows, ...this.state.requestRows);
+                this.setRows(rows);
+                this.setState({ reportRows: data });
+                this.forceUpdate();
+            }
+        }, reportColumnsData);
+    },
+
+    loadRequests: function (filters, yearFilters, callback) {
+        getRequests(filters, yearFilters, data => {
+            if (this.isMounted()) {
+                var rows = [];
+                rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
+                this.setRows(rows);
+                this.setState({ requestRows: data });
+                this.forceUpdate();
+            }
+        }, requestColumnsData);
     },
 
     highlightFeature: function (id, type) {
@@ -115,9 +160,13 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
         return false;
     },
 
-    componentWillUpdate: function(nextProps) {
+    componentDidMount: function () {
+        this.getData(this.props);
+    },
+
+    componentWillUpdate: function (nextProps, nextState) {
         if (this.filtersChanged(this.props, nextProps)) {
-            this.updateData(nextProps);
+            this.getData(nextProps);
         }
     },
 
@@ -139,24 +188,12 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
         return false;
     },
 
-    updateData: function (props) {
-        this.setState({ rows: [] }, () => {
-            this.getData(props, data => {
-                var rows = [];
-                rows.push(...this.state.rows);
-                rows.push(...data);
-
-                // Subtract 180 degrees if in bbox to make items in view show up
-                // first for sure
-                this.setState({ rows: _.sortBy(rows, (row) => row.center_distance - (row.in_bbox ? 180 : 0)) });
-            });
-        });
-    },
-
-    getInitialState: function () {
-        return {
-            rows: []
-        };
+    setRows: function (rows) {
+        // Subtract 180 degrees if in bbox to make items in view show up first for sure
+        this.setState({ rows: _.sortBy(rows, row => {
+            if (!row.center_distance) return 180;
+            return row.center_distance - (row.in_bbox ? 180 : 0);
+        })});
     },
 
     render: function () {

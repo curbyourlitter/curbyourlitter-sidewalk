@@ -50,10 +50,8 @@ export var CanListItem = hoverIntent(React.createClass({
         this.props.unhighlightFeature();
     },
 
-    shouldComponentUpdate: function () {
-        // NB: currently nothing should make this list item need an update,
-        // so always return false for speed-up
-        return false;
+    shouldComponentUpdate: function (nextProps, nextState) {
+        return (nextProps.in_bbox !== this.props.in_bbox);
     },
 
     render: function () {
