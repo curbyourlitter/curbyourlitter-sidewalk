@@ -37,6 +37,7 @@ var highlightedRecordStyle = {
     weight: 2
 };
 
+// Icons for placing bins
 var placementIconSize = [35, 50],
     placementIconAnchor = [17, 50];
 
@@ -139,9 +140,42 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         this.pin = undefined;
     },
 
+    getHighlightedRecordIcon: function (data, zoom) {
+        var iconAnchor,
+            iconSize,
+            iconUrl;
+
+        if (data.type === 'can') {
+            iconAnchor = [10, 8];
+            iconSize = [20, 20];
+            iconUrl = '/images/map-bin-hover.svg';
+        }
+        if (data.type === 'report') {
+            iconAnchor = [6, 6];
+            iconSize = [12, 12];
+            iconUrl = '/images/map-report.svg';
+        }
+        if (data.type === 'request' && data.can_type) {
+            iconAnchor = [8, 10];
+            iconSize = [16, 23],
+            iconUrl = '/images/map-bin-request-hover.svg';
+        }
+        if (data.type === 'request' && !data.can_type) {
+            iconAnchor = [6, 6];
+            iconSize = [12, 12];
+            iconUrl = '/images/litter-sighting.svg';
+        }
+
+        return L.icon({
+            iconAnchor: iconAnchor,
+            iconSize: iconSize,
+            iconUrl: iconUrl
+        });
+    },
+
     highlightRecordPoint: function (record) {
         this.unhighlightRecordPoint();
-        cartodbSql.execute('SELECT the_geom FROM {{ table }} where cartodb_id = {{ id }}', {
+        cartodbSql.execute('SELECT * FROM {{ table }} where cartodb_id = {{ id }}', {
             id: record.id,
             table: config.tables[record.recordType]
         }, {
@@ -151,6 +185,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             if (this.props.listRecordHovered &&
                 this.props.listRecordHovered.id === record.id && 
                 this.props.listRecordHovered.recordType === record.recordType) {
+                data.features[0].properties.type = record.recordType;
+                console.log(data.features[0].properties);
                 this.highlightedRecordLayer.addData(data);
             }
         });
@@ -267,7 +303,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             style: highlightedRecordStyle,
 
             pointToLayer: (feature, latlng) => {
-                return L.circleMarker(latlng);
+                return L.marker(latlng, {
+                    icon: this.getHighlightedRecordIcon(feature.properties, map.getZoom())
+                });
             }
         }).addTo(map);
 
