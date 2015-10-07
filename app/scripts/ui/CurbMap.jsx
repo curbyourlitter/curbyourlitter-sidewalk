@@ -309,7 +309,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             map.setView(this.props.mapCenter, 17);
         }
         if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
-            console.log('ratingFilters:', this.props.ratingFilters);
             this.updateRatingSql();
         }
         if (this.props.reportFilters && !_.isEqual(this.props.reportFilters, prevProps.reportFilters)) {
