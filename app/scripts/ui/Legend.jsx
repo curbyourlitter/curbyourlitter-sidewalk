@@ -66,7 +66,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                             <span className="legend-section-header">Community Input</span>
                             <Link to="/help" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Litter Basket Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
+                        <LegendItem name="Litter Bin Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
                         <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" dispatch={this.props.dispatch} shown={this.props.requestFilters.recycling} />
                         <LegendItem name="Litter sightings" layer="request" label="sightings" dispatch={this.props.dispatch} shown={this.props.requestFilters.sightings} />
                     </section>
@@ -76,7 +76,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                             <Link to="/help" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
-                        <LegendItem name="Overflowing Litter Basket" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />
+                        <LegendItem name="Overflowing Litter Bin" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />
                         <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.dirty_conditions} />
                     </section>
                     <section>

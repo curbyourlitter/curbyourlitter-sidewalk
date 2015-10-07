@@ -52,7 +52,7 @@ config.bintypes = {
         subtypes: [
             {
                 description: "A nice description of a standard bottle and can recycling bin",
-                display: "Standard Bottle & Can",
+                display: "Standard Bottle & Bin",
                 label: "standard_bottle_can",
                 image: "/images/bintypes/recycling_standard_bottle_can.jpg"
             },
@@ -64,7 +64,7 @@ config.bintypes = {
             },
             {
                 description: "A nice description of a BigBelly bottle and can recycling bin",
-                display: "BigBelly Bottle & Can",
+                display: "BigBelly Bottle & Bin",
                 label: "bigbelly_bottle_can",
                 image: "/images/bintypes/recycling_bigbelly_bottle_can.jpg"
             },
