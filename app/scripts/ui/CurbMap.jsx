@@ -142,8 +142,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [10, 8];
-            iconSize = [20, 20];
+            iconAnchor = [8, 10];
+            iconSize = [16, 23];
             iconUrl = '/images/map-bin-hover.svg';
         }
         if (data.type === 'report') {
@@ -160,6 +160,13 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconAnchor = [6, 6];
             iconSize = [12, 12];
             iconUrl = '/images/map-litter-sighting.svg';
+        }
+
+        if (zoom >= 17) {
+            var width = Math.floor(iconSize[0] * 1.7),
+                height = Math.floor(iconSize[1] * 1.7);
+            iconSize = [width, height];
+            iconAnchor = [width / 2, height / 2 - Math.floor(height * 0.1)];
         }
 
         return L.icon({
