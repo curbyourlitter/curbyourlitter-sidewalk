@@ -11,7 +11,9 @@ import {
     MAP_IS_READY,
     PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
-    PIN_DROP_MOVED
+    PIN_DROP_MOVED,
+    RECORD_SELECTED,
+    RECORD_UNSELECTED
 } from './actions';
 
 var DEFAULT_RATING_FILTERS = {
@@ -156,6 +158,19 @@ export function listRecordHovered(state = null, action) {
         };
     }
     if (action.type === LIST_RECORD_UNHOVERED) {
+        return null;
+    }
+    return state;
+}
+
+export function recordSelected(state = null, action) {
+    if (action.type === RECORD_SELECTED) {
+        return {
+            id: action.id,
+            recordType: action.recordType
+        };
+    }
+    if (action.type === RECORD_UNSELECTED) {
         return null;
     }
     return state;

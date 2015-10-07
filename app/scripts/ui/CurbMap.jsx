@@ -32,11 +32,6 @@ var globalFilters = {
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 var geocoder = new google.maps.Geocoder;
 
-var highlightedRecordStyle = {
-    color: 'yellow',
-    weight: 2
-};
-
 // Icons for placing bins
 var placementIconSize = [35, 50],
     placementIconAnchor = [17, 50];
@@ -65,6 +60,7 @@ function mapStateToProps(state) {
         mapCenter: state.mapCenter,
         pinDropActive: state.pinDropActive,
         ratingFilters: _.extend({}, state.ratingFilters),
+        recordSelected: state.recordSelected,
         reportFilters: _.extend({}, state.reportFilters),
         requestFilters: _.extend({}, state.requestFilters),
         yearFilters: _.extend({}, state.yearFilters)
@@ -173,6 +169,39 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         });
     },
 
+    getSelectedRecordIcon: function (data, zoom) {
+        var iconAnchor,
+            iconSize,
+            iconUrl;
+
+        if (data.type === 'can') {
+            iconAnchor = [10, 8];
+            iconSize = [20, 20];
+            iconUrl = '/images/map-bin-selected.svg';
+        }
+        if (data.type === 'report') {
+            iconAnchor = [6, 6];
+            iconSize = [12, 12];
+            iconUrl = '/images/map-report.svg';
+        }
+        if (data.type === 'request' && data.can_type) {
+            iconAnchor = [8, 10];
+            iconSize = [16, 23],
+            iconUrl = '/images/map-bin-request-selected.svg';
+        }
+        if (data.type === 'request' && !data.can_type) {
+            iconAnchor = [6, 6];
+            iconSize = [12, 12];
+            iconUrl = '/images/map-litter-sighting.svg';
+        }
+
+        return L.icon({
+            iconAnchor: iconAnchor,
+            iconSize: iconSize,
+            iconUrl: iconUrl
+        });
+    },
+
     highlightRecordPoint: function (record) {
         this.unhighlightRecordPoint();
         cartodbSql.execute('SELECT * FROM {{ table }} where cartodb_id = {{ id }}', {
@@ -195,6 +224,26 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         this.highlightedRecordLayer.clearLayers();
     },
 
+    selectRecord: function (record) {
+        this.unselectRecord();
+        cartodbSql.execute('SELECT * FROM {{ table }} where cartodb_id = {{ id }}', {
+            id: record.id,
+            table: config.tables[record.recordType]
+        }, {
+            format: 'GeoJSON' 
+        }).done((data) => {
+            // Only highlight if mouse is still over the feature
+            if (this.props.recordSelected && _.isEqual(this.props.recordSelected, record)) {
+                data.features[0].properties.type = record.recordType;
+                this.selectedRecordLayer.addData(data);
+            }
+        });
+    },
+
+    unselectRecord: function () {
+        this.selectedRecordLayer.clearLayers();
+    },
+
     componentDidMount: function() {
         this.init(this.getId());
         this.props.dispatch(mapIsReady());
@@ -215,6 +264,12 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
         else if (!nextProps.listRecordHovered) {
             this.unhighlightRecordPoint();
+        }
+        if (nextProps.recordSelected && (!this.props.recordSelected || !_.isEqual(nextProps.recordSelected, this.props.recordSelected))) {
+            this.selectRecord(nextProps.recordSelected);
+        }
+        else if (!nextProps.recordSelected) {
+            this.unselectRecord();
         }
     },
 
@@ -299,11 +354,17 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         config.tileLayer.addTo(map);
 
         this.highlightedRecordLayer = L.geoJson(null, {
-            style: highlightedRecordStyle,
-
             pointToLayer: (feature, latlng) => {
                 return L.marker(latlng, {
                     icon: this.getHighlightedRecordIcon(feature.properties, map.getZoom())
+                });
+            }
+        }).addTo(map);
+
+        this.selectedRecordLayer = L.geoJson(null, {
+            pointToLayer: (feature, latlng) => {
+                return L.marker(latlng, {
+                    icon: this.getSelectedRecordIcon(feature.properties, map.getZoom())
                 });
             }
         }).addTo(map);

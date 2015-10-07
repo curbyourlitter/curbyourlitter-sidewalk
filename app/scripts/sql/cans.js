@@ -10,8 +10,9 @@ export var canColumnsData = [
 ];
 
 export var canColumnsDetails = [
+    "'can' AS type",
     'cartodb_id',
-    'type',
+    'type AS cantype',
     'ST_X(the_geom) AS longitude',
     'ST_Y(the_geom) AS latitude'
 ];

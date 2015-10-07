@@ -16,7 +16,7 @@ export var Can = detailPanel(React.createClass({
     render: function () {
         var iconClasses = 'detail-panel-can-icon';
         if (this.props.complaint_type) {
-            iconClasses += ` detail-panel-can-icon-${slugifyCanType(this.props.type)}`;
+            iconClasses += ` detail-panel-can-icon-${slugifyCanType(this.props.cantype)}`;
         }
         return (
             <div className="detail-panel-can">
@@ -27,7 +27,7 @@ export var Can = detailPanel(React.createClass({
                 </h2>
                 <div className="detail-panel-row">
                     <label>Type</label>
-                    <div>{this.props.type}</div>
+                    <div>{this.props.cantype}</div>
                 </div>
             </div>
         );

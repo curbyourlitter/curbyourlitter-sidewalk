@@ -4,7 +4,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { mapCenter, panelToggle } from '../actions';
+import {
+    mapCenter,
+    panelToggle,
+    recordSelected,
+    recordUnselected
+} from '../actions';
 
 export var Panel = connect()(React.createClass({
     componentDidMount: function () {
@@ -65,6 +70,10 @@ export var detailPanel = function (Component, table, columns, className = 'detai
             this.updateData(this.props.routeParams.id);
         },
 
+        componentWillUnmount: function () {
+            this.props.dispatch(recordUnselected());
+        },
+
         componentWillReceiveProps: function (nextProps) {
             if (this.props.routeParams.id !== nextProps.routeParams.id) {
                 this.updateData(nextProps.routeParams.id);
@@ -72,6 +81,7 @@ export var detailPanel = function (Component, table, columns, className = 'detai
         },
 
         componentWillUpdate: function (nextProps, nextState) {
+            this.props.dispatch(recordSelected(nextState.cartodb_id, nextState.type));
             this.props.dispatch(mapCenter([nextState.latitude, nextState.longitude]));
         },
 

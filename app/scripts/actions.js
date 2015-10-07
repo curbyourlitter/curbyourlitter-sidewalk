@@ -9,6 +9,8 @@ export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
 export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
 export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
+export const RECORD_SELECTED = 'RECORD_SELECTED';
+export const RECORD_UNSELECTED = 'RECORD_UNSELECTED';
 
 export function filtersClear() {
     return { type: FILTERS_CLEAR };
@@ -89,5 +91,19 @@ export function listRecordHovered(id, recordType) {
 export function listRecordUnhovered() {
     return {
         type: LIST_RECORD_UNHOVERED
+    };
+}
+
+export function recordSelected(id, recordType) {
+    return {
+        id: id,
+        recordType: recordType,
+        type: RECORD_SELECTED
+    };
+}
+
+export function recordUnselected() {
+    return {
+        type: RECORD_UNSELECTED
     };
 }
