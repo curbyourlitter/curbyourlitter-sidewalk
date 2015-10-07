@@ -67,9 +67,6 @@ function where(filters, yearRange) {
         yearCondition = `extract(year from added) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
         where += ` AND ${yearCondition}`;
     }
-    //if (filters.bbox) {
-    //where += ` AND ${bbox(filters.bbox)}`;
-    //}
     if (whereConditions.length === 0) {
         // Intentionally pick nothing
         where = ' WHERE true = false';
