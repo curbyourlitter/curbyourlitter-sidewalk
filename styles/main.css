@@ -4921,9 +4921,23 @@ label,
 .request-list-item:hover {
   background-color: #00a61f;
 }
+.request-list-item-litter-sighting {
+  background-color: rgba(81, 148, 255, 0.05);
+  color: #5194ff;
+}
+.request-list-item-litter-sighting:hover {
+  background-color: #99c0fd;
+}
 .request-list-item-icon {
   margin: 0 auto;
   background-image: url("/images/bin-request.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+}
+.request-list-item-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
   background-repeat: no-repeat;
   background-size: contain;
   height: 30px;
@@ -4953,6 +4967,13 @@ label,
   float: left;
   margin-top: 10px;
   max-width: 25%;
+}
+.detail-panel-request-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 50px;
+  width: 50px;
 }
 .detail-panel-request-header {
   float: left;
