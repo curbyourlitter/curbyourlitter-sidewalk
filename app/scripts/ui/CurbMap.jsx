@@ -175,8 +175,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [10, 8];
-            iconSize = [20, 20];
+            iconAnchor = [8, 10];
+            iconSize = [16, 23];
             iconUrl = '/images/map-bin-selected.svg';
         }
         if (data.type === 'report') {
@@ -186,13 +186,20 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
         if (data.type === 'request' && data.can_type) {
             iconAnchor = [8, 10];
-            iconSize = [16, 23],
+            iconSize = [16, 23];
             iconUrl = '/images/map-bin-request-selected.svg';
         }
         if (data.type === 'request' && !data.can_type) {
             iconAnchor = [6, 6];
             iconSize = [12, 12];
             iconUrl = '/images/map-litter-sighting.svg';
+        }
+
+        if (zoom >= 17) {
+            var width = Math.floor(iconSize[0] * 1.5),
+                height = Math.floor(iconSize[1] * 1.5);
+            iconSize = [width, height];
+            iconAnchor = [width / 2, height / 2];
         }
 
         return L.icon({
@@ -347,6 +354,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.props.dispatch(mapMoved(map.getBounds().toBBoxString().split(','), map.getCenter));
             },
             zoomend: () => {
+                this.selectedRecordLayer.eachLayer(layer => {
+                    layer.setIcon(this.getSelectedRecordIcon(layer.feature.properties, map.getZoom()));
+                });
                 this.props.dispatch(mapMoved(map.getBounds().toBBoxString().split(','), map.getCenter));
             }
         });
