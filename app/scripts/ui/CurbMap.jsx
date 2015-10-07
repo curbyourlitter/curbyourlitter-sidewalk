@@ -367,6 +367,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
     init: function (id) {
         map = L.map(id, {
             minZoom: 14,
+            scrollWheelZoom: false,
             zoomControl: false
         });
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
