@@ -1,7 +1,6 @@
 import _ from 'underscore';
 import moment from 'moment';
 import React from 'react';
-import joinClasses from 'react/lib/joinClasses';
 import { connect } from 'react-redux';
 import { History, Link, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
