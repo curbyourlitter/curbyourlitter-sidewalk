@@ -9,12 +9,26 @@ export var ratingsColumnsDownload = [
     'ratings.rating'
 ];
 
+// TODO latest rather than avg
 export var ratingsColumnsMap = [
+    'ST_collect(streets.the_geom_webmercator) AS the_geom_webmercator',
+    'AVG(ratings.rating) AS avg',
+    'streets.priority AS priority'
 ];
 
 function where(filters, yearRange) {
-    var whereConditions = [];
-    var yearCondition = `extract(year from created_date) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
+    var yearCondition = `extract(year from collected) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
+    var whereConditions = _.chain(filters || this.props.ratingFilters)
+        .map(function (value, key) {
+            if (value) {
+                return `rating = ${key}`;
+            }
+            return null;
+        })
+        .filter(function (value) {
+            return value !== null;
+        })
+        .value();
     var where = ` WHERE  ${yearCondition} AND (${whereConditions.join(' OR ')})`;
     if (whereConditions.length === 0) {
         // Intentionally pick nothing
@@ -23,10 +37,13 @@ function where(filters, yearRange) {
     return where;
 }
 
-export function getRatingSql(filter, yearRange, columns = ratingsColumnsMap) {
+export function getRatingSql(filter, yearRange, columns = ratingsColumnsMap, group = false) {
     var sql = `SELECT ${columns} FROM ${config.tables.ratings} ratings LEFT JOIN ${config.tables.streets} ON ratings.segment_id = streets.cartodb_id`;
     if (filter || yearRange) {
         sql += ` ${where(filter, yearRange)}`;
+    }
+    if (group) {
+        sql += ' GROUP BY streets.cartodb_id';
     }
     return sql;
 }

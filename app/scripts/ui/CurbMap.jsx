@@ -16,6 +16,7 @@ import {
     pinDropMoved
 } from '../actions';
 import PopoverButton from './PopoverButton.jsx';
+import { getRatingSql, ratingsColumnsMap } from '../sql/ratings';
 import { getRequestSql } from '../sql/requests';
 import { getReportSql } from '../sql/reports';
 import { slugifyComplaintType } from './Report.jsx';
@@ -308,6 +309,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             map.setView(this.props.mapCenter, 17);
         }
         if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
+            console.log('ratingFilters:', this.props.ratingFilters);
             this.updateRatingSql();
         }
         if (this.props.reportFilters && !_.isEqual(this.props.reportFilters, prevProps.reportFilters)) {
@@ -323,28 +325,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
     },
 
-    getRatingSql: function(filters) {
-        var sql = 'SELECT ST_collect(streets.the_geom_webmercator) AS the_geom_webmercator, AVG(ratings.rating) AS avg, streets.priority AS priority FROM street_ratings ratings LEFT JOIN streets ON ratings.segment_id = streets.cartodb_id';
-        var yearCondition = `extract(year from collected) BETWEEN ${this.props.yearFilters.start} AND ${this.props.yearFilters.end}`;
-        var selectedRatings = _.chain(filters || this.props.ratingFilters)
-            .map(function (value, key) {
-                if (value) {
-                    return key;
-                }
-                return null;
-            })
-            .filter(function (value) {
-                return value !== null;
-            })
-            .value();
-        sql += ` WHERE rating IN (${selectedRatings.join(',')}) AND ${yearCondition}`;
-        sql += ' GROUP BY streets.cartodb_id';
-        return sql;
-    },
-
     updateRatingSql: function () {
         if (this.ratingLayer) {
-            this.ratingLayer.setSQL(this.getRatingSql());
+            this.ratingLayer.setSQL(getRatingSql(this.props.ratingFilters, this.props.yearFilters, ratingsColumnsMap, true));
         }
     },
 
