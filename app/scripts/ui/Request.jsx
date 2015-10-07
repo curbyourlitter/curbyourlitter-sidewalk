@@ -106,7 +106,7 @@ export var RequestListItem = hoverIntent(React.createClass({
                         </Col>
                         <Col xs={10}>
                             <div className="request-list-item-can-type">
-                                {this.props.can_type} can request
+                                {this.props.can_type} bin request
                             </div>
                             <div className="request-list-item-date">
                                 {moment(this.props.date).format('h:mma MMMM Do YYYY')}
