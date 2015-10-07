@@ -32,6 +32,7 @@
 }
 .request-list-item-can-type {
   font-size: 16px;
+  text-transform: capitalize;
 }
 .request-list-item-date {
   font-family: 'NationalWeb-Book', sans-serif;
