@@ -2,6 +2,7 @@ import config from './config/config';
 
 import {
     FILTERS_CLEAR,
+    FILTERS_SHOWN,
     FILTERS_TOGGLE,
     FILTERS_UPDATE,
     LIST_RECORD_HOVERED,
@@ -9,6 +10,7 @@ import {
     MAP_CENTER,
     MAP_MOVED,
     MAP_IS_READY,
+    PANEL_SHOWN,
     PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
     PIN_DROP_MOVED,
@@ -41,6 +43,16 @@ var DEFAULT_YEAR_FILTERS = {
     start: config.minYear,
     end: config.maxYear
 };
+
+export function filtersWidth(state = 0, action) {
+    if (action.type === FILTERS_SHOWN) {
+        return action.width;
+    }
+    if (action.type === FILTERS_TOGGLE && !action.visible) {
+        return 0;
+    }
+    return state;
+}
 
 export function filtersVisible(state = true, action) {
     if (action.type === FILTERS_TOGGLE) {
@@ -146,6 +158,16 @@ export function pinDropLatlng(state = null, action) {
 export function panelVisible(state = false, action) {
     if (action.type === PANEL_TOGGLE) {
         return action.visible;
+    }
+    return state;
+}
+
+export function panelWidth(state = 0, action) {
+    if (action.type === PANEL_SHOWN) {
+        return action.width;
+    }
+    if (action.type === PANEL_TOGGLE && !action.visible) {
+        return 0;
     }
     return state;
 }

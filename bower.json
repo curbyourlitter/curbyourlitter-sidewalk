@@ -2,7 +2,9 @@
   "name": "curbyourlitter-sidewalk",
   "version": "0.0.1",
   "dependencies": {
+    "bootstrap": "~3.3.5",
+    "Leaflet-active-area": "https://github.com/Mappy/Leaflet-active-area",
     "modernizr": "^2.8.3",
-    "bootstrap": "~3.3.5"
+    "leaflet-active-area": "git+https://github.com/Mappy/Leaflet-active-area"
   }
 }

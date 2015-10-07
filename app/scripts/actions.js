@@ -1,9 +1,11 @@
 export const FILTERS_CLEAR = 'FILTERS_CLEAR';
+export const FILTERS_SHOWN = 'FILTERS_SHOWN';
 export const FILTERS_TOGGLE = 'FILTERS_TOGGLE';
 export const FILTERS_UPDATE = 'FILTERS_UPDATE';
 export const MAP_CENTER = 'MAP_CENTER';
 export const MAP_MOVED = 'MAP_MOVED';
 export const MAP_IS_READY = 'MAP_IS_READY';
+export const PANEL_SHOWN = 'PANEL_SHOWN';
 export const PANEL_TOGGLE = 'PANEL_TOGGLE';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
@@ -30,12 +32,26 @@ export function filtersShow() {
     };
 }
 
+export function filtersShown(width) {
+    return {
+        type: FILTERS_SHOWN,
+        width: width
+    };
+}
+
 export function filtersUpdate(layer, filter, value) {
     return {
         filter: filter,
         layer: layer,
         type: FILTERS_UPDATE,
         value: value
+    };
+}
+
+export function panelShown(width) {
+    return {
+        type: PANEL_SHOWN,
+        width: width
     };
 }
 

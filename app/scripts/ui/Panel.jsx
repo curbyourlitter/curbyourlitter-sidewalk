@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 
 import {
     mapCenter,
+    panelShown,
     panelToggle,
     recordSelected,
     recordUnselected
@@ -14,6 +15,7 @@ import {
 export var Panel = connect()(React.createClass({
     componentDidMount: function () {
         this.props.dispatch(panelToggle(true));
+        this.props.dispatch(panelShown(React.findDOMNode(this).offsetWidth));
     },
 
     componentWillUnmount: function () {

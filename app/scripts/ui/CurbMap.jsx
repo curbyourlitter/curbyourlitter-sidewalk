@@ -56,8 +56,10 @@ var dragPlacementIcon = L.icon({
 
 function mapStateToProps(state) {
     return {
+        filtersWidth: state.filtersWidth,
         listRecordHovered: state.listRecordHovered,
         mapCenter: state.mapCenter,
+        panelWidth: state.panelWidth,
         pinDropActive: state.pinDropActive,
         ratingFilters: _.extend({}, state.ratingFilters),
         recordSelected: state.recordSelected,
@@ -285,6 +287,20 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         else if (!nextProps.recordSelected) {
             this.unselectRecord();
         }
+
+        if (nextProps.filtersWidth !== this.props.filtersWidth || nextProps.panelWidth !== this.props.panelWidth) {
+            this.updateActiveArea(nextProps);
+        }
+    },
+
+    updateActiveArea: function (props) {
+        map.setActiveArea({
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: props.filtersWidth + 'px',
+            right: props.panelWidth + 'px'
+        });
     },
 
     componentDidUpdate: function (prevProps, prevState) {
@@ -355,6 +371,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         });
         L.control.zoom({ position: 'bottomleft' }).addTo(map);
         L.control.scale({ position: 'bottomleft' }).addTo(map);
+
+        this.updateActiveArea(this.props);
 
         map.on({
             moveend: () => {

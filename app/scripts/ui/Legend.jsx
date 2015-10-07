@@ -4,7 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Button, Input } from 'react-bootstrap';
 
-import { filtersClear, filtersHide, filtersShow, filtersUpdate } from '../actions';
+import {
+    filtersClear,
+    filtersHide,
+    filtersShow,
+    filtersShown,
+    filtersUpdate
+} from '../actions';
 import config from '../config/config';
 import map from './CurbMap.jsx';
 
@@ -23,6 +29,16 @@ export var Legend = connect(mapStateToProps)(React.createClass({
         return {
             shown: false
         };
+    },
+
+    componentDidMount: function () {
+        this.props.dispatch(filtersShown(React.findDOMNode(this).offsetWidth));
+    },
+
+    componentDidUpdate: function (prevProps) {
+        if (!prevProps.filtersVisible && this.props.filtersVisible) {
+            this.props.dispatch(filtersShown(React.findDOMNode(this).offsetWidth));
+        }
     },
 
     hide: function (e) {
