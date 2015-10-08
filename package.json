@@ -44,7 +44,6 @@
     "gulp-webserver": "latest",
     "jsonlint": "^1.6.2",
     "main-bower-files": "~2.6.2",
-    "react": "latest",
     "strip-debug": "^1.0.1",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "~2.1"
