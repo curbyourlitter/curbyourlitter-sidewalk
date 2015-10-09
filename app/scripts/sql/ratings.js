@@ -18,7 +18,7 @@ export var ratingsColumnsMap = [
 
 function where(filters, yearRange) {
     var yearCondition = `extract(year from collected) BETWEEN ${yearRange.start} AND ${yearRange.end}`;
-    var whereConditions = _.chain(filters || this.props.ratingFilters)
+    var whereConditions = _.chain(filters)
         .map(function (value, key) {
             if (value) {
                 return `rating = ${key}`;
