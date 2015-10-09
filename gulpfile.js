@@ -141,13 +141,6 @@ gulp.task('bower', function() {
         .pipe(gulp.dest('dist/bower_components/'));
 });
 
-gulp.task('json', function() {
-    gulp.src('app/scripts/json/**/*.json', {
-            base: 'app/scripts'
-        })
-        .pipe(gulp.dest('dist/scripts/'));
-});
-
 // Robots.txt and favicon.ico
 gulp.task('extras', function() {
     return gulp.src(['app/*.txt', 'app/*.ico'])
@@ -156,7 +149,7 @@ gulp.task('extras', function() {
 });
 
 // Watch
-gulp.task('watch', ['html', 'images', 'fonts', 'json', 'bundle', 'extras'], function() {
+gulp.task('watch', ['html', 'images', 'fonts', 'bundle', 'extras'], function() {
     browserSync({
         browser: 'chromium-browser',
         notify: false,
@@ -165,7 +158,6 @@ gulp.task('watch', ['html', 'images', 'fonts', 'json', 'bundle', 'extras'], func
         server: ['dist', 'app']
     });
 
-    gulp.watch('app/scripts/**/*.json', ['json']);
     gulp.watch('app/*.html', ['html']);
     gulp.watch(['app/styles/**/*.less', 'app/styles/**/*.css'], ['styles', reload]);
     gulp.watch('app/images/**/*', reload);
