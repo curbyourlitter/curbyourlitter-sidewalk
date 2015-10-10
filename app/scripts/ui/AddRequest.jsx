@@ -135,7 +135,7 @@ var BinType = React.createClass({
                         );
                     })}
                 </ul>
-                <Button block bsSize="large" type="submit" disabled={!this.state.valid}>Next</Button>
+                <Button className="next-button" block bsSize="large" type="submit" disabled={!this.state.valid}>Next</Button>
             </form>
         );
     }
@@ -162,8 +162,17 @@ var PlaceBin = React.createClass({
     render: function () {
         return (
             <form onSubmit={this.submit}>
-                <div className="add-request-prompt">Drag and Drop your receptacle to the corner you would like to see it installed. When finished hit ‘Next’.</div>
-                <Button block bsSize="large" type="submit" disabled={!this.props.pinDropValid}>Next</Button>
+                <div className="add-request-prompt">
+                    <p>Drag and drop your bin to the corner you would like to see it installed. When finished click &lsquo;next&rsquo;.</p>
+                    <p>Keep in mind!</p>
+                </div>
+                <Grid className="add-request-bin-tips">
+                    <Row>
+                        <Col xs={6}>Bins are placed on street corners because it makes them easier to service.</Col>
+                        <Col xs={6}>Gray bins on the map represent existing litter bins. You can request a bin on a corner that already has one if you think it needs a different type of bin!</Col>
+                    </Row>
+                </Grid>
+                <Button className="next-button" block bsSize="large" type="submit" disabled={!this.props.pinDropValid}>Next</Button>
             </form>
         );
     }
