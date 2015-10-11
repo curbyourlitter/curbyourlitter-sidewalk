@@ -306,7 +306,11 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                         step: null,
                         success: true 
                     });
-                    this.props.dispatch(requestsRequireReload(true));
+
+                    // Wait a little before reloading requests layer
+                    setTimeout(() => {
+                        this.props.dispatch(requestsRequireReload(true));
+                    }, 500);
                 })
                 .catch(() => console.warn('error'));
         }
