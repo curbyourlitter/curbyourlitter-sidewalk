@@ -34,13 +34,13 @@ config.bintypes = {
         display: "litter bin",
         subtypes: [
             {
-                description: "A nice description of a standard litter bin",
+                description: "A covered litter bin accepts all types of pedestrian trash. Everything thrown away here goes to a landfill.",
                 display: "Standard",
                 label: "standard",
                 image: "/images/bintypes/litter_standard.jpg"
             },
             {
-                description: "A nice description of a BigBelly litter bin",
+                description: "A BigBelly litter bin uses solar panels to compact trash that is sent to a landfill.",
                 display: "BigBelly",
                 label: "bigbelly",
                 "image": "/images/bintypes/litter_bigbelly.jpg"
@@ -51,25 +51,25 @@ config.bintypes = {
         display: "recycling bin",
         subtypes: [
             {
-                description: "A nice description of a standard bottle and can recycling bin",
+                description: "Bottle & Can recycling bins take only metal cans and plastic bottles to be recycled.",
                 display: "Standard Bottle & Bin",
                 label: "standard_bottle_can",
                 image: "/images/bintypes/recycling_standard_bottle_can.jpg"
             },
             {
-                description: "A nice description of a standard paper recycling bin",
+                description: "Paper recycling bins take only clean paper to be recycled.",
                 display: "Standard Paper",
                 label: "standard_paper",
                 image: "/images/bintypes/recycling_standard_paper.jpg"
             },
             {
-                description: "A nice description of a BigBelly bottle and can recycling bin",
+                description: "This type of bin uses solar panels to compact metal cans and plastic bottles to be recycled.",
                 display: "BigBelly Bottle & Bin",
                 label: "bigbelly_bottle_can",
                 image: "/images/bintypes/recycling_bigbelly_bottle_can.jpg"
             },
             {
-                description: "A nice description of a BigBelly paper recycling bin",
+                description: "This type of bin uses solar panels to compact clean paper to be recycled.",
                 display: "BigBelly Paper",
                 label: "bigbelly_paper",
                 image: "/images/bintypes/recycling_bigbelly_paper.jpg"
