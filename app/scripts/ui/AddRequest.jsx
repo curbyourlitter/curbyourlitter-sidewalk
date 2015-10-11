@@ -6,7 +6,11 @@ import {} from 'react-bootstrap';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 
-import { pinDropActive, requestsRequireReload } from '../actions';
+import {
+    pinDropActive,
+    pinDropDragActive,
+    requestsRequireReload
+} from '../actions';
 import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
 
@@ -144,10 +148,11 @@ var BinType = React.createClass({
 var PlaceBin = React.createClass({
     componentDidMount: function () {
         this.props.dispatch(pinDropActive(true));
+        this.props.dispatch(pinDropDragActive(true));
     },
 
     componentWillUnmount: function () {
-        this.props.dispatch(pinDropActive(false));
+        this.props.dispatch(pinDropDragActive(false));
     },
 
     getInitialState: function () {

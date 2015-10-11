@@ -62,6 +62,7 @@ function mapStateToProps(state) {
         mapCenter: state.mapCenter,
         panelWidth: state.panelWidth,
         pinDropActive: state.pinDropActive,
+        pinDropDragActive: state.pinDropDragActive,
         ratingFilters: _.extend({}, state.ratingFilters),
         recordSelected: state.recordSelected,
         reportFilters: _.extend({}, state.reportFilters),
@@ -120,6 +121,14 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.props.dispatch(pinDropMoved(this.pin.getLatLng(), valid));
             });
         });
+    },
+
+    enableDropPinDrag: function () {
+        this.pin.dragging.enable();
+    },
+
+    disableDropPinDrag: function () {
+        this.pin.dragging.disable();
     },
 
     checkDropPinValid: function (latlng, callback) {
@@ -276,6 +285,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
         if (!nextProps.pinDropActive && this.props.pinDropActive) {
             this.deactivateDropPin();
+        }
+        if (nextProps.pinDropDragActive !== this.props.pinDropDragActive) {
+            nextProps.pinDropDragActive ? this.enableDropPinDrag() : this.disableDropPinDrag();
         }
         if (nextProps.listRecordHovered && (!this.props.listRecordHovered || !_.isEqual(nextProps.listRecordHovered, this.props.listRecordHovered))) {
             this.highlightRecordPoint(nextProps.listRecordHovered);

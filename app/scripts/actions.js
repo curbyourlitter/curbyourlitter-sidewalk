@@ -8,6 +8,7 @@ export const MAP_IS_READY = 'MAP_IS_READY';
 export const PANEL_SHOWN = 'PANEL_SHOWN';
 export const PANEL_TOGGLE = 'PANEL_TOGGLE';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
+export const PIN_DROP_DRAG_ACTIVE = 'PIN_DROP_DRAG_ACTIVE';
 export const PIN_DROP_MOVED = 'PIN_DROP_MOVED';
 export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
 export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
@@ -86,6 +87,13 @@ export function pinDropActive(active) {
     return {
         active: active,
         type: PIN_DROP_ACTIVE 
+    };
+}
+
+export function pinDropDragActive(active) {
+    return {
+        active: active,
+        type: PIN_DROP_DRAG_ACTIVE 
     };
 }
 

@@ -13,6 +13,7 @@ import {
     PANEL_SHOWN,
     PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
+    PIN_DROP_DRAG_ACTIVE,
     PIN_DROP_MOVED,
     RECORD_SELECTED,
     RECORD_UNSELECTED,
@@ -137,6 +138,13 @@ export function mapReady(state = false, action) {
 
 export function pinDropActive(state = false, action) {
     if (action.type === PIN_DROP_ACTIVE) {
+        return action.active;
+    }
+    return state;
+}
+
+export function pinDropDragActive(state = false, action) {
+    if (action.type === PIN_DROP_DRAG_ACTIVE) {
         return action.active;
     }
     return state;
