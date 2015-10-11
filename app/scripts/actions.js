@@ -13,6 +13,7 @@ export const LIST_RECORD_HOVERED = 'LIST_RECORD_HOVERED';
 export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
 export const RECORD_SELECTED = 'RECORD_SELECTED';
 export const RECORD_UNSELECTED = 'RECORD_UNSELECTED';
+export const REQUESTS_REQUIRE_RELOAD = 'REQUESTS_REQUIRE_RELOAD';
 
 export function filtersClear() {
     return { type: FILTERS_CLEAR };
@@ -121,5 +122,12 @@ export function recordSelected(id, recordType) {
 export function recordUnselected() {
     return {
         type: RECORD_UNSELECTED
+    };
+}
+
+export function requestsRequireReload(requireReload) {
+    return {
+        requireReload: requireReload,
+        type: REQUESTS_REQUIRE_RELOAD
     };
 }

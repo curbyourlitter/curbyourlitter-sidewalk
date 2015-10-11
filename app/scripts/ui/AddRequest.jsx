@@ -6,7 +6,7 @@ import {} from 'react-bootstrap';
 import { Link } from 'react-router';
 import qwest from 'qwest';
 
-import { pinDropActive } from '../actions';
+import { pinDropActive, requestsRequireReload } from '../actions';
 import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
 
@@ -306,6 +306,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                         step: null,
                         success: true 
                     });
+                    this.props.dispatch(requestsRequireReload(true));
                 })
                 .catch(() => console.warn('error'));
         }

@@ -15,7 +15,8 @@ import {
     PIN_DROP_ACTIVE,
     PIN_DROP_MOVED,
     RECORD_SELECTED,
-    RECORD_UNSELECTED
+    RECORD_UNSELECTED,
+    REQUESTS_REQUIRE_RELOAD
 } from './actions';
 
 var DEFAULT_RATING_FILTERS = {
@@ -194,6 +195,13 @@ export function recordSelected(state = null, action) {
     }
     if (action.type === RECORD_UNSELECTED) {
         return null;
+    }
+    return state;
+}
+
+export function requestsRequireReload(state = false, action) {
+    if (action.type === REQUESTS_REQUIRE_RELOAD) {
+        return action.requireReload;
     }
     return state;
 }

@@ -12,7 +12,8 @@ import {
     listRecordUnhovered,
     mapIsReady,
     mapMoved,
-    pinDropMoved
+    pinDropMoved,
+    requestsRequireReload
 } from '../actions';
 import PopoverButton from './PopoverButton.jsx';
 import { getRatingSql, ratingsColumnsMap } from '../sql/ratings';
@@ -65,6 +66,7 @@ function mapStateToProps(state) {
         recordSelected: state.recordSelected,
         reportFilters: _.extend({}, state.reportFilters),
         requestFilters: _.extend({}, state.requestFilters),
+        requestsRequireReload: state.requestsRequireReload,
         yearFilters: _.extend({}, state.yearFilters)
     };
 }
@@ -290,6 +292,12 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
         if (nextProps.filtersWidth !== this.props.filtersWidth || nextProps.panelWidth !== this.props.panelWidth) {
             this.updateActiveArea(nextProps);
+        }
+
+        if (nextProps.requestsRequireReload) {
+            console.log('requestsRequireReload');
+            this.updateRequestSql();
+            this.props.dispatch(requestsRequireReload(false));
         }
     },
 
