@@ -295,7 +295,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
 
         if (nextProps.requestsRequireReload) {
-            console.log('requestsRequireReload');
             this.updateRequestSql();
             this.props.dispatch(requestsRequireReload(false));
         }
