@@ -27,48 +27,5 @@
                 "image": "/images/bintypes/litter_standard.jpg"
             }
         ]
-    },
-    "requests": {
-        "items": [
-            {
-                "header": "Litter Bin Requests",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            },
-            {
-                "header": "BigBelly Requests",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            },
-            {
-                "header": "Recycling Bin Requests",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            },
-            {
-                "header": "Litter Sightings",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            }
-        ]
-    },
-    "reports": {
-        "items": [
-            {
-                "header": "Sanitation Conditions",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            },
-            {
-                "header": "Overflowing Litter Bin",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            },
-            {
-                "header": "Dirty Conditions",
-                "body": "Text",
-                "image": "/images/bintypes/litter_standard.jpg"
-            }
-        ]
     }
 }

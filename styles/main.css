@@ -4595,6 +4595,9 @@ label,
   font-size: 18px;
   padding-bottom: 25px;
 }
+.add-request-bin-tips {
+  font-family: 'NationalWeb-Book', sans-serif;
+}
 .add-request-steps {
   margin-left: -20px;
   margin-right: -20px;
@@ -4697,6 +4700,9 @@ label,
 }
 .add-request-panel .image-input input {
   display: none;
+}
+.add-request-panel .next-button {
+  margin-top: 25px;
 }
 .help {
   background: rgba(153, 192, 253, 0.75);
@@ -5070,6 +5076,12 @@ header .navbar .navbar-brand .city {
 header .navbar a {
   font-size: 18px;
   padding: 5px 30px;
+}
+@media (max-width: 1300px) {
+  header .navbar a {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 header .navbar a.active,
 header .navbar a.active:link,

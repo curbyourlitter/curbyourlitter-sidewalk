@@ -57,6 +57,9 @@
   font-size: 18px;
   padding-bottom: 25px;
 }
+.add-request-bin-tips {
+  font-family: 'NationalWeb-Book', sans-serif;
+}
 .add-request-steps {
   margin-left: -20px;
   margin-right: -20px;
@@ -159,4 +162,7 @@
 }
 .add-request-panel .image-input input {
   display: none;
+}
+.add-request-panel .next-button {
+  margin-top: 25px;
 }
