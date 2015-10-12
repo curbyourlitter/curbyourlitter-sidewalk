@@ -1,6 +1,6 @@
 @import "variables";
 
-@help-padding: 25px;
+@help-padding: 30px;
 
 .help {
     background: fadeout(@blue-light, 25%);
@@ -18,24 +18,40 @@
 
     h2 {
         border-bottom: 1px solid @blue;
+        font-size: 24px;
+        line-height: 32px;
         padding-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 16px;
+        margin-top: 0;
+    }
+
+    p {
+        font-family: Georgia, serif;
+        font-size: 14px;
     }
 
     &-body {
         background: white;
-        height: ~"calc(95% - 39px)";
+        height: ~"calc(100% - @{header-height})";
         margin: 0 12.5%;
-        margin-top: 5%;
+        margin-top: @header-height;
         overflow-y: auto;
         padding: @help-padding;
     }
 
     &-close {
+        color: @blue;
         float: right;
+        font-family: @text-button-font-family;
         font-size: 40px;
-        margin-top: -@help-padding;
+        line-height: 40px;
+        margin-top: -10px;
 
-        &:hover, &:active, &:focus {
+        &:link, &:hover, &:active, &:focus {
+            color: @blue;
             text-decoration: none;
         }
     }
@@ -50,14 +66,16 @@
 
         img {
             border-radius: 10px;
-            max-width: 100%;
+            max-width: 144px;
         }
     }
 
     &-download {
         border-radius: 0;
         float: right;
+        font-size: 14px;
         letter-spacing: 1px;
+        padding: 8px 13px;
         text-transform: uppercase;
     }
 }
