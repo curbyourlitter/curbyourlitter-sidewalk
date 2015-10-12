@@ -44,12 +44,6 @@
     }
 }
 
-.leaflet-touch {
-    .leaflet-bar {
-        .leaflet-bar();
-    }
-}
-
 .leaflet-control-scale {
     bottom: 10px;
     left: 85px;
@@ -73,6 +67,18 @@
 
 .leaflet-bottom .leaflet-control-scale {
     margin-bottom: 0;
+}
+
+.leaflet-touch {
+    .leaflet-control-scale {
+        .leaflet-control-scale();
+    }
+    .leaflet-control-zoom {
+        .leaflet-control-zoom();
+    }
+    .leaflet-bar {
+        .leaflet-bar();
+    }
 }
 
 .leaflet-popup {
