@@ -4208,7 +4208,7 @@ label,
   font-size: 14px;
   height: 20px;
   line-height: 17px;
-  margin-top: 3px;
+  margin-top: -3px;
   margin-right: 25px;
   text-align: center;
   width: 20px;
@@ -4261,9 +4261,14 @@ label,
   overflow-y: auto;
   padding-bottom: 100px;
 }
+.legend h3 {
+  font-size: 14px;
+  line-height: 14px;
+  margin-top: 11px 0;
+}
 .legend-section-header {
   border-bottom: 1px solid #5194ff;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: normal;
 }
 .legend-year-picker .form-group {
@@ -4284,7 +4289,8 @@ label,
 .legend-item label {
   color: #99c0fd;
   font-family: 'NationalWeb-Book', sans-serif;
-  font-size: 16px;
+  font-size: 13px;
+  margin-bottom: 3px;
 }
 .legend-item.active label {
   color: #5194ff;
@@ -4297,6 +4303,7 @@ label,
   display: inline-block;
   height: 14px;
   margin-right: 5px;
+  vertical-align: middle;
   width: 14px;
 }
 .legend-item-indicator-inner {
@@ -5015,6 +5022,13 @@ body {
   font-weight: normal;
   height: 100%;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.25), only screen and (min-device-pixel-ratio: 1.25), only screen and (min-resolution: 200dpi), only screen and (min-resolution: 1.25dppx) {
+  html,
+  body {
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
 }
 #app {
   height: 100%;
