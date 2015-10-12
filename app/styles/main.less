@@ -44,7 +44,7 @@ body {
 header {
     height: @header-height;
     padding-left: @body-margin-side;
-    padding-right: @body-margin-side;
+    padding-right: @panel-body-padding; // Keep aligned with buttons on the right
     padding-top: @body-margin-top;
     position: absolute;
     width: 100%;
@@ -70,6 +70,10 @@ header {
         .navbar-nav {
             float: right;
             margin-top: 5px;
+        }
+
+        .navbar-collapse {
+            padding: 0;
         }
 
         .logo {
