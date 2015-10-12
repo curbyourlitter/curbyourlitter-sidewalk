@@ -44,12 +44,12 @@
   text-decoration: none;
 }
 .legend-header {
-  font-size: 22px;
-  height: 60px;
+  font-size: 16px;
+  line-height: 32px;
   letter-spacing: 1px;
   margin: 0;
   margin-top: 80px;
-  padding-top: 10px;
+  padding: 10px 0;
 }
 .legend-header-icon {
   background-image: url("/images/filters.png");
@@ -68,6 +68,7 @@
 .legend-header-clear {
   float: right;
   margin-right: 25px;
+  opacity: 0.5;
   text-transform: uppercase;
 }
 .legend-header-clear,
@@ -82,9 +83,9 @@
   text-decoration: none;
 }
 .legend-body {
-  height: calc(100% - 140px);
+  height: calc(100% - 132px);
   overflow-y: auto;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 }
 .legend h3 {
   font-size: 14px;
@@ -98,10 +99,15 @@
 }
 .legend-year-picker .form-group {
   display: inline-block;
+  margin-bottom: 0;
   width: 30%;
 }
 .legend-year-picker .form-group:last-child {
   margin-left: 10px;
+}
+.legend-year-picker-to {
+  margin-left: 5px;
+  opacity: 0.5;
 }
 .legend-year-picker select {
   background-color: #eef4ff;
