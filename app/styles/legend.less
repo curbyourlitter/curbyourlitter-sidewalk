@@ -53,7 +53,7 @@
         font-size: 14px;
         height: 20px;
         line-height: 17px;
-        margin-top: 3px;
+        margin-top: -3px;
         margin-right: @legend-padding;
         text-align: center;
         width: 20px;
@@ -99,9 +99,15 @@
         padding-bottom: 100px;
     }
 
+    h3 {
+        font-size: 14px;
+        line-height: 14px;
+        margin-top: 11px 0;
+    }
+
     &-section-header {
         border-bottom: 1px solid @blue;
-        font-size: 20px;
+        font-size: 14px;
         font-weight: normal;
     }
 
@@ -129,7 +135,8 @@
         label {
             color: @blue-light;
             font-family: @book-font-family;
-            font-size: 16px;
+            font-size: 13px;
+            margin-bottom: 3px;
         }
 
         &.active label {
@@ -143,11 +150,15 @@
         @item-indicator-outer-size: 14px;
         @item-indicator-inner-size: 8px;
 
+        &-name {
+        }
+
         &-indicator {
             background-color: @blue-light-light;
             display: inline-block;
             height: @item-indicator-outer-size;
             margin-right: 5px;
+            vertical-align: middle;
             width: @item-indicator-outer-size;
 
             &-inner {

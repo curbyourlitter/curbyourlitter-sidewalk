@@ -154,7 +154,7 @@ var LegendItem = React.createClass({
                     <span className="legend-item-indicator">
                         <span className="legend-item-indicator-inner"></span>
                     </span>
-                    {this.props.name}
+                    <span className="legend-item-name">{this.props.name}</span>
                 </label>
             </div>
         );
