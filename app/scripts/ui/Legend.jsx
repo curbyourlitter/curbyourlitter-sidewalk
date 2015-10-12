@@ -118,7 +118,8 @@ var YearPicker = React.createClass({
     render: function () {
         return (
             <div className="legend-year-picker">
-                <YearSelect name="start" onChange={e => this.handleChange('start', e.target.value)} selected={this.props.range.start} min={config.minYear} max={config.maxYear} minAllowed={config.minYear} maxAllowed={this.props.range.end} /> to
+                <YearSelect name="start" onChange={e => this.handleChange('start', e.target.value)} selected={this.props.range.start} min={config.minYear} max={config.maxYear} minAllowed={config.minYear} maxAllowed={this.props.range.end} />
+                <span className="legend-year-picker-to">to</span>
                 <YearSelect name="end" onChange={e => this.handleChange('end', e.target.value)} selected={this.props.range.end} min={config.minYear} max={config.maxYear} minAllowed={this.props.range.start} maxAllowed={config.maxYear} />
             </div>
         );

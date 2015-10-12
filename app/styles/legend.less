@@ -2,7 +2,7 @@
 @import "variables";
 @import "mixins";
 
-@legend-header-height: 60px;
+@legend-header-height: 52px;
 @legend-body-offset: @header-height + @legend-header-height;
 @legend-padding: 25px;
 
@@ -66,12 +66,12 @@
     }
 
     &-header {
-        font-size: 22px;
-        height: @legend-header-height;
+        font-size: 16px;
+        line-height: 32px;
         letter-spacing: 1px;
         margin: 0;
         margin-top: @header-height;
-        padding-top: 10px;
+        padding: 10px 0;
 
         &-icon {
             .icon('filters');
@@ -89,6 +89,7 @@
             .sidebar-header-link();
             float: right;
             margin-right: @legend-padding;
+            opacity: 0.5;
             text-transform: uppercase;
         }
     }
@@ -114,11 +115,17 @@
     &-year-picker {
         .form-group {
             display: inline-block;
+            margin-bottom: 0;
             width: 30%;
 
             &:last-child {
                 margin-left: 10px;
             }
+        }
+
+        &-to {
+            margin-left: 5px;
+            opacity: 0.5;
         }
 
         select {
