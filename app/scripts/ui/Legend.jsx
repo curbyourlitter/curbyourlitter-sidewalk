@@ -16,6 +16,7 @@ import map from './CurbMap.jsx';
 
 function mapStateToProps(state) {
     return {
+        addingRequest: state.addingRequest,
         filtersVisible: state.filtersVisible,
         ratingFilters: _.extend({}, state.ratingFilters),
         reportFilters: _.extend({}, state.reportFilters),
@@ -41,9 +42,29 @@ export var Legend = connect(mapStateToProps)(React.createClass({
         }
     },
 
+    componentWillUpdate: function (nextProps) {
+        if (nextProps.addingRequest !== this.props.addingRequest) {
+            if (nextProps.addingRequest) {
+                this.hide();
+            }
+            else {
+                this.show();
+            }
+        }
+    },
+
     hide: function (e) {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         this.props.dispatch(filtersHide());
+    },
+
+    show: function (e) {
+        if (e) {
+            e.preventDefault();
+        }
+        this.props.dispatch(filtersShow());
     },
 
     clear: function (e) {

@@ -1,6 +1,8 @@
 import config from './config/config';
 
 import {
+    ADD_END,
+    ADD_START,
     FILTERS_CLEAR,
     FILTERS_SHOWN,
     FILTERS_TOGGLE,
@@ -45,6 +47,16 @@ var DEFAULT_YEAR_FILTERS = {
     start: config.minYear,
     end: config.maxYear
 };
+
+export function addingRequest(state = false, action) {
+    if (action.type === ADD_START) {
+        return true;
+    }
+    if (action.type === ADD_END) {
+        return false;
+    }
+    return state;
+}
 
 export function filtersWidth(state = 0, action) {
     if (action.type === FILTERS_SHOWN) {

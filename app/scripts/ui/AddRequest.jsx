@@ -7,9 +7,11 @@ import { Link } from 'react-router';
 import qwest from 'qwest';
 
 import {
+    endAddRequest,
     pinDropActive,
     pinDropDragActive,
-    requestsRequireReload
+    requestsRequireReload,
+    startAddRequest
 } from '../actions';
 import map from './CurbMap.jsx';
 import { Panel } from './Panel.jsx';
@@ -274,11 +276,12 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
     },
 
     componentDidMount: function () {
-        // TODO let everyone know we're in add-point mode
+        this.props.dispatch(startAddRequest());
     },
 
     componentWillUnmount: function () {
         this.props.dispatch(pinDropActive(false));
+        this.props.dispatch(endAddRequest());
     },
 
     validateRequest: function () {

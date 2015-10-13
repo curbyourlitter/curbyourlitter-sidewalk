@@ -1,3 +1,5 @@
+export const ADD_END = 'ADD_END';
+export const ADD_START = 'ADD_START';
 export const FILTERS_CLEAR = 'FILTERS_CLEAR';
 export const FILTERS_SHOWN = 'FILTERS_SHOWN';
 export const FILTERS_TOGGLE = 'FILTERS_TOGGLE';
@@ -15,6 +17,14 @@ export const LIST_RECORD_UNHOVERED = 'LIST_RECORD_UNHOVERED';
 export const RECORD_SELECTED = 'RECORD_SELECTED';
 export const RECORD_UNSELECTED = 'RECORD_UNSELECTED';
 export const REQUESTS_REQUIRE_RELOAD = 'REQUESTS_REQUIRE_RELOAD';
+
+export function startAddRequest() {
+    return { type: ADD_START };
+}
+
+export function endAddRequest() {
+    return { type: ADD_END };
+}
 
 export function filtersClear() {
     return { type: FILTERS_CLEAR };
