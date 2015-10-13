@@ -23,6 +23,11 @@ import { slugifyComplaintType } from './Report.jsx';
 
 var map;
 
+var ratingLayerIndex = 0,
+    reportLayerIndex = 1,
+    canLayerIndex = 2,
+    requestLayerIndex = 3;
+
 // Which layers on the map is the mouse currently over?
 var currentlyOver = {};
 
@@ -415,10 +420,10 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         })
             .addTo(map)
             .on('done', (layer) => {
-                this.ratingLayer = layer.getSubLayer(0);
-                this.reportLayer = layer.getSubLayer(1);
-                this.requestLayer = layer.getSubLayer(2);
-                this.canLayer = layer.getSubLayer(3);
+                this.ratingLayer = layer.getSubLayer(ratingLayerIndex);
+                this.reportLayer = layer.getSubLayer(reportLayerIndex);
+                this.canLayer = layer.getSubLayer(canLayerIndex);
+                this.requestLayer = layer.getSubLayer(requestLayerIndex);
 
                 this.canLayer.setInteraction(true);
                 this.canLayer.setInteractivity('cartodb_id, type');
@@ -435,7 +440,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     var content;
                     switch(layerIndex) {
                         // Reports
-                        case 1:
+                        case reportLayerIndex:
                             var iconClasses = `detail-popup-icon report-icon-${slugifyComplaintType(data.complaint_type)}`;
                             content = (
                                 <div className="detail-popup report-popup">
@@ -446,7 +451,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             );
                             break;
                         // Requests
-                        case 2:
+                        case requestLayerIndex:
                             content = (
                                 <div className="detail-popup request-popup">
                                     <div className="detail-popup-icon request-icon"></div>
@@ -456,7 +461,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             );
                             break;
                         // Cans
-                        case 3:
+                        case canLayerIndex:
                             content = (
                                 <div className="detail-popup can-popup">
                                     <div className="detail-popup-icon can-icon"></div>
@@ -473,16 +478,16 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
-                    if (layerIndex === 1 || layerIndex === 2 || layerIndex === 3) {
+                    if (layerIndex === reportLayerIndex || layerIndex === canLayerIndex || layerIndex === requestLayerIndex) {
                         currentlyOver[layerIndex] = true;
                         var table;
-                        if (layerIndex === 1) {
+                        if (layerIndex === reportLayerIndex) {
                             table = 'report';
                         }
-                        if (layerIndex === 2) {
+                        if (layerIndex === requestLayerIndex) {
                             table = 'request';
                         }
-                        if (layerIndex === 3) {
+                        if (layerIndex === canLayerIndex) {
                             table = 'can';
                         }
                         this.props.dispatch(listRecordHovered(data.cartodb_id, table));
