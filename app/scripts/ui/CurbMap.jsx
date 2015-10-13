@@ -550,23 +550,9 @@ export var AddButton = React.createClass({
 });
 
 export var ListButton = React.createClass({
-    mixins: [PopoverButton],
-
-    handleClick: function () {
-        this.setState({ popoverShown: false });
-    },
-
     render: function () {
         return (
-            <div>
-                <Link to="/list" onClick={this.handleClick} className="btn btn-list" ref="button"></Link>
-                <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="bottom" containerPadding={20}>
-                    <Popover>
-                        <div>List all records</div>
-                        <Button onClick={this.dismissPopover}>got it</Button>
-                    </Popover>
-                </Overlay>
-            </div>
+            <Link to="/list" className="btn btn-list" ref="button"></Link>
         );
     }
 });
