@@ -528,6 +528,19 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 export var AddButton = React.createClass({
     mixins: [PopoverButton],
 
+    componentDidMount: function() {
+        window.addEventListener('resize', this.handleResize);
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener('resize', this.handleResize);
+    },
+
+    handleResize: function () {
+        window.removeEventListener('resize', this.handleResize);
+        this.setState({ popoverShown: false });
+    },
+
     handleClick: function () {
         this.setState({ popoverShown: false });
     },

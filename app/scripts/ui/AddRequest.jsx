@@ -273,6 +273,10 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         };
     },
 
+    componentDidMount: function () {
+        // TODO let everyone know we're in add-point mode
+    },
+
     componentWillUnmount: function () {
         this.props.dispatch(pinDropActive(false));
     },
