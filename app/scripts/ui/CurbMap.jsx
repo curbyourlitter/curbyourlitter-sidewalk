@@ -62,6 +62,7 @@ var dragPlacementIcon = L.icon({
 
 function mapStateToProps(state) {
     return {
+        addingRequest: state.addingRequest,
         filtersWidth: state.filtersWidth,
         listRecordHovered: state.listRecordHovered,
         mapCenter: state.mapCenter,
@@ -307,6 +308,17 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             this.unselectRecord();
         }
 
+        if (nextProps.addingRequest !== this.props.addingRequest) {
+            if (nextProps.addingRequest) {
+                // Hide everything but existing bins
+                this.showOnlyExitingCans();
+            }
+            else {
+                // Show everything
+                this.showAllLayers();
+            }
+        }
+
         if (nextProps.filtersWidth !== this.props.filtersWidth || nextProps.panelWidth !== this.props.panelWidth) {
             this.updateActiveArea(nextProps);
         }
@@ -369,6 +381,24 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         return React.findDOMNode(this.refs.map).id;
     },
 
+    showOnlyExitingCans: function () {
+        if (this.canLayer && this.ratingLayer && this.reportLayer && this.requestLayer) {
+            this.canLayer.show();
+            this.ratingLayer.hide();
+            this.reportLayer.hide();
+            this.requestLayer.hide();
+        }
+    },
+
+    showAllLayers: function () {
+        if (this.canLayer && this.ratingLayer && this.reportLayer && this.requestLayer) {
+            this.canLayer.show();
+            this.ratingLayer.show();
+            this.reportLayer.show();
+            this.requestLayer.show();
+        }
+    },
+
     init: function (id) {
         map = L.map(id, {
             minZoom: 14,
@@ -424,6 +454,13 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 this.reportLayer = layer.getSubLayer(reportLayerIndex);
                 this.canLayer = layer.getSubLayer(canLayerIndex);
                 this.requestLayer = layer.getSubLayer(requestLayerIndex);
+
+                if (this.props.addingRequest) {
+                    this.showOnlyExitingCans();
+                }
+                else {
+                    this.showAllLayers();
+                }
 
                 this.canLayer.setInteraction(true);
                 this.canLayer.setInteractivity('cartodb_id, type');
