@@ -132,11 +132,11 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     enableDropPinDrag: function () {
-        this.pin.dragging.enable();
+        if (this.pin) this.pin.dragging.enable();
     },
 
     disableDropPinDrag: function () {
-        this.pin.dragging.disable();
+        if (this.pin) this.pin.dragging.disable();
     },
 
     checkDropPinValid: function (latlng, callback) {
