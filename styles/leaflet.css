@@ -221,6 +221,13 @@
   height: 35px;
   width: 35px;
 }
+.request-popup .request-icon-litter-sighting {
+  background-image: url("/images/litter-sighting.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 35px;
+  width: 35px;
+}
 .leaflet-control-zoom a {
   background-color: #5194ff;
   border: none;
