@@ -497,10 +497,16 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             break;
                         // Requests
                         case requestLayerIndex:
+                            var iconClasses = 'detail-popup-icon request-icon';
+                            if (!this.props.can_type) {
+                                iconClasses += ' request-icon-litter-sighting';
+                            }
                             content = (
                                 <div className="detail-popup request-popup">
-                                    <div className="detail-popup-icon request-icon"></div>
-                                    <div className="detail-popup-text request-type">{data.can_type} bin request</div>
+                                    <div className={iconClasses}></div>
+                                    <div className="detail-popup-text request-type">
+                                        {data.can_type ? `${data.can_type} bin request` : 'litter sighting'}
+                                    </div>
                                     <div className="clearfix"></div>
                                 </div>
                             );
