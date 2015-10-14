@@ -1,76 +1,7 @@
-@import "icons";
-@import "variables";
-
-.request-list-item {
-    background-color: @green-transparent;
-    color: @green;
-
-    &:hover {
-        background-color: @green-light;
-    }
-
-    &-litter-sighting {
-        background-color: @blue-transparent;
-        color: @blue;
-
-        &:hover {
-            background-color: @blue-light;
-        }
-    }
-
-    &-icon {
-        margin: 0 auto;
-        .icon('bin-request', 30px);
-
-        &-litter-sighting {
-            .icon('litter-sighting', 30px);
-        }
-
-        &-column {
+.request-list {
+    &-item {
+        &-icon-column {
             padding: 0;
         }
-    }
-
-    &-can-type {
-        font-size: @list-title-font-size;
-        text-transform: capitalize;
-    }
-
-    &-date {
-        font-family: @book-font-family;
-        font-size: @list-sub-font-size;
-        letter-spacing: @list-sub-letter-spacing;
-    }
-}
-
-.detail-panel-request {
-    h2 {
-        text-transform: capitalize;
-    }
-
-    &-icon {
-        .icon('bin-request', 50px);
-
-        &-litter-sighting {
-            .icon('litter-sighting', 50px);
-        }
-
-        display: inline-block;
-        float: left;
-        margin-top: 10px;
-        max-width: 25%;
-    }
-
-    &-header {
-        float: left;
-        font-size: 32px;
-        margin-left: 5%;
-        max-width: 70%;
-    }
-}
-
-.request-popup {
-    .request-icon {
-        .icon('bin-request', 50px);
     }
 }
