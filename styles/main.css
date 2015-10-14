@@ -4475,6 +4475,9 @@ label,
   color: #5194ff;
   text-decoration: none;
 }
+.legend-header-clear.enabled {
+  opacity: 1;
+}
 .legend-body {
   height: calc(100% - 132px);
   overflow-y: auto;
@@ -4977,6 +4980,9 @@ label,
   font-size: 40px;
   line-height: 40px;
   margin-top: -10px;
+  position: fixed;
+  right: calc(12.5% + 25px);
+  top: 105px;
 }
 .help-close:link,
 .help-close:hover,

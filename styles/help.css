@@ -263,6 +263,9 @@
   font-size: 40px;
   line-height: 40px;
   margin-top: -10px;
+  position: fixed;
+  right: calc(12.5% + 25px);
+  top: 105px;
 }
 .help-close:link,
 .help-close:hover,

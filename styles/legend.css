@@ -305,6 +305,9 @@
   color: #5194ff;
   text-decoration: none;
 }
+.legend-header-clear.enabled {
+  opacity: 1;
+}
 .legend-body {
   height: calc(100% - 132px);
   overflow-y: auto;
