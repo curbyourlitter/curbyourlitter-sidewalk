@@ -6,6 +6,10 @@ import { History, Link, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
 import 'cartodbjs-hoverintent';
 
+import { getRatingSql, getRatingsColumnsMap } from 'curbyourlitter-sql/lib/ratings';
+import { getReportSql, getReportColumnsMap } from 'curbyourlitter-sql/lib/reports';
+import { getRequestSql, getRequestColumnsMap } from 'curbyourlitter-sql/lib/requests';
+
 import config from '../config/config';
 import {
     listRecordHovered,
@@ -16,9 +20,6 @@ import {
     requestsRequireReload
 } from '../actions';
 import PopoverButton from './PopoverButton.jsx';
-import { getRatingSql, ratingsColumnsMap } from '../sql/ratings';
-import { getRequestSql } from '../sql/requests';
-import { getReportSql } from '../sql/reports';
 import { slugifyComplaintType } from './Report.jsx';
 
 var map;
@@ -361,19 +362,19 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
     updateRatingSql: function () {
         if (this.ratingLayer) {
-            this.ratingLayer.setSQL(getRatingSql(this.props.ratingFilters, this.props.yearFilters, ratingsColumnsMap, true));
+            this.ratingLayer.setSQL(getRatingSql(this.props.ratingFilters, this.props.yearFilters, getRatingsColumnsMap(config), config, true));
         }
     },
 
     updateReportSql: function () {
         if (this.reportLayer) {
-            this.reportLayer.setSQL(getReportSql(this.props.reportFilters, this.props.yearFilters));
+            this.reportLayer.setSQL(getReportSql(this.props.reportFilters, this.props.yearFilters, getReportColumnsMap(config), config));
         }
     },
 
     updateRequestSql: function () {
         if (this.requestLayer) {
-            this.requestLayer.setSQL(getRequestSql(this.props.requestFilters, this.props.yearFilters));
+            this.requestLayer.setSQL(getRequestSql(this.props.requestFilters, this.props.yearFilters, getRequestColumnsMap(config), config));
         }
     },
 

@@ -5,7 +5,7 @@ import { Col, Grid, Row } from 'react-bootstrap';
 import config from '../config/config';
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
-import { canColumnsDetails } from '../sql/cans';
+import { getCanColumnsDetails } from 'curbyourlitter-sql/lib/cans';
 
 
 export var slugifyCanType = function (canType) {
@@ -32,7 +32,7 @@ export var Can = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.tables.can, canColumnsDetails);
+}), config.tables.can, getCanColumnsDetails(config));
 
 export var CanListItem = hoverIntent(React.createClass({
     mixins: [History],

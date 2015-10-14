@@ -4,9 +4,11 @@ import moment from 'moment';
 import React from 'react';
 import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
+
+import { getRequestColumnsDetails } from 'curbyourlitter-sql/lib/requests';
+
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
-import { requestColumnsDetails } from '../sql/requests';
 
 export var Request = detailPanel(React.createClass({
     getInitialState: function () {
@@ -65,7 +67,7 @@ export var Request = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.tables.request, requestColumnsDetails);
+}), config.tables.request, getRequestColumnsDetails(config));
 
 export var RequestListItem = hoverIntent(React.createClass({
     mixins: [History],

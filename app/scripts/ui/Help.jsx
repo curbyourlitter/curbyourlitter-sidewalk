@@ -2,9 +2,10 @@ import React from 'react';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
 import { Link } from 'react-router';
 
-import { ratingsColumnsDownload, getRatingSql } from '../sql/ratings';
-import { reportColumnsDownload, getReportSql } from '../sql/reports';
-import { requestColumnsDownload, getRequestSql } from '../sql/requests';
+import { getRatingsColumnsDownload, getRatingSql } from 'curbyourlitter-sql/lib/ratings';
+import { getReportColumnsDownload, getReportSql } from 'curbyourlitter-sql/lib/reports';
+import { getRequestColumnsDownload, getRequestSql } from 'curbyourlitter-sql/lib/requests';
+
 import config from '../config/config';
 
 export var Help = React.createClass({
@@ -52,7 +53,7 @@ var HelpItem = React.createClass({
 
 var HelpCommunityInput = React.createClass({
     downloadUrl: function () {
-        var sql = getRequestSql(null, null, requestColumnsDownload),
+        var sql = getRequestSql(null, null, getRequestColumnsDownload(config), config),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - Community Input',
@@ -107,7 +108,7 @@ var HelpLitterSightings = React.createClass({
 
 var Help311Data = React.createClass({
     downloadUrl: function () {
-        var sql = getReportSql(null, null, reportColumnsDownload),
+        var sql = getReportSql(null, null, getReportColumnsDownload(config), config),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - 311 Data',
@@ -157,7 +158,7 @@ var Help311Data = React.createClass({
 
 var HelpBlockRatings = React.createClass({
     downloadUrl: function () {
-        var sql = getRatingSql(null, [config.minYear, config.maxYear], ratingsColumnsDownload),
+        var sql = getRatingSql(null, [config.minYear, config.maxYear], getRatingsColumnsDownload(config), config),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - Block Ratings Data',

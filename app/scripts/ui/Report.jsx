@@ -4,9 +4,11 @@ import moment from 'moment';
 import React from 'react';
 import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
+
+import { getReportColumnsDetails } from 'curbyourlitter-sql/lib/reports';
+
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
-import { reportColumnsDetails } from '../sql/reports';
 
 export var slugifyComplaintType = function (complaintType) {
         return complaintType.replace(/ /g, '-').toLowerCase();
@@ -54,7 +56,7 @@ export var Report = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.tables.report, reportColumnsDetails);
+}), config.tables.report, getReportColumnsDetails(config));
 
 export var ReportListItem = hoverIntent(React.createClass({
     mixins: [History],

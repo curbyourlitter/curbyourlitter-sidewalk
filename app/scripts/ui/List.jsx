@@ -2,15 +2,16 @@ import _ from 'underscore';
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { getCans, getCanColumnsData } from 'curbyourlitter-sql/lib/cans';
+import { getReports, getReportColumnsData } from 'curbyourlitter-sql/lib/reports';
+import { getRequests, getRequestColumnsData } from 'curbyourlitter-sql/lib/requests';
+
 import config from '../config/config';
 import { listRecordHovered, listRecordUnhovered } from '../actions';
 import { Panel } from './Panel.jsx';
 import { CanListItem } from './Can.jsx';
 import { ReportListItem } from './Report.jsx';
 import { RequestListItem } from './Request.jsx';
-import { getCans, canColumnsData } from '../sql/cans';
-import { getRequests, requestColumnsData } from '../sql/requests';
-import { getReports, reportColumnsData } from '../sql/reports';
 
 var loadingCans = false,
     loadingReports = false,
@@ -115,7 +116,7 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
                 this.setState({ canRows: data });
                 this.forceUpdate();
             }
-        }, canColumnsData);
+        }, getCanColumnsData(config), config);
     },
 
     loadReports: function (filters, yearFilters, callback) {
@@ -127,7 +128,7 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
                 this.setState({ reportRows: data });
                 this.forceUpdate();
             }
-        }, reportColumnsData);
+        }, getReportColumnsData(config), config);
     },
 
     loadRequests: function (filters, yearFilters, callback) {
@@ -139,7 +140,7 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
                 this.setState({ requestRows: data });
                 this.forceUpdate();
             }
-        }, requestColumnsData);
+        }, getRequestColumnsData(config), config);
     },
 
     highlightFeature: function (id, type) {
