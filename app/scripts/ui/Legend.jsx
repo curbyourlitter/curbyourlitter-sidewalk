@@ -72,13 +72,26 @@ export var Legend = connect(mapStateToProps)(React.createClass({
         this.props.dispatch(filtersClear());
     },
 
+    anyFiltersFalse: function () {
+        var filterValues = _.flatten([
+            _.values(this.props.requestFilters),
+            _.values(this.props.ratingFilters),
+            _.values(this.props.reportFilters)
+        ]);
+        return _.some(filterValues, (value) => !value);
+    },
+
     render: function () {
+        var resetButtonClasses = 'legend-header-clear';
+        if (this.anyFiltersFalse()) {
+            resetButtonClasses += ' enabled';
+        }
         return (
             <div className={this.props.filtersVisible ? "legend visible" : "legend" }>
                 <h2 className="legend-header">
                     <a href="#" onClick={this.hide} className="legend-header-icon"></a>
                     <span className="legend-header-label">filters</span>
-                    <a className="legend-header-clear" onClick={this.clear} href="#">reset</a>
+                    <a className={resetButtonClasses} onClick={this.clear} href="#">reset</a>
                 </h2>
                 <div className="legend-body">
                     <YearPicker dispatch={this.props.dispatch} range={this.props.yearFilters} />
