@@ -616,8 +616,8 @@ export var AddButton = React.createClass({
                 </Link>
                 <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
                     <Popover>
-                        <div>Add a new request</div>
-                        <Button onClick={this.dismissPopover}>got it</Button>
+                        <div>Request a new bin</div>
+                        <Button block onClick={this.dismissPopover}>Got it</Button>
                     </Popover>
                 </Overlay>
             </div>
