@@ -11,7 +11,7 @@
     "cartodbjs-hoverintent": "0.0.1",
     "curbyourlitter-less": "git+https://github.com/curbyourlitter/curbyourlitter-less.git#v0.5.1",
     "curbyourlitter-sql": "git+https://github.com/curbyourlitter/curbyourlitter-sql.git#v0.2.1",
-    "history": "^1.10.2",
+    "history": "^1.12.0",
     "moment": "^2.10.6",
     "moment-timezone": "^0.4.0",
     "qwest": "^2.0.7",

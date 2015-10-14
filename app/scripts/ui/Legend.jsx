@@ -98,7 +98,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">Community Input</span>
-                            <Link to="/help" className="legend-help">?</Link>
+                            <Link to="/help#community-input" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Litter Bin Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
                         <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" dispatch={this.props.dispatch} shown={this.props.requestFilters.recycling} />
@@ -107,7 +107,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">311 Data</span>
-                            <Link to="/help" className="legend-help">?</Link>
+                            <Link to="/help#reports" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
                         <LegendItem name="Overflowing Litter Bin" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />
@@ -116,7 +116,7 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                     <section>
                         <h3>
                             <span className="legend-section-header">Block Ratings</span>
-                            <Link to="/help" className="legend-help">?</Link>
+                            <Link to="/help#block-ratings" className="legend-help">?</Link>
                         </h3>
                         <LegendItem name="Poor" layer="rating" label="5" dispatch={this.props.dispatch} shown={this.props.ratingFilters[5]} />
                         <LegendItem name="Below Average" layer="rating" label="4" dispatch={this.props.dispatch} shown={this.props.ratingFilters[4]} />

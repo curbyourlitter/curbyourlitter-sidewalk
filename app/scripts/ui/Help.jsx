@@ -64,7 +64,7 @@ var HelpCommunityInput = React.createClass({
 
     render: function () {
         return (
-            <section className="help-type">
+            <section className="help-type" id="community-input">
                 <h2>
                     Community Input
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -96,7 +96,7 @@ var HelpCommunityInput = React.createClass({
 var HelpLitterSightings = React.createClass({
     render: function () {
         return (
-            <section className="help-type">
+            <section className="help-type" id="litter-sightings">
                 <h2>Litter Sightings</h2>
                 <p>
                     Photos of litter in the neighborhood illustrate the problem and help us identify areas that need the most attention. Submitting a photo of a particular corner, sidewalk or vacant lot strewn with trash is a way to do your part to curb our litter problem!  Click each litter sighting on the map to see the details and read more.
@@ -119,7 +119,7 @@ var Help311Data = React.createClass({
 
     render: function () {
         return (
-            <section className="help-type">
+            <section className="help-type" id="reports">
                 <h2>
                     311 Data
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -169,7 +169,7 @@ var HelpBlockRatings = React.createClass({
 
     render: function () {
         return (
-            <section className="help-type">
+            <section className="help-type" id="block-ratings">
                 <h2>
                     Block Ratings
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
@@ -190,7 +190,7 @@ var HelpBlockRatings = React.createClass({
 var HelpExistingCans = React.createClass({
     render: function () {
         return (
-            <section className="help-type">
+            <section className="help-type" id="cans">
                 <h2>Existing Bins</h2>
                 <p>A dataset of all litter bins in the 11222 zip code is not publically available from the City of New York. We filled in this gap by surveying and mapping each bin in our neighborhood. There are currently two types of bins servicing Greenpoint:</p>
                 <HelpItem header="BigBelly Solar Compactors for Trash" image="images/bintypes/litter_standard.jpg" />
