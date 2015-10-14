@@ -9,7 +9,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: @ui-z-index + 5;
+     z-index: @ui-z-index + 5;
 
     h1 {
         margin: 0;
@@ -18,28 +18,63 @@
 
     h2 {
         border-bottom: 1px solid @blue;
-        font-size: 24px;
-        line-height: 32px;
+        font-size: 30px;
+        line-height: 36px;
         padding-bottom: 10px;
     }
 
     h3 {
-        font-size: 16px;
+        font-size: 20px;
+        line-height: 28px;
+        font-family: @book-font-family;
         margin-top: 0;
+        margin-bottom: 30px;
     }
-
+    
+    h4 {
+	    font-size: 18px;
+        line-height: 24px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        
+    }
+    h4.help-header{
+	    margin-bottom: 0px;
+    }
+    h4.subhead {
+	        letter-spacing: 0;
+			text-transform: none;
+			font-family: @book-font-family;
+        }
+    .help-header-img {
+	    padding-right: 20px;
+	        width: 80px;
+			margin-left: 0px;
+    }
+	h5.no-margin-top {
+	    margin-top:0;
+	    margin-bottom: 2px;
+    }
     p {
         font-family: Georgia, serif;
         font-size: 14px;
     }
-
+    .type-description{
+	    font-family: @book-font-family;
+	    
+    }
+	.block-ratings .row {
+		margin-bottom: 40px;
+	}
     &-body {
         background: white;
         height: ~"calc(100% - @{header-height})";
-        margin: 0 12.5%;
+        margin: 0 auto;
         margin-top: @header-height;
         overflow-y: auto;
         padding: @help-padding;
+        max-width: 900px;
+        min-width: 500px;
     }
 
     &-close {
@@ -49,7 +84,7 @@
         font-size: 40px;
         line-height: 40px;
         margin-top: -10px;
-        position: fixed;
+        //position: fixed;
         right: ~"calc(12.5% + 25px)";
         top: @header-height + 25px;
 
