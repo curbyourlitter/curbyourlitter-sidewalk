@@ -4276,7 +4276,6 @@ label,
   background-color: #5194ff;
   border: none;
   color: white;
-  float: left;
   font-family: 'Lucida Console', Monaco, monospace;
   font-weight: normal;
 }
@@ -4284,8 +4283,8 @@ label,
 .leaflet-control-zoom a:last-child {
   border-radius: 0;
 }
-.leaflet-control-zoom a:last-child {
-  margin-left: 8px;
+.leaflet-control-zoom a:first-child {
+  margin-bottom: 8px;
 }
 .leaflet-control-zoom a:hover {
   background-color: #9ec3ff;
@@ -4308,7 +4307,7 @@ label,
 }
 .leaflet-control-scale {
   bottom: 10px;
-  left: 85px;
+  left: 45px;
   margin-bottom: 0;
   position: absolute;
 }
@@ -4329,7 +4328,7 @@ label,
 }
 .leaflet-touch .leaflet-control-scale {
   bottom: 10px;
-  left: 85px;
+  left: 45px;
   margin-bottom: 0;
   position: absolute;
 }
@@ -4349,7 +4348,6 @@ label,
   background-color: #5194ff;
   border: none;
   color: white;
-  float: left;
   font-family: 'Lucida Console', Monaco, monospace;
   font-weight: normal;
 }
@@ -4357,8 +4355,8 @@ label,
 .leaflet-touch .leaflet-control-zoom a:last-child {
   border-radius: 0;
 }
-.leaflet-touch .leaflet-control-zoom a:last-child {
-  margin-left: 8px;
+.leaflet-touch .leaflet-control-zoom a:first-child {
+  margin-bottom: 8px;
 }
 .leaflet-touch .leaflet-control-zoom a:hover {
   background-color: #9ec3ff;
