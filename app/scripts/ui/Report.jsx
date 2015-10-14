@@ -107,4 +107,4 @@ export var ReportListItem = hoverIntent(React.createClass({
             </li>
         );
     }
-}), 300);
+}), 100);

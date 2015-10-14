@@ -78,4 +78,4 @@ export var CanListItem = hoverIntent(React.createClass({
             </li>
         );
     }
-}), 300);
+}), 100);
