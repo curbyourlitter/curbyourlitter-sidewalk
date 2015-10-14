@@ -40,8 +40,8 @@ var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 var geocoder = new google.maps.Geocoder;
 
 // Icons for placing bins
-var placementIconSize = [35, 50],
-    placementIconAnchor = [17, 50];
+var placementIconSize = [21, 30],
+    placementIconAnchor = [10, 30];
 
 var badPlacementIcon = L.icon({
     iconAnchor: placementIconAnchor,
