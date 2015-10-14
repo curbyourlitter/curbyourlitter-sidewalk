@@ -86,6 +86,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         geocoder.geocode({'location': this.pin.getLatLng()}, (results, status) => {
             if (status !== google.maps.GeocoderStatus.OK) return;
             this.pin.bindPopup(this.getAddress(results[0]), {
+                closeButton: false,
                 offset: [0, -25]
             }).openPopup();
         });
