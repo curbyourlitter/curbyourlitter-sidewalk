@@ -426,6 +426,12 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         config.tileLayer.addTo(map);
 
         this.highlightedRecordLayer = L.geoJson(null, {
+            onEachFeature: (feature, layer) => {
+                layer.on('click', () => {
+                    this.openFeature(feature.properties.cartodb_id, feature.properties.type);
+                });
+            },
+
             pointToLayer: (feature, latlng) => {
                 return L.marker(latlng, {
                     icon: this.getHighlightedRecordIcon(feature.properties, map.getZoom())
@@ -464,11 +470,11 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 }
 
                 this.canLayer.setInteraction(true);
-                this.canLayer.setInteractivity('cartodb_id, type');
+                this.canLayer.setInteractivity('longitude, latitude, cartodb_id, type');
                 this.reportLayer.setInteraction(true);
-                this.reportLayer.setInteractivity('cartodb_id, date, complaint_type, agency');
+                this.reportLayer.setInteractivity('longitude, latitude, cartodb_id, date, complaint_type, agency');
                 this.requestLayer.setInteraction(true);
-                this.requestLayer.setInteractivity('cartodb_id, can_type, date');
+                this.requestLayer.setInteractivity('longitude, latitude, cartodb_id, can_type, date');
 
                 this.updateRatingSql();
                 this.updateReportSql();
@@ -511,7 +517,12 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     }
                     if (!this.pin) {
                         map.closePopup();
-                        map.openPopup(React.renderToString(content), latlng, { closeButton: false, minWidth: 150 });
+                        map.openPopup(React.renderToString(content), [data.latitude, data.longitude], {
+                            closeButton: false,
+                            maxHeight: 50,
+                            minWidth: 150,
+                            offset: [0, -3]
+                        });
                     }
                 });
 
@@ -547,15 +558,29 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                 });
 
                 this.canLayer.on('featureClick', (event, latlng, pos, data) => {
-                    this.history.pushState(null, `/cans/${data.cartodb_id}`);
+                    this.openFeature(data.cartodb_id, 'can');
                 });
                 this.reportLayer.on('featureClick', (event, latlng, pos, data) => {
-                    this.history.pushState(null, `/reports/${data.cartodb_id}`);
+                    this.openFeature(data.cartodb_id, 'report');
                 });
                 this.requestLayer.on('featureClick', (event, latlng, pos, data) => {
-                    this.history.pushState(null, `/requests/${data.cartodb_id}`);
+                    this.openFeature(data.cartodb_id, 'request');
                 });
             });
+    },
+
+    openFeature: function (id, type) {
+        switch (type) {
+            case 'can':
+                this.history.pushState(null, `/cans/${id}`);
+                break;
+            case 'report':
+                this.history.pushState(null, `/reports/${id}`);
+                break;
+            case 'request':
+                this.history.pushState(null, `/requests/${id}`);
+                break;
+        }
     },
 
     render: function() {
