@@ -205,7 +205,7 @@ var Help311Data = React.createClass({
                                 <div className="help-code-list">
                                     <div className="help-code">Code 6: Overflowing Litter Basket</div>
                                     <div>Litter basket is overflowing (above the top) with litter falling out.</div>
-                                </p>
+                                </div>
                             </Col>
                         </Row>
                         <Row>
