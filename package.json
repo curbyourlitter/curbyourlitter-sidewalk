@@ -55,10 +55,5 @@
   "scripts": {
     "build": "bash build/dist.sh",
     "test": "echo 'no tests yet'"
-  },
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
   }
 }
