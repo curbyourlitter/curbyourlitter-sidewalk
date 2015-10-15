@@ -243,25 +243,55 @@
 }
 .help h2 {
   border-bottom: 1px solid #5194ff;
-  font-size: 24px;
-  line-height: 32px;
+  font-size: 30px;
+  line-height: 36px;
   padding-bottom: 10px;
 }
 .help h3 {
-  font-size: 16px;
+  font-size: 20px;
+  line-height: 28px;
+  font-family: 'NationalWeb-Book', sans-serif;
   margin-top: 0;
+  margin-bottom: 30px;
 }
-.help p {
-  font-family: Georgia, serif;
-  font-size: 14px;
+.help h4 {
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.help h4.help-header {
+  margin-bottom: 0px;
+}
+.help h4.subhead {
+  letter-spacing: 0;
+  font-family: 'NationalWeb-Book', sans-serif;
+  text-transform: none;
+}
+.help .help-header-img {
+  margin-left: 0px;
+  padding-right: 20px;
+  width: 80px;
+}
+.help h5.no-margin-top {
+  margin-top: 0;
+  margin-bottom: 2px;
+}
+.help .type-description {
+  font-family: 'NationalWeb-Book', sans-serif;
+}
+.help .block-ratings .row {
+  margin-bottom: 40px;
 }
 .help-body {
   background: white;
   height: calc(100% - 80px);
-  margin: 0 12.5%;
+  margin: 0 auto;
   margin-top: 80px;
   overflow-y: auto;
   padding: 30px;
+  max-width: 900px;
+  min-width: 500px;
 }
 .help-close {
   color: #5194ff;
@@ -270,7 +300,6 @@
   font-size: 40px;
   line-height: 40px;
   margin-top: -10px;
-  position: fixed;
   right: calc(12.5% + 25px);
   top: 105px;
 }
@@ -299,4 +328,11 @@
   letter-spacing: 1px;
   padding: 8px 13px;
   text-transform: uppercase;
+}
+.help-code-list {
+  font-family: Georgia, serif;
+  font-size: 14px;
+}
+.help-code {
+  text-decoration: underline;
 }
