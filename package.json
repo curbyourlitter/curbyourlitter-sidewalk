@@ -60,8 +60,5 @@
     "transform": [
       "browserify-shim"
     ]
-  },
-  "browserify-shim": {
-    "jquery": "global:$"
   }
 }
