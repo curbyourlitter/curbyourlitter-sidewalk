@@ -9,7 +9,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-     z-index: @ui-z-index + 5;
+    z-index: @ui-z-index + 5;
 
     h1 {
         margin: 0;
@@ -32,40 +32,40 @@
     }
     
     h4 {
-	    font-size: 18px;
+        font-size: 18px;
         line-height: 24px;
         letter-spacing: 2px;
         text-transform: uppercase;
         
-    }
-    h4.help-header{
-	    margin-bottom: 0px;
-    }
-    h4.subhead {
-	        letter-spacing: 0;
-			text-transform: none;
-			font-family: @book-font-family;
+        &.help-header {
+            margin-bottom: 0px;
         }
+        &.subhead {
+            letter-spacing: 0;
+            font-family: @book-font-family;
+            text-transform: none;
+        }
+    }
+
     .help-header-img {
-	    padding-right: 20px;
-	        width: 80px;
-			margin-left: 0px;
+        margin-left: 0px;
+        padding-right: 20px;
+        width: 80px;
     }
-	h5.no-margin-top {
-	    margin-top:0;
-	    margin-bottom: 2px;
+
+    h5.no-margin-top {
+        margin-top: 0;
+        margin-bottom: 2px;
     }
-    p {
-        font-family: Georgia, serif;
-        font-size: 14px;
+
+    .type-description {
+        font-family: @book-font-family;
     }
-    .type-description{
-	    font-family: @book-font-family;
-	    
+
+    .block-ratings .row {
+        margin-bottom: 40px;
     }
-	.block-ratings .row {
-		margin-bottom: 40px;
-	}
+
     &-body {
         background: white;
         height: ~"calc(100% - @{header-height})";
@@ -84,7 +84,6 @@
         font-size: 40px;
         line-height: 40px;
         margin-top: -10px;
-        //position: fixed;
         right: ~"calc(12.5% + 25px)";
         top: @header-height + 25px;
 
@@ -115,5 +114,14 @@
         letter-spacing: 1px;
         padding: 8px 13px;
         text-transform: uppercase;
+    }
+
+    &-code-list {
+        font-family: Georgia, serif;
+        font-size: 14px;
+    }
+
+    &-code {
+        text-decoration: underline;
     }
 }
