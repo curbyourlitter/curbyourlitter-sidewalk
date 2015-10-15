@@ -67,7 +67,7 @@ gulp.task('buildScripts', function() {
     return browserify({
         entries: [sourceFile],
         insertGlobals: true,
-        fullPaths: true
+        fullPaths: false
     })
         .transform(babelify)
         .transform(envify({ NODE_ENV: 'production' }))
