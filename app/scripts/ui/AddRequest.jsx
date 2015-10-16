@@ -402,7 +402,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
                     <span className="panel-header-label">{heading}</span>
                     <Link className="panel-header-cancel" to="/">{cancelLabel}</Link>
                 </h2>
-                <Steps count={4} current={this.state.step}/>
+                {!this.state.success ? <Steps count={4} current={this.state.step}/> : ''}
             </div>
         );
 
