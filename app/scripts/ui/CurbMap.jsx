@@ -498,7 +498,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                         // Requests
                         case requestLayerIndex:
                             var iconClasses = 'detail-popup-icon request-icon';
-                            if (!this.props.can_type) {
+                            if (!data.can_type) {
                                 iconClasses += ' request-icon-litter-sighting';
                             }
                             content = (
