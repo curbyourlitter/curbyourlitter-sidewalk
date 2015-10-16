@@ -273,7 +273,9 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }, {
             format: 'GeoJSON' 
         }).done((data) => {
-            // Only highlight if mouse is still over the feature
+            this.unhighlightRecordPoint();
+            map.closePopup();
+            // Only select if feature still selected
             if (this.props.recordSelected && _.isEqual(this.props.recordSelected, record)) {
                 data.features[0].properties.type = record.recordType;
                 this.selectedRecordLayer.addData(data);
