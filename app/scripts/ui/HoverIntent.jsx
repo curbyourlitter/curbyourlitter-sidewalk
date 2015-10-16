@@ -7,7 +7,9 @@ export var hoverIntent = function (Component, duration = 500) {
                 this.timer = setTimeout(() => {
                     this.timer = null;
                     this.timerFired = true;
-                    this.refs.child.onHoverIntent();
+                    if (this.isMounted() && this.refs.child) {
+                        this.refs.child.onHoverIntent();
+                    }
                 }, duration);
             }
         },
