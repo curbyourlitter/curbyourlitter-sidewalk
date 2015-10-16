@@ -66,6 +66,8 @@
     }
 
     &-panel {
+        z-index: @button-z-index + 1;
+
         .panel-body {
             height: ~"calc(100% - @{add-panel-body-offset})";
             padding: @add-request-body-padding;
