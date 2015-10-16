@@ -235,7 +235,7 @@ var Success = React.createClass({
     render: function () {
         return (
             <div className="add-request-success">
-                <h2>Thanks for your help in placing a bin!</h2>
+                <h2>Thanks for placing a bin!</h2>
                 <a onClick={this.handleNewRequestClick} className="btn btn-block btn-lg btn-default">Make another Request</a>
                 <Button bsSize="large" block href="http://curbyourlitter.org/what-can-we-do/">Get Involved</Button>
                 <Button bsSize="large" block href="http://curbyourlitter.org/the-problem/">See the Litter Problem</Button>
