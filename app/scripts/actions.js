@@ -7,6 +7,8 @@ export const FILTERS_UPDATE = 'FILTERS_UPDATE';
 export const MAP_CENTER = 'MAP_CENTER';
 export const MAP_MOVED = 'MAP_MOVED';
 export const MAP_IS_READY = 'MAP_IS_READY';
+export const MAP_RECORD_HOVERED = 'MAP_RECORD_HOVERED';
+export const MAP_RECORD_UNHOVERED = 'MAP_RECORD_UNHOVERED';
 export const PANEL_SHOWN = 'PANEL_SHOWN';
 export const PANEL_TOGGLE = 'PANEL_TOGGLE';
 export const PIN_DROP_ACTIVE = 'PIN_DROP_ACTIVE';
@@ -126,6 +128,20 @@ export function listRecordHovered(id, recordType) {
 export function listRecordUnhovered() {
     return {
         type: LIST_RECORD_UNHOVERED
+    };
+}
+
+export function mapRecordHovered(id, recordType) {
+    return {
+        id: id,
+        recordType: recordType,
+        type: MAP_RECORD_HOVERED
+    };
+}
+
+export function mapRecordUnhovered() {
+    return {
+        type: MAP_RECORD_UNHOVERED
     };
 }
 

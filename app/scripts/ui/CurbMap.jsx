@@ -16,6 +16,8 @@ import {
     listRecordUnhovered,
     mapIsReady,
     mapMoved,
+    mapRecordHovered,
+    mapRecordUnhovered,
     pinDropMoved,
     requestsRequireReload
 } from '../actions';
@@ -555,6 +557,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                             table = 'can';
                         }
                         this.props.dispatch(listRecordHovered(data.cartodb_id, table));
+                        this.props.dispatch(mapRecordHovered(data.cartodb_id, table));
                     }
                     if (_.values(currentlyOver).filter((l) => l).length > 0) {
                         document.getElementById(id).style.cursor = 'pointer';
@@ -569,6 +572,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                         }
                         document.getElementById(id).style.cursor = null;
                         this.props.dispatch(listRecordUnhovered());
+                        this.props.dispatch(mapRecordUnhovered());
                     }
                 });
 

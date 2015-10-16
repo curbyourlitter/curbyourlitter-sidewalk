@@ -12,6 +12,8 @@ import {
     MAP_CENTER,
     MAP_MOVED,
     MAP_IS_READY,
+    MAP_RECORD_HOVERED,
+    MAP_RECORD_UNHOVERED,
     PANEL_SHOWN,
     PANEL_TOGGLE,
     PIN_DROP_ACTIVE,
@@ -201,6 +203,19 @@ export function listRecordHovered(state = null, action) {
         };
     }
     if (action.type === LIST_RECORD_UNHOVERED) {
+        return null;
+    }
+    return state;
+}
+
+export function mapRecordHovered(state = null, action) {
+    if (action.type === MAP_RECORD_HOVERED) {
+        return {
+            id: action.id,
+            recordType: action.recordType
+        };
+    }
+    if (action.type === MAP_RECORD_UNHOVERED) {
         return null;
     }
     return state;
