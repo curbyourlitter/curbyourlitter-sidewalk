@@ -244,13 +244,6 @@ var Success = React.createClass({
     }
 });
 
-function mapStateToProps(state) {
-    return {
-        pinDropLatlng: state.pinDropLatlng,
-        pinDropValid: state.pinDropValid
-    };
-}
-
 var Steps = React.createClass({
     render: function () {
         var arrows = [];
@@ -269,6 +262,13 @@ var Steps = React.createClass({
         );
     }
 });
+
+function mapStateToProps(state) {
+    return {
+        pinDropLatlng: state.pinDropLatlng,
+        pinDropValid: state.pinDropValid
+    };
+}
 
 export var AddRequest = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
