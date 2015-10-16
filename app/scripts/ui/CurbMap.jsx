@@ -87,7 +87,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             if (status !== google.maps.GeocoderStatus.OK) return;
             this.pin.bindPopup(this.getAddress(results[0]), {
                 closeButton: false,
-                offset: [0, -25]
+                offset: [0, -20]
             }).openPopup();
         });
     },
@@ -148,6 +148,12 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }).done((data) => {
             var valid = data.rows.length > 0;
             this.pin.setIcon(valid ? goodPlacementIcon : badPlacementIcon);
+            if (!valid) {
+                this.pin.bindPopup('Place me!', {
+                    closeButton: false,
+                    offset: [0, -20]
+                }).openPopup();
+            }
             callback(valid);
         });
     },
