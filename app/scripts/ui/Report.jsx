@@ -75,7 +75,10 @@ export var ReportListItem = hoverIntent(React.createClass({
     },
 
     shouldComponentUpdate: function (nextProps, nextState) {
-        return (nextProps.in_bbox !== this.props.in_bbox);
+        return (
+            nextProps.in_bbox !== this.props.in_bbox ||
+            nextProps.hoveredOnMap !== this.props.hoveredOnMap
+        );
     },
 
     render: function () {
@@ -86,6 +89,9 @@ export var ReportListItem = hoverIntent(React.createClass({
         }
         if (this.props.in_bbox) {
             itemClasses += ' in-view';
+        }
+        if (this.props.hoveredOnMap) {
+            itemClasses += ' hovered-on-map';
         }
         return (
             <li className={itemClasses} onClick={this.handleClick} onMouseEnter={this.props.onMouseEnter} onMouseLeave={this.handleMouseLeave}>

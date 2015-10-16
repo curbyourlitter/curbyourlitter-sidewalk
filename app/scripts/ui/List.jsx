@@ -45,18 +45,22 @@ export var List = React.createClass({
             unhighlightFeature: this.props.unhighlightFeature
         };
         var list = this.props.items.map(item => {
+            var hoveredOnMap = false;
+            if (item.type === this.props.hoveredRecord.recordType && item.cartodb_id === this.props.hoveredRecord.id) {
+                hoveredOnMap = true;
+            }
             if (inView && !item.in_bbox) {
                 inView = false;
                 return <li key="out-of-view" ref="outOfView" className="list-out-of-view">out of view</li>;
             }
             if (item.type === 'can') {
-                return <CanListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
+                return <CanListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} hoveredOnMap={hoveredOnMap} />
             }
             if (item.type === 'report') {
-                return <ReportListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
+                return <ReportListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} hoveredOnMap={hoveredOnMap} />
             }
             else if (item.type === 'request') {
-                return <RequestListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} />
+                return <RequestListItem key={item.type + item.cartodb_id} id={item.cartodb_id} {...item} {...handlers} hoveredOnMap={hoveredOnMap} />
             }
         });
         var innerHeader = (
@@ -80,6 +84,7 @@ export var List = React.createClass({
 function mapStateToProps(state) {
     return {
         mapBoundingBox: state.mapBoundingBox,
+        mapRecordHovered: _.extend({}, state.mapRecordHovered),
         reportFilters: _.extend({}, state.reportFilters),
         requestFilters: _.extend({}, state.requestFilters),
         yearFilters: _.extend({}, state.yearFilters)
@@ -186,6 +191,10 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
         if (this.state.rows.length !== nextState.rows.length) {
             return true;
         }
+
+        if (!_.isEqual(nextProps.mapRecordHovered, this.props.mapRecordHovered)) {
+            return true;
+        }
         return false;
     },
 
@@ -198,6 +207,6 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} highlightFeature={this.highlightFeature} unhighlightFeature={this.unhighlightFeature}/>
+        return <List items={this.state.rows} hoveredRecord={this.props.mapRecordHovered} highlightFeature={this.highlightFeature} unhighlightFeature={this.unhighlightFeature}/>
     }
 }));
