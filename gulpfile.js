@@ -33,7 +33,7 @@ gulp.task('less', function() {
         .pipe($.size());
 });
 
-gulp.task('minifyStyles', function() {
+gulp.task('minifyStyles', ['styles'], function() {
     return gulp.src(['dist/styles/**/*.css'])
         .pipe($.minifyCss())
         .pipe(gulp.dest('dist/styles'))
@@ -132,7 +132,7 @@ gulp.task('bundle', ['styles', 'scripts', 'bower'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('buildBundle', ['styles', 'minifyStyles', 'buildScripts', 'bower'], function() {
+gulp.task('buildBundle', ['minifyStyles', 'buildScripts', 'bower'], function() {
     return gulp.src('./app/*.html')
         .pipe($.useref.assets())
         .pipe($.useref.restore())
