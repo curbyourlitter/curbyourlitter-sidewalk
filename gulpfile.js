@@ -132,7 +132,7 @@ gulp.task('bundle', ['styles', 'scripts', 'bower'], function() {
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('buildBundle', ['styles', 'buildScripts', 'bower'], function() {
+gulp.task('buildBundle', ['styles', 'minifyStyles', 'buildScripts', 'bower'], function() {
     return gulp.src('./app/*.html')
         .pipe($.useref.assets())
         .pipe($.useref.restore())
@@ -171,7 +171,7 @@ gulp.task('watch', ['html', 'images', 'fonts', 'bundle', 'extras'], function() {
 });
 
 // Build
-gulp.task('build', ['html', 'buildBundle', 'deploymentScripts', 'images', 'fonts', 'extras', 'minifyStyles'], function() {
+gulp.task('build', ['html', 'buildBundle', 'deploymentScripts', 'images', 'fonts', 'extras'], function() {
     gulp.src('dist/scripts/app.js')
         .pipe($.uglify())
         .pipe($.stripDebug())
