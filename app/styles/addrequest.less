@@ -4,7 +4,7 @@
 @add-request-header-padding: 20px;
 @add-request-body-padding: 25px;
 @add-request-header-height: 80px;
-@panel-body-offset: @header-height + @add-request-header-height;
+@add-panel-body-offset: @header-height + @add-request-header-height;
 
 .add-request {
     &-panel-header {
@@ -67,7 +67,7 @@
 
     &-panel {
         .panel-body {
-            height: ~"calc(100% - @{panel-body-offset})";
+            height: ~"calc(100% - @{add-panel-body-offset})";
             padding: @add-request-body-padding;
             padding-top: 0;
         }
