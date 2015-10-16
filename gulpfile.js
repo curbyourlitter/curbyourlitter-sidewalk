@@ -33,6 +33,13 @@ gulp.task('less', function() {
         .pipe($.size());
 });
 
+gulp.task('minifyStyles', function() {
+    return gulp.src(['dist/styles/**/*.css'])
+        .pipe($.minifyCss())
+        .pipe(gulp.dest('dist/styles'))
+        .pipe($.size());
+});
+
 
 var bundler = watchify(
     browserify({
@@ -164,7 +171,7 @@ gulp.task('watch', ['html', 'images', 'fonts', 'bundle', 'extras'], function() {
 });
 
 // Build
-gulp.task('build', ['html', 'buildBundle', 'deploymentScripts', 'images', 'fonts', 'extras'], function() {
+gulp.task('build', ['html', 'buildBundle', 'deploymentScripts', 'images', 'fonts', 'extras', 'minifyStyles'], function() {
     gulp.src('dist/scripts/app.js')
         .pipe($.uglify())
         .pipe($.stripDebug())
