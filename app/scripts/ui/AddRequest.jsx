@@ -227,13 +227,18 @@ var InformationForm = React.createClass({
 });
 
 var Success = React.createClass({
+    handleNewRequestClick: function (e) {
+        this.props.onAddNewRequest();
+        e.preventDefault();
+    },
+
     render: function () {
         return (
             <div className="add-request-success">
                 <h2>Thanks for your help in placing a bin!</h2>
-                <Button bsSize="large" block>Make another Request</Button>
-                <Button bsSize="large" block>Get Involved</Button>
-                <Button bsSize="large" block>What's the Problem?</Button>
+                <a onClick={this.handleNewRequestClick} className="btn btn-block btn-lg btn-default">Make another Request</a>
+                <Button bsSize="large" block href="http://curbyourlitter.org/what-can-we-do/">Get Involved</Button>
+                <Button bsSize="large" block href="http://curbyourlitter.org/the-problem/">See the Litter Problem</Button>
             </div>
         );
     }
@@ -282,6 +287,10 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
     componentWillUnmount: function () {
         this.props.dispatch(pinDropActive(false));
         this.props.dispatch(endAddRequest());
+    },
+
+    reset: function () {
+        this.setState(this.getInitialState());
     },
 
     validateRequest: function () {
@@ -355,7 +364,7 @@ export var AddRequest = connect(mapStateToProps)(React.createClass({
         if (this.state.success) {
             cancelLabel = 'done';
             heading = 'Success!';
-            bodyPanel = <Success />;
+            bodyPanel = <Success onAddNewRequest={this.reset} />;
         }
         else {
             switch (this.state.step) {
