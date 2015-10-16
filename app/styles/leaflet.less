@@ -38,8 +38,10 @@
     box-shadow: none;
 
     a {
-        height: @default-icon-size;
-        width: @default-icon-size;
+        &, &:hover {
+            height: @default-icon-size;
+            width: @default-icon-size;
+        }
     }
 }
 
