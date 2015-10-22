@@ -355,7 +355,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
     componentDidUpdate: function (prevProps, prevState) {
         if (this.props.mapCenter && this.props.mapCenter[0] && this.props.mapCenter[1] && !_.isEqual(this.props.mapCenter, prevProps.mapCenter)) {
-            map.setView(this.props.mapCenter, 17);
+            map.setView(this.props.mapCenter, Math.max(map.getZoom(), 17));
         }
         if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
             this.updateRatingSql();
