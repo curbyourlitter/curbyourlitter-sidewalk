@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { Button, Input } from 'react-bootstrap';
@@ -33,12 +34,12 @@ export var Legend = connect(mapStateToProps)(React.createClass({
     },
 
     componentDidMount: function () {
-        this.props.dispatch(filtersShown(React.findDOMNode(this).offsetWidth));
+        this.props.dispatch(filtersShown(ReactDOM.findDOMNode(this).offsetWidth));
     },
 
     componentDidUpdate: function (prevProps) {
         if (!prevProps.filtersVisible && this.props.filtersVisible) {
-            this.props.dispatch(filtersShown(React.findDOMNode(this).offsetWidth));
+            this.props.dispatch(filtersShown(ReactDOM.findDOMNode(this).offsetWidth));
         }
     },
 

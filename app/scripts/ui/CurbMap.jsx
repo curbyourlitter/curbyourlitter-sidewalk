@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import moment from 'moment';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { History, Link, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
@@ -390,7 +391,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
     },
 
     getId: function () {
-        return React.findDOMNode(this.refs.map).id;
+        return ReactDOM.findDOMNode(this.refs.map).id;
     },
 
     showOnlyExitingCans: function () {
@@ -633,8 +634,8 @@ export var AddButton = React.createClass({
                 <Link to="/add" onClick={this.handleClick} className="btn btn-default btn-add" ref="button">
                     <div>+</div>
                 </Link>
-                <Overlay show={this.state.popoverShown} target={()=> React.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
-                    <Popover>
+                <Overlay show={this.state.popoverShown} target={()=> ReactDOM.findDOMNode(this.refs.button)} placement="top" containerPadding={20}>
+                    <Popover id="add-popover">
                         <div>Request a new bin</div>
                         <Button block onClick={this.dismissPopover}>Got it</Button>
                     </Popover>

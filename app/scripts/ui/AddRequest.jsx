@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Button, Col, Grid, Input, Row } from 'react-bootstrap';
 import {} from 'react-bootstrap';
@@ -32,7 +33,7 @@ var ImageInput = React.createClass({
     },
 
     clickInput: function () {
-        var input = React.findDOMNode(this.refs.input);
+        var input = ReactDOM.findDOMNode(this.refs.input);
         var event = new MouseEvent('click', {
             'view': window, 
             'bubbles': true, 

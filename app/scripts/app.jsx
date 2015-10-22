@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { combineReducers, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import { Route, Router } from 'react-router';
@@ -43,7 +44,7 @@ var App = connect(mapStateToProps)(React.createClass({
     }
 }));
 
-React.render((
+ReactDOM.render((
     <Provider store={store}>
         {() => {
             return (

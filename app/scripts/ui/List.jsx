@@ -1,5 +1,6 @@
 import _ from 'underscore';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import { getCans, getCanColumnsData } from 'curbyourlitter-sql/lib/cans';
@@ -25,11 +26,11 @@ export var List = React.createClass({
     },
 
     getHeaderHeight: function () {
-        return React.findDOMNode(this.refs.inViewLabel).getBoundingClientRect().top;
+        return ReactDOM.findDOMNode(this.refs.inViewLabel).getBoundingClientRect().top;
     },
 
     handleScroll: function (e) {
-        var oov = React.findDOMNode(this.refs.outOfView);
+        var oov = ReactDOM.findDOMNode(this.refs.outOfView);
         if (oov) {
             var inView = oov.getBoundingClientRect().top > this.getHeaderHeight();
             if (this.state.inView != inView) {

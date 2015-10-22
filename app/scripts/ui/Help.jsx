@@ -249,8 +249,7 @@ var HelpBlockRatings = React.createClass({
 
     render: function () {
         return (
-            <section className="help-type block-ratings">
-
+            <section className="help-type block-ratings" id="block-ratings">
                <h2>
                     Block Ratings
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>

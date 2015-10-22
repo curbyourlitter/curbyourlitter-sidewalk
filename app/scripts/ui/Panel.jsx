@@ -1,6 +1,7 @@
 import _ from 'underscore';
 import config from '../config/config';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -15,7 +16,7 @@ import {
 export var Panel = connect()(React.createClass({
     componentDidMount: function () {
         this.props.dispatch(panelToggle(true));
-        this.props.dispatch(panelShown(React.findDOMNode(this).offsetWidth));
+        this.props.dispatch(panelShown(ReactDOM.findDOMNode(this).offsetWidth));
     },
 
     componentWillUnmount: function () {
