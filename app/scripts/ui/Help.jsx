@@ -9,6 +9,16 @@ import { getRequestColumnsDownload, getRequestSql } from 'curbyourlitter-sql/lib
 import config from '../config/config';
 
 export var Help = React.createClass({
+    componentDidMount: function () {
+        var hashId = window.location.hash.substr(1);
+        if (hashId.length > 1) {
+            var destinationElement = document.getElementById(hashId);
+            if (destinationElement && typeof destinationElement.scrollIntoView === 'function') {
+                destinationElement.scrollIntoView();
+            }
+        }
+    },
+
     render: function () {
         return (
             <div className="help">
