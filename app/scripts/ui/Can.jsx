@@ -29,6 +29,26 @@ export var Can = detailPanel(React.createClass({
                     <label>Type</label>
                     <div>{this.props.cantype}</div>
                 </div>
+                {(() => {
+                    if (this.props.maintained_by) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>Maintained By</label>
+                                <div>{this.props.maintained_by}</div>
+                            </div>
+                        );
+                    }
+                })()}
+                {(() => {
+                    if (this.props.pick_up_schedule) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>Pick-up Schedule</label>
+                                <div>{this.props.pick_up_schedule}</div>
+                            </div>
+                        );
+                    }
+                })()}
             </div>
         );
     }
