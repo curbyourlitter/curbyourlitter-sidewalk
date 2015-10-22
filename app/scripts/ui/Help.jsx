@@ -37,6 +37,7 @@ export var Help = React.createClass({
     handleOuterClick: function (e) {
         if (e.target === ReactDOM.findDOMNode(this)) {
             this.history.pushState(null, '/');
+            e.preventDefault();
         }
     },
 
