@@ -85,7 +85,9 @@ export var detailPanel = function (Component, table, columns, className = 'detai
 
         componentWillUpdate: function (nextProps, nextState) {
             this.props.dispatch(recordSelected(nextState.cartodb_id, nextState.type));
-            this.props.dispatch(mapCenter([nextState.latitude, nextState.longitude]));
+            if (this.state.latitude !== nextState.latitude && this.state.longitude !== nextState.longitude) {
+                this.props.dispatch(mapCenter([nextState.latitude, nextState.longitude]));
+            }
         },
 
         getInitialState: function () {
