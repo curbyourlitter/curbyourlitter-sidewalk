@@ -269,7 +269,7 @@ var Help311Data = React.createClass({
 
 var HelpBlockRatings = React.createClass({
     downloadUrl: function () {
-        var sql = getRatingSql(null, [config.minYear, config.maxYear], getRatingsColumnsDownload(config), config),
+        var sql = getRatingSql(null, null, getRatingsColumnsDownload(config), config),
             queryString = $.param({
                 q: sql,
                 filename: 'Curb Your Litter - Block Ratings Data',
