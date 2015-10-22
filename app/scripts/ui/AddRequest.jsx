@@ -27,9 +27,18 @@ var ImageInput = React.createClass({
     },
 
     handleChange: function (e) {
-        console.log(e.target.files[0]);
         this.setState({ value: e.target.value });
         this.props.onChangeCallback({ image: e.target.files[0] });
+    },
+
+    handleClick: function (e) {
+        if (this.state.value) {
+            this.setState({ value: null });
+        }
+        else {
+            this.clickInput();
+        }
+        e.preventDefault();
     },
 
     clickInput: function () {
@@ -47,7 +56,9 @@ var ImageInput = React.createClass({
             <div className="image-input">
                 <label htmlFor="image-file-input">
                     <Input id="image-file-input" ref="input" onChange={this.handleChange} accept="image/*" type="file" label={this.props.label} value={this.state.value} />
-                    <Button onClick={this.clickInput} bsSize="large" block>Choose a Photo</Button>
+                    <Button onClick={this.handleClick} bsSize="large" block>
+                        {this.state.value ? 'Remove Photo' : 'Choose a Photo'}
+                    </Button>
                 </label>
             </div>
         );
