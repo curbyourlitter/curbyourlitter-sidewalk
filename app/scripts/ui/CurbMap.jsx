@@ -2,6 +2,7 @@ import _ from 'underscore';
 import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
 import { connect } from 'react-redux';
 import { History, Link, Router } from 'react-router';
 import { Button, Overlay, Popover } from 'react-bootstrap';
@@ -535,7 +536,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
                     }
                     if (!this.pin) {
                         map.closePopup();
-                        map.openPopup(React.renderToString(content), [data.latitude, data.longitude], {
+                        map.openPopup(ReactDOMServer.renderToString(content), [data.latitude, data.longitude], {
                             closeButton: false,
                             maxHeight: 50,
                             minWidth: 150,
