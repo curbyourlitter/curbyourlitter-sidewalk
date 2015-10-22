@@ -1,6 +1,7 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
-import { Link } from 'react-router';
+import { History, Link } from 'react-router';
 
 import { getRatingsColumnsDownload, getRatingSql } from 'curbyourlitter-sql/lib/ratings';
 import { getReportColumnsDownload, getReportSql } from 'curbyourlitter-sql/lib/reports';
@@ -9,6 +10,8 @@ import { getRequestColumnsDownload, getRequestSql } from 'curbyourlitter-sql/lib
 import config from '../config/config';
 
 export var Help = React.createClass({
+    mixins: [History],
+
     componentDidMount: function () {
         var hashId = window.location.hash.substr(1);
         if (hashId.length > 1) {
@@ -19,9 +22,15 @@ export var Help = React.createClass({
         }
     },
 
+    handleOuterClick: function (e) {
+        if (e.target === ReactDOM.findDOMNode(this)) {
+            this.history.pushState(null, '/');
+        }
+    },
+
     render: function () {
         return (
-            <div className="help">
+            <div className="help" onClick={this.handleOuterClick}>
                 <div className="help-body">
                     <Link className="help-close" to="/" aria-label="close">&times;</Link>
                     <h1>The Data</h1>
