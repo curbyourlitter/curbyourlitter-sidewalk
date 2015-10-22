@@ -22,6 +22,11 @@
             border: none;
             color: white;
         }
+
+        &.leaflet-disabled {
+            background-color: @gray-light;
+            color: @gray-medium;
+        }
     }
 }
 
@@ -41,6 +46,11 @@
         &, &:hover {
             height: @default-icon-size;
             width: @default-icon-size;
+        }
+
+        &.leaflet-disabled {
+            background-color: @gray-light;
+            color: @gray-medium;
         }
     }
 }
