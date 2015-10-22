@@ -119,11 +119,11 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                             <span className="legend-section-header">Block Ratings</span>
                             <Link to="/help#block-ratings" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Poor" layer="rating" label="5" dispatch={this.props.dispatch} shown={this.props.ratingFilters[5]} />
-                        <LegendItem name="Below Average" layer="rating" label="4" dispatch={this.props.dispatch} shown={this.props.ratingFilters[4]} />
-                        <LegendItem name="Average" layer="rating" label="3" dispatch={this.props.dispatch} shown={this.props.ratingFilters[3]} />
-                        <LegendItem name="Above Average" layer="rating" label="2" dispatch={this.props.dispatch} shown={this.props.ratingFilters[2]} />
-                        <LegendItem name="Great" layer="rating" label="1" dispatch={this.props.dispatch} shown={this.props.ratingFilters[1]} />
+                        <LegendItem name="Dirty" layer="rating" label="5" dispatch={this.props.dispatch} shown={this.props.ratingFilters[5]} />
+                        <LegendItem name="Lots of Litter" layer="rating" label="4" dispatch={this.props.dispatch} shown={this.props.ratingFilters[4]} />
+                        <LegendItem name="Visible Litter" layer="rating" label="3" dispatch={this.props.dispatch} shown={this.props.ratingFilters[3]} />
+                        <LegendItem name="Mostly Clean" layer="rating" label="2" dispatch={this.props.dispatch} shown={this.props.ratingFilters[2]} />
+                        <LegendItem name="Clean" layer="rating" label="1" dispatch={this.props.dispatch} shown={this.props.ratingFilters[1]} />
                     </section>
                 </div>
             </div>
