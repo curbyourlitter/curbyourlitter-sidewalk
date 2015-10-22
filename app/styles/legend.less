@@ -133,12 +133,17 @@
         }
 
         select {
-            background-color: @blue-light-light;
+            background: @blue-light-light data-uri("/images/year-picker-arrows.png");
+            background-position: right 10px center;
+            background-repeat: no-repeat;
+            background-size: 8px;
             border: 0;
             border-radius: 0;
             box-shadow: none;
             color: @blue;
             font-weight: normal;
+            -moz-appearance: none;
+            -webkit-appearance: none;
         }
     }
 
