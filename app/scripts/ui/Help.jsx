@@ -20,6 +20,18 @@ export var Help = React.createClass({
                 destinationElement.scrollIntoView();
             }
         }
+
+        document.addEventListener('keydown', this.handleKeyDown);
+    },
+
+    componentWillUnmount: function () {
+        document.removeEventListener('keydown', this.handleKeyDown);
+    },
+
+    handleKeyDown: function (e) {
+        if (e.which === 27) {
+            this.history.pushState(null, '/');
+        }
     },
 
     handleOuterClick: function (e) {
