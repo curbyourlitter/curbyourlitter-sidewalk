@@ -58,31 +58,6 @@ export var Help = React.createClass({
     }
 });
 
-var HelpItem = React.createClass({
-    render: function () {
-        return (
-            <section className="help-item">
-                <Grid>
-                    <Row>
-                        <Col xs={3}>
-                            <img src={this.props.image}/>
-                        </Col>
-                        <Col xs={9}>
-                            <h3>{this.props.header}</h3>
-                            {(() => {
-                                if (this.props.body) {
-                                    return <p>{this.props.body}</p>;
-                                }
-                            })()}
-                            {this.props.children}
-                        </Col>
-                    </Row>
-                </Grid>
-            </section>
-        );
-    }
-});
-
 var HelpHeaderItem = React.createClass({
     render: function () {
         return (
@@ -107,12 +82,7 @@ var BlockRatingItem = React.createClass({
                 </Col>
                 <Col sm={4}>
                     <h5 className="no-margin-top">{this.props.header}</h5>
-                    {(() => {
-                        if (this.props.body) {
-                            return <p>{this.props.body}</p>;
-                        }
-                    })()}
-                    {this.props.children}
+                    {this.props.body ? <div className="help-description">{this.props.body}</div> : ''}
                 </Col>
             </div>
         );
@@ -125,12 +95,7 @@ var CommunityItem = React.createClass({
             <Col sm={3}>
                 <img src={this.props.image} className="img-responsive" />
                 <h5>{this.props.header}</h5>
-                {(() => {
-                    if (this.props.body) {
-                        return <p>{this.props.body}</p>;
-                    }
-                })()}
-                {this.props.children}
+                {this.props.body ? <div className="help-description">{this.props.body}</div> : ''}
             </Col>
         );
     }
