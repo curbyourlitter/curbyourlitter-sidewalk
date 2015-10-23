@@ -173,8 +173,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [8, 10];
-            iconSize = [13, 13];
+            iconAnchor = [8, 7];
+            iconSize = [17, 17];
             iconUrl = '/images/map-bin-hover.svg';
         }
         if (data.type === 'report') {
@@ -183,8 +183,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl = '/images/map-report.svg';
         }
         if (data.type === 'request' && data.can_type) {
-            iconAnchor = [8, 10];
-            iconSize = [13, 13],
+            iconAnchor = [8, 7];
+            iconSize = [17, 17],
             iconUrl = '/images/map-bin-request-hover.svg';
         }
         if (data.type === 'request' && !data.can_type) {
@@ -194,8 +194,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
 
         if (zoom >= 17) {
-            var width = Math.floor(iconSize[0] * 1.7),
-                height = Math.floor(iconSize[1] * 1.7);
+            var width = Math.floor(iconSize[0] * 1.4),
+                height = Math.floor(iconSize[1] * 1.4);
             iconSize = [width, height];
             iconAnchor = [width / 2, height / 2 - 2];
         }
@@ -213,8 +213,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [8, 10];
-            iconSize = [13, 13];
+            iconAnchor = [8, 7];
+            iconSize = [17, 17];
             iconUrl = '/images/map-bin-selected.svg';
         }
         if (data.type === 'report') {
@@ -223,8 +223,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl = '/images/map-report.svg';
         }
         if (data.type === 'request' && data.can_type) {
-            iconAnchor = [8, 10];
-            iconSize = [13, 13];
+            iconAnchor = [8, 7];
+            iconSize = [17, 17],
             iconUrl = '/images/map-bin-request-selected.svg';
         }
         if (data.type === 'request' && !data.can_type) {
@@ -234,11 +234,13 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
 
         if (zoom >= 17) {
-            var width = Math.floor(iconSize[0] * 1.7),
-                height = Math.floor(iconSize[1] * 1.7);
+            var width = Math.floor(iconSize[0] * 1.4),
+                height = Math.floor(iconSize[1] * 1.4);
             iconSize = [width, height];
             iconAnchor = [width / 2, height / 2 - 2];
         }
+
+        console.log(iconSize);
 
         return L.icon({
             iconAnchor: iconAnchor,
