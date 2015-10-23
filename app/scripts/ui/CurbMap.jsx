@@ -240,8 +240,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconAnchor = [width / 2, height / 2 - 2];
         }
 
-        console.log(iconSize);
-
         return L.icon({
             iconAnchor: iconAnchor,
             iconSize: iconSize,
