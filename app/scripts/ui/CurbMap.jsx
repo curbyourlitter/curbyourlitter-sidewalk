@@ -174,7 +174,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
         if (data.type === 'can') {
             iconAnchor = [8, 10];
-            iconSize = [16, 23];
+            iconSize = [13, 13];
             iconUrl = '/images/map-bin-hover.svg';
         }
         if (data.type === 'report') {
@@ -184,7 +184,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
         if (data.type === 'request' && data.can_type) {
             iconAnchor = [8, 10];
-            iconSize = [16, 23],
+            iconSize = [13, 13],
             iconUrl = '/images/map-bin-request-hover.svg';
         }
         if (data.type === 'request' && !data.can_type) {
@@ -197,7 +197,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             var width = Math.floor(iconSize[0] * 1.7),
                 height = Math.floor(iconSize[1] * 1.7);
             iconSize = [width, height];
-            iconAnchor = [width / 2, height / 2 - Math.floor(height * 0.1)];
+            iconAnchor = [width / 2, height / 2 - 2];
         }
 
         return L.icon({
@@ -214,7 +214,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
         if (data.type === 'can') {
             iconAnchor = [8, 10];
-            iconSize = [16, 23];
+            iconSize = [13, 13];
             iconUrl = '/images/map-bin-selected.svg';
         }
         if (data.type === 'report') {
@@ -224,7 +224,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
         if (data.type === 'request' && data.can_type) {
             iconAnchor = [8, 10];
-            iconSize = [16, 23];
+            iconSize = [13, 13];
             iconUrl = '/images/map-bin-request-selected.svg';
         }
         if (data.type === 'request' && !data.can_type) {
@@ -234,10 +234,10 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         }
 
         if (zoom >= 17) {
-            var width = Math.floor(iconSize[0] * 1.5),
-                height = Math.floor(iconSize[1] * 1.5);
+            var width = Math.floor(iconSize[0] * 1.7),
+                height = Math.floor(iconSize[1] * 1.7);
             iconSize = [width, height];
-            iconAnchor = [width / 2, height / 2];
+            iconAnchor = [width / 2, height / 2 - 2];
         }
 
         return L.icon({
