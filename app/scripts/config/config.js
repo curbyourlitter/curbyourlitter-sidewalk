@@ -21,6 +21,7 @@ config.tables = {
     'intersections': 'intersections',
     'ratings': 'street_ratings',
     'report': 'threeoneone',
+    'reportCodes': 'threeoneone_codes',
     'request': 'canrequests',
     'streets': 'streets'
 };

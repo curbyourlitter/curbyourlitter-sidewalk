@@ -5,7 +5,7 @@ import React from 'react';
 import { History } from 'react-router';
 import { Col, Grid, Row } from 'react-bootstrap';
 
-import { getReportColumnsDetails } from 'curbyourlitter-sql/lib/reports';
+import { getReportColumnsDetails, getReportSqlDetails } from 'curbyourlitter-sql/lib/reports';
 
 import { hoverIntent } from './HoverIntent.jsx';
 import { detailPanel } from './Panel.jsx';
@@ -29,7 +29,14 @@ export var Report = detailPanel(React.createClass({
                 </h2>
                 <div className="detail-panel-row">
                     <label>Complaint Type</label>
-                    <div>{this.props.descriptor}</div>
+                    <div>
+                        <p>{this.props.descriptor}</p>
+                        {(() => {
+                            if (this.props.description) {
+                                return <p>{this.props.description}</p>;
+                            }
+                        })()}
+                    </div>
                 </div>
                 <div className="detail-panel-row">
                     <label>Reported</label>
@@ -56,7 +63,7 @@ export var Report = detailPanel(React.createClass({
             </div>
         );
     }
-}), config.tables.report, getReportColumnsDetails(config));
+}), config.tables.report, getReportColumnsDetails(config), 'detail-panel', getReportSqlDetails);
 
 export var ReportListItem = hoverIntent(React.createClass({
     mixins: [History],

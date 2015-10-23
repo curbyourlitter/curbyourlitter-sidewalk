@@ -53,13 +53,14 @@ export var Panel = connect()(React.createClass({
 
 var cartodbSql = new cartodb.SQL({ user: config.cartodbUser });
 
-export var detailPanel = function (Component, table, columns, className = 'detail-panel') {
+export var detailPanel = function (Component, table, columns, className = 'detail-panel', sqlFunction) {
     return connect()(React.createClass({
         getData: function (id, callback) {
-            cartodbSql.execute(`SELECT ${columns.join(',')} FROM {{ table }} WHERE cartodb_id = {{ id }}`, {
-                id: id,
-                table: table
-            })
+            var detailsSql = `SELECT ${columns.join(',')} FROM ${table} WHERE cartodb_id = ${id}`;
+            if (sqlFunction) {
+                detailsSql = sqlFunction(id, config);
+            }
+            cartodbSql.execute(detailsSql)
                 .done(function (data) {
                     callback(data.rows[0]);
                 });
