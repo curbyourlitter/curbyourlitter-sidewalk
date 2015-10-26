@@ -187,8 +187,14 @@ var PlaceBin = React.createClass({
                 </div>
                 <Grid className="add-request-bin-tips">
                     <Row>
-                        <Col xs={6}>Bins are placed on street corners because it makes them easier to service.</Col>
-                        <Col xs={6}>Gray bins on the map represent existing litter bins. You can request a bin on a corner that already has one if you think it needs a different type of bin!</Col>
+                        <Col xs={6}>
+                            <img src="/images/bin-drop-help-1.gif"/>
+                            Bins are placed on street corners because it makes them easier to service.
+                        </Col>
+                        <Col xs={6}>
+                            <img src="/images/bin-drop-help-2.png"/>
+                            Gray bins on the map represent existing litter bins. You can request a bin on a corner that already has one if you think it needs a different type of bin!
+                        </Col>
                     </Row>
                 </Grid>
                 <Button className="next-button" block bsSize="large" type="submit" disabled={!this.props.pinDropValid}>Next</Button>
