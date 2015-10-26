@@ -173,8 +173,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [8, 7];
-            iconSize = [17, 17];
+            iconAnchor = [7.5, 5];
+            iconSize = [14.5, 17];
             iconUrl = '/images/map-bin-hover.svg';
         }
         if (data.type === 'report') {
@@ -213,8 +213,8 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
             iconUrl;
 
         if (data.type === 'can') {
-            iconAnchor = [8, 7];
-            iconSize = [17, 17];
+            iconAnchor = [7.5, 5];
+            iconSize = [14.5, 17];
             iconUrl = '/images/map-bin-selected.svg';
         }
         if (data.type === 'report') {
