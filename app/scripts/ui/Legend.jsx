@@ -110,9 +110,9 @@ export var Legend = connect(mapStateToProps)(React.createClass({
                             <span className="legend-section-header">311 Data</span>
                             <Link to="/help#reports" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Sanitation Conditions" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
+                        <LegendItem name="Sanitation Condition" layer="report" label="sanitation_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.sanitation_conditions} />
                         <LegendItem name="Overflowing Litter Bin" layer="report" label="overflowing_litter_basket" dispatch={this.props.dispatch} shown={this.props.reportFilters.overflowing_litter_basket} />
-                        <LegendItem name="Dirty Conditions" layer="report" label="dirty_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.dirty_conditions} />
+                        <LegendItem name="Dirty Condition" layer="report" label="dirty_conditions" dispatch={this.props.dispatch} shown={this.props.reportFilters.dirty_conditions} />
                     </section>
                     <section>
                         <h3>
