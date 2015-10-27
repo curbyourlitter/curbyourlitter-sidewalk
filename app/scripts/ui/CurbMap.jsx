@@ -415,6 +415,7 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
 
     init: function (id) {
         map = L.map(id, {
+            detectRetina: true,
             maxZoom: 22,
             minZoom: 14,
             scrollWheelZoom: false,
@@ -466,7 +467,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         var component = this;
         cartodb.createLayer(map, config.cartodbVisJson, {
             cartodb_logo: false,
-            detectRetina: true,
             infowindow: false,
             legends: false
         })
