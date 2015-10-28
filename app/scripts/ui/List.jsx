@@ -66,12 +66,16 @@ export var List = React.createClass({
         });
         var innerHeader = (
             <h2>
-                on the map
+                {this.props.loading ? 'loading...' : 'on the map'}
                 <span className="list-items-count">{this.props.items.length}</span>
             </h2>
         );
+        var classes = 'panel-list';
+        if (this.props.loading) {
+            classes += ' loading';
+        }
         return (
-            <Panel className="panel-list" ref="panel" onBodyScroll={this.handleScroll} innerHeader={innerHeader}>
+            <Panel className={classes} ref="panel" onBodyScroll={this.handleScroll} innerHeader={innerHeader}>
                 <div className="list-in-view" ref="inViewLabel">{this.state.inView ? 'in view' : 'out of view'}</div>
                 <ul className="entity-list" onScroll={this.handleScroll}>
                     {list}
@@ -96,6 +100,10 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     getInitialState: function () {
         return {
             canRows: [],
+            loading: false,
+            loadingCans: false,
+            loadingRequests: false,
+            loadingReports: false,
             reportRows: [],
             requestRows: [],
             rows: []
@@ -114,36 +122,39 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     },
 
     loadCans: function (filters) {
+        this.setState({ loadingCans: true });
         getCans(filters, data => {
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.reportRows, ...this.state.requestRows);
                 this.setRows(rows);
-                this.setState({ canRows: data });
+                this.setState({ loadingCans: false, canRows: data });
                 this.forceUpdate();
             }
         }, getCanColumnsData(config), config);
     },
 
     loadReports: function (filters, yearFilters, callback) {
+        this.setState({ loadingReports: true });
         getReports(filters, yearFilters, data => {
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.canRows, ...this.state.requestRows);
                 this.setRows(rows);
-                this.setState({ reportRows: data });
+                this.setState({ loadingReports: false, reportRows: data });
                 this.forceUpdate();
             }
         }, getReportColumnsData(config), config);
     },
 
     loadRequests: function (filters, yearFilters, callback) {
+        this.setState({ loadingRequests: true });
         getRequests(filters, yearFilters, data => {
             if (this.isMounted()) {
                 var rows = [];
                 rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
                 this.setRows(rows);
-                this.setState({ requestRows: data });
+                this.setState({ loadingRequests: false, requestRows: data });
                 this.forceUpdate();
             }
         }, getRequestColumnsData(config), config);
@@ -172,6 +183,16 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     },
 
     componentWillUpdate: function (nextProps, nextState) {
+        if (!(nextState.loadingCans || nextState.loadingReports || nextState.loadingRequests)) {
+            if (this.state.loading) {
+                this.setState({ loading: false });
+            }
+        }
+        if (nextState.loadingCans || nextState.loadingReports || nextState.loadingRequests) {
+            if (!this.state.loading) {
+                this.setState({ loading: true });
+            }
+        }
         if (this.filtersChanged(this.props, nextProps)) {
             this.getData(nextProps);
         }
@@ -208,6 +229,6 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
     },
 
     render: function () {
-        return <List items={this.state.rows} hoveredRecord={this.props.mapRecordHovered} highlightFeature={this.highlightFeature} unhighlightFeature={this.unhighlightFeature}/>
+        return <List items={this.state.rows} hoveredRecord={this.props.mapRecordHovered} highlightFeature={this.highlightFeature} unhighlightFeature={this.unhighlightFeature} loading={this.state.loading} />
     }
 }));
