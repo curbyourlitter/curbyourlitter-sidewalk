@@ -466,7 +466,6 @@ export var CurbMap = connect(mapStateToProps)(React.createClass({
         var component = this;
         cartodb.createLayer(map, config.cartodbVisJson, {
             cartodb_logo: false,
-            detectRetina: true,
             infowindow: false,
             legends: false
         })
