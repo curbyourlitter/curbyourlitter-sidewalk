@@ -109,6 +109,9 @@ export var CanListItem = hoverIntent(React.createClass({
                         </Col>
                         <Col xs={10}>
                             <div className="can-list-item-type">Existing Bin</div>
+                            <div className="can-list-item-location">
+                                {this.props.can_location ? this.props.can_location : ''}
+                            </div>
                         </Col>
                     </Row>
                 </Grid>
