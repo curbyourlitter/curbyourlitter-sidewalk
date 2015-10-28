@@ -214,6 +214,10 @@ export var ListContainer = connect(mapStateToProps)(React.createClass({
             return true;
         }
 
+        if (this.state.loading !== nextState.loading) {
+            return true;
+        }
+
         if (!_.isEqual(nextProps.mapRecordHovered, this.props.mapRecordHovered)) {
             return true;
         }
