@@ -145,7 +145,7 @@ var BinType = React.createClass({
         }
         return (
             <form onSubmit={this.submit}>
-                <div className="add-request-prompt">Select the type of litter bin. When finished hit ‘Next’.</div>
+                <div className="add-request-prompt">Select the type of litter bin.</div>
                 <ul className="bin-type-list">
                     {subTypes.map(subType => {
                         return (
@@ -182,7 +182,7 @@ var PlaceBin = React.createClass({
         return (
             <form onSubmit={this.submit}>
                 <div className="add-request-prompt">
-                    <p>Drag and drop your bin to the corner you would like to see it installed. When finished click &lsquo;next&rsquo;.</p>
+                    <p>Drag and drop your bin to the corner you would like to see it installed.</p>
                     <p>Keep in mind!</p>
                 </div>
                 <Grid className="add-request-bin-tips">
