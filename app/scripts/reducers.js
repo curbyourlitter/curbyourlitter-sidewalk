@@ -179,6 +179,9 @@ export function pinDropLatlng(state = null, action) {
 }
 
 export function panelVisible(state = false, action) {
+    if (action.type === PANEL_SHOWN) {
+        return true;
+    }
     if (action.type === PANEL_TOGGLE) {
         return action.visible;
     }

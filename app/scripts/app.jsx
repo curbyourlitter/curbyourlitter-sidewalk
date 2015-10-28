@@ -46,20 +46,16 @@ var App = connect(mapStateToProps)(React.createClass({
 
 ReactDOM.render((
     <Provider store={store}>
-        {() => {
-            return (
-                <Router history={history}>
-                    <Route path="/" component={App}>
-                        <Route path="add" component={AddRequest}/>
-                        <Route path="list" component={ListContainer}/>
-                        <Route path="cans/:id" component={Can}/>
-                        <Route path="reports/:id" component={Report}/>
-                        <Route path="requests/:id" component={Request}/>
-                        <Route path="help" component={Help}/>
-                    </Route>
-                </Router>
-            );
-        }}
+        <Router history={history}>
+            <Route path="/" component={App}>
+                <Route path="add" component={AddRequest}/>
+                <Route path="list" component={ListContainer}/>
+                <Route path="cans/:id" component={Can}/>
+                <Route path="reports/:id" component={Report}/>
+                <Route path="requests/:id" component={Request}/>
+                <Route path="help" component={Help}/>
+            </Route>
+        </Router>
     </Provider>
     ), mountNode
 );
