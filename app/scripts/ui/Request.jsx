@@ -50,6 +50,16 @@ export var Request = detailPanel(React.createClass({
                         );
                     }
                 })()}
+                {(() => {
+                    if (this.props.name) {
+                        return (
+                            <div className="detail-panel-row">
+                                <label>requestor name</label>
+                                <div>{this.props.name}</div>
+                            </div>
+                        );
+                    }
+                })()}
                 <div className="detail-panel-row">
                     <label>{ this.props.can_type ? 'requested' : 'taken' }</label>
                     <div>{moment(this.props.date).format('MMMM D, YYYY')}</div>
