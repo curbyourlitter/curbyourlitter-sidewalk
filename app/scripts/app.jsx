@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactAnalytics from 'ga-react-router';
 import ReactDOM from 'react-dom';
 import { combineReducers, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
@@ -23,6 +24,10 @@ var mountNode = document.getElementById("app");
 let history = createHistory();
 let store = createStore(combineReducers(reducers));
 
+var triggerGA = function () {
+    ReactAnalytics({ path: location.pathname });
+};
+
 function mapStateToProps(state) {
     return {
         panelVisible: state.panelVisible
@@ -46,7 +51,7 @@ var App = connect(mapStateToProps)(React.createClass({
 
 ReactDOM.render((
     <Provider store={store}>
-        <Router history={history}>
+        <Router history={history} onUpdate={triggerGA}>
             <Route path="/" component={App}>
                 <Route path="add" component={AddRequest}/>
                 <Route path="list" component={ListContainer}/>
