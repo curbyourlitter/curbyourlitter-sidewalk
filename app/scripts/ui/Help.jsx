@@ -20,7 +20,7 @@ export var Help = React.createClass({
                 if (destinationElement && typeof destinationElement.scrollIntoView === 'function') {
                     destinationElement.scrollIntoView();
                 }
-            }, 250);
+            }, 450);
         }
 
         document.addEventListener('keydown', this.handleKeyDown);
