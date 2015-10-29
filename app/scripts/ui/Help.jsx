@@ -15,10 +15,12 @@ export var Help = React.createClass({
     componentDidMount: function () {
         var hashId = window.location.hash.substr(1);
         if (hashId.length > 1) {
-            var destinationElement = document.getElementById(hashId);
-            if (destinationElement && typeof destinationElement.scrollIntoView === 'function') {
-                destinationElement.scrollIntoView();
-            }
+            setTimeout(() => {
+                var destinationElement = document.getElementById(hashId);
+                if (destinationElement && typeof destinationElement.scrollIntoView === 'function') {
+                    destinationElement.scrollIntoView();
+                }
+            }, 250);
         }
 
         document.addEventListener('keydown', this.handleKeyDown);
