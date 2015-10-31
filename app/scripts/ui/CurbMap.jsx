@@ -83,7 +83,7 @@ function mapStateToProps(state) {
     };
 }
 
-export var CurbMap = connect(mapStateToProps)(React.createClass({
+export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React.createClass({
     mixins: [History],
 
     addDropPinPopup: function () {

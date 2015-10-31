@@ -26,7 +26,7 @@ function mapStateToProps(state) {
     };
 }
 
-export var Legend = connect(mapStateToProps)(React.createClass({
+export var Legend = connect(mapStateToProps, null, null, { pure: false })(React.createClass({
     getInitialState: function () {
         return {
             shown: false

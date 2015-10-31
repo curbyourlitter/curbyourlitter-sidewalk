@@ -96,7 +96,7 @@ function mapStateToProps(state) {
     };
 }
 
-export var ListContainer = connect(mapStateToProps)(React.createClass({
+export var ListContainer = connect(mapStateToProps, null, null, { pure: false })(React.createClass({
     getInitialState: function () {
         return {
             canRows: [],
