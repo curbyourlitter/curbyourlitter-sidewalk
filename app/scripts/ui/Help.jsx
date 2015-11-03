@@ -1,3 +1,4 @@
+import imagesLoaded from 'imagesloaded';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button, Col, Grid, Row } from 'react-bootstrap';
@@ -15,12 +16,12 @@ export var Help = React.createClass({
     componentDidMount: function () {
         var hashId = window.location.hash.substr(1);
         if (hashId.length > 1) {
-            setTimeout(() => {
+            imagesLoaded('img', () => {
                 var destinationElement = document.getElementById(hashId);
                 if (destinationElement && typeof destinationElement.scrollIntoView === 'function') {
                     destinationElement.scrollIntoView();
                 }
-            }, 450);
+            });
         }
 
         document.addEventListener('keydown', this.handleKeyDown);
