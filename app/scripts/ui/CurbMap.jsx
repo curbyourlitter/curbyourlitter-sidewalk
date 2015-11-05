@@ -23,6 +23,7 @@ import {
     pinDropMoved,
     requestsRequireReload
 } from '../actions';
+import CanPopup from './Can.jsx';
 import PopoverButton from './PopoverButton.jsx';
 import { slugifyComplaintType } from './Report.jsx';
 
@@ -85,6 +86,9 @@ function mapStateToProps(state) {
 
 export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React.createClass({
     mixins: [History],
+
+    highlightedRecordPopup: null,
+    selectedRecordPopup: null,
 
     addDropPinPopup: function () {
         geocoder.geocode({'location': this.pin.getLatLng()}, (results, status) => {
@@ -247,6 +251,58 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
         });
     },
 
+    getPopupContent: function (data, recordType) {
+        switch(recordType) {
+            // Reports
+            case 'report':
+                var iconClasses = `detail-popup-icon report-icon-${slugifyComplaintType(data.complaint_type)}`;
+                return (
+                    <div className="detail-popup report-popup">
+                        <div className={iconClasses}></div>
+                        <div className="detail-popup-text report-type">{data.complaint_type}</div>
+                        <div className="clearfix"></div>
+                    </div>
+                );
+            // Requests
+            case 'request':
+                var iconClasses = 'detail-popup-icon request-icon';
+                if (!data.can_type) {
+                    iconClasses += ' request-icon-litter-sighting';
+                }
+                return (
+                    <div className="detail-popup request-popup">
+                        <div className={iconClasses}></div>
+                        <div className="detail-popup-text request-type">
+                            {data.can_type ? `${data.can_type} bin request` : 'litter sighting'}
+                        </div>
+                        <div className="clearfix"></div>
+                    </div>
+                );
+            // Cans
+            case 'can':
+                return (
+                    <div className="detail-popup can-popup">
+                        <div className="detail-popup-icon can-icon"></div>
+                        <div className="detail-popup-text can-type">Existing Bin</div>
+                        <div className="clearfix"></div>
+                    </div>
+                );
+        }
+    },
+
+    openRecordPopup: function (data, recordType) {
+        var popup = L.popup({
+            closeButton: false,
+            maxHeight: 50,
+            minWidth: 150,
+            offset: [0, -3]
+        })
+            .setLatLng([data.latitude, data.longitude])
+            .setContent(ReactDOMServer.renderToString(this.getPopupContent(data, recordType)));
+        map.addLayer(popup);
+        return popup;
+    },
+
     highlightRecordPoint: function (record) {
         this.unhighlightRecordPoint();
         cartodbSql.execute('SELECT * FROM {{ table }} where cartodb_id = {{ id }}', {
@@ -271,24 +327,27 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
 
     selectRecord: function (record) {
         this.unselectRecord();
-        cartodbSql.execute('SELECT * FROM {{ table }} where cartodb_id = {{ id }}', {
+        cartodbSql.execute('SELECT *, ST_X(the_geom) AS longitude, ST_Y(the_geom) AS latitude FROM {{ table }} where cartodb_id = {{ id }}', {
             id: record.id,
             table: config.tables[record.recordType]
         }, {
             format: 'GeoJSON' 
         }).done((data) => {
             this.unhighlightRecordPoint();
-            map.closePopup();
+            if (this.highlightedRecordPopup) map.removeLayer(this.highlightedRecordPopup);
+            if (this.selectedRecordPopup) map.removeLayer(this.selectedRecordPopup);
             // Only select if feature still selected
             if (this.props.recordSelected && _.isEqual(this.props.recordSelected, record)) {
                 data.features[0].properties.type = record.recordType;
                 this.selectedRecordLayer.addData(data);
+                this.selectedRecordPopup = this.openRecordPopup(data.features[0].properties, record.recordType);
             }
         });
     },
 
     unselectRecord: function () {
         this.selectedRecordLayer.clearLayers();
+        if (this.selectedRecordPopup) map.removeLayer(this.selectedRecordPopup);
     },
 
     componentDidMount: function() {
@@ -495,54 +554,21 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                 this.updateRequestSql();
 
                 layer.hoverIntent({}, (e, latlng, pos, data, layerIndex) => {
-                    var content;
-                    switch(layerIndex) {
-                        // Reports
-                        case reportLayerIndex:
-                            var iconClasses = `detail-popup-icon report-icon-${slugifyComplaintType(data.complaint_type)}`;
-                            content = (
-                                <div className="detail-popup report-popup">
-                                    <div className={iconClasses}></div>
-                                    <div className="detail-popup-text report-type">{data.complaint_type}</div>
-                                    <div className="clearfix"></div>
-                                </div>
-                            );
-                            break;
-                        // Requests
-                        case requestLayerIndex:
-                            var iconClasses = 'detail-popup-icon request-icon';
-                            if (!data.can_type) {
-                                iconClasses += ' request-icon-litter-sighting';
-                            }
-                            content = (
-                                <div className="detail-popup request-popup">
-                                    <div className={iconClasses}></div>
-                                    <div className="detail-popup-text request-type">
-                                        {data.can_type ? `${data.can_type} bin request` : 'litter sighting'}
-                                    </div>
-                                    <div className="clearfix"></div>
-                                </div>
-                            );
-                            break;
-                        // Cans
-                        case canLayerIndex:
-                            content = (
-                                <div className="detail-popup can-popup">
-                                    <div className="detail-popup-icon can-icon"></div>
-                                    <div className="detail-popup-text can-type">Existing Bin</div>
-                                    <div className="clearfix"></div>
-                                </div>
-                            );
-                            break;
-                    }
                     if (!this.pin) {
-                        map.closePopup();
-                        map.openPopup(ReactDOMServer.renderToString(content), [data.latitude, data.longitude], {
-                            closeButton: false,
-                            maxHeight: 50,
-                            minWidth: 150,
-                            offset: [0, -3]
-                        });
+                        if (this.highlightedRecordPopup) map.removeLayer(this.highlightedRecordPopup);
+                        var recordType;
+                        switch (layerIndex) {
+                            case canLayerIndex:
+                                recordType = 'can';
+                                break;
+                            case reportLayerIndex:
+                                recordType = 'report';
+                                break;
+                            case requestLayerIndex:
+                                recordType = 'request';
+                                break;
+                        }
+                        this.highlightedRecordPopup = this.openRecordPopup(data, recordType);
                     }
                 });
 
@@ -570,8 +596,8 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                     if (!layerIndex) return;
                     currentlyOver[layerIndex] = undefined;
                     if (_.values(currentlyOver).filter((l) => l).length === 0) {
-                        if (!this.pin) {
-                            map.closePopup();
+                        if (!this.pin && this.highlightedRecordPopup) {
+                            map.removeLayer(this.highlightedRecordPopup);
                         }
                         document.getElementById(id).style.cursor = null;
                         this.props.dispatch(listRecordUnhovered());
