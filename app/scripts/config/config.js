@@ -43,7 +43,7 @@ config.bintypes = {
                 description: "A BigBelly litter bin uses solar panels to compact trash that is sent to a landfill.",
                 display: "BigBelly",
                 label: "bigbelly",
-                "image": "/images/bintypes/litter_bigbelly.jpg"
+                image: "/images/bintypes/litter_bigbelly.jpg"
             }
         ]
     },
