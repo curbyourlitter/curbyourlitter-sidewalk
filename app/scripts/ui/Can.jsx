@@ -13,13 +13,31 @@ export var slugifyCanType = function (canType) {
 };
 
 export var Can = detailPanel(React.createClass({
+    getImage: function (type) {
+        var path = '/images/details/';
+        if (type === 'Standard Litter Bin' || type === 'Covered Litter Bin') {
+            return path + 'standard.jpg';
+        }
+        if (type === 'BigBelly Litter Bin') {
+            return path + 'bigbelly.jpg';
+        }
+        if (type === 'Standard Paper Recycling Bin') {
+            return path + 'paper_recycling.jpg';
+        }
+        if (type === 'Standard Bottle & Can Recycling Bin') {
+            return path + 'bottle_can_recycling.jpg';
+        }
+    },
+
     render: function () {
         var iconClasses = 'detail-panel-can-icon';
         if (this.props.complaint_type) {
             iconClasses += ` detail-panel-can-icon-${slugifyCanType(this.props.cantype)}`;
         }
+        var image = this.getImage(this.props.cantype);
         return (
             <div className="detail-panel-can">
+                {image ? <img src={image} /> : ''}
                 <h2>
                     <span className={iconClasses}></span>
                     <span className="detail-panel-can-header">Existing Bin</span>
