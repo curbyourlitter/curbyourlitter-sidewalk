@@ -641,9 +641,6 @@ export var AddButton = React.createClass({
 
     componentDidMount: function() {
         window.addEventListener('resize', this.handleResize);
-        window.setTimeout(() => {
-            this.setState({ popoverShown: false });
-        }, 10000);
     },
 
     componentWillUnmount: function() {
