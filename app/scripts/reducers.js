@@ -46,7 +46,7 @@ var DEFAULT_REQUEST_FILTERS = {
 };
 
 var DEFAULT_YEAR_FILTERS = {
-    start: config.minYear,
+    start: config.maxYear - 1,
     end: config.maxYear
 };
 
