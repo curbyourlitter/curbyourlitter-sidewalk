@@ -44,7 +44,7 @@ body {
 header {
     height: @header-height;
     padding-left: @body-margin-side;
-    padding-right: @panel-body-padding; // Keep aligned with buttons on the right
+    padding-right: @header-padding-right;
     padding-top: @body-margin-top;
     position: absolute;
     width: 100%;
@@ -103,7 +103,11 @@ header {
 
         a {
             font-size: 14px;
+            line-height: 24px;
             padding: @nav-link-padding;
+            -webkit-transition: all .2s ease-in-out;
+            -o-transition: all .2s ease-in-out;
+            transition: all .2s ease-in-out;
 
             @media (max-width: 1300px) {
                 padding-left: 15px;
@@ -124,7 +128,10 @@ header {
             &, &:link, &:hover, &:active, &:focus {
                 color: white;
                 background-color: @green-nav;
-                border-radius: 20px;
+                border-radius: 15px;
+                margin-top: 2px;
+                margin-left: 15px;
+                padding: 1px 15px;
             }
         }
     }
