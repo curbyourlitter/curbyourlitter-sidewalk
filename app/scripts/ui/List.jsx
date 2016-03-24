@@ -225,10 +225,18 @@ export var ListContainer = connect(mapStateToProps, null, null, { pure: false })
     },
 
     setRows: function (rows) {
-        // Subtract 180 degrees if in bbox to make items in view show up first for sure
-        this.setState({ rows: _.sortBy(rows, row => {
-            if (!row.center_distance) return 180;
-            return row.center_distance - (row.in_bbox ? 180 : 0);
+        // All rows in the current view are at the top, then sorted by date
+        // (no date, at the bottom, only existing bins).
+        this.setState({ rows: rows.sort((a, b) => {
+            if (a.in_bbox && !b.in_bbox) {
+                return -1;
+            }
+            if (b.in_bbox && !a.in_bbox) {
+                return 1;
+            }
+            var aDate = a.date ? new Date(a.date) : new Date(1900, 1, 1),
+                bDate = b.date ? new Date(b.date) : new Date(1900, 1, 1);
+            return bDate - aDate;
         })});
     },
 
