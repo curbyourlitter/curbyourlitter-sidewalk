@@ -269,6 +269,14 @@ var HelpBlockRatings = React.createClass({
                     <Row>
                         <BlockRatingItem header="5: Dirty" image="/images/bintypes/05_rating.png" body="A major litter problem. Distinctly indicates that there are issues on the block such as those associated with homelessness, illegal dumping, drug use, abandonment, impaired property values, lack of full-time residents, small levels of pedestrian traffic associated with businesses." />
                     </Row>
+                    <Row>
+                        <Col sm={6}>
+                            <h5 className="help-block-ratings-use-header">How to use this data</h5>
+                            <div className="help-description">
+                                If you would like to map the block ratings from the downloaded CSV, we recommend using <a href="https://cartodb.com">CartoDB</a>. Once you sign up for a free account you can map the ratings by uploading the CSV file in CartoDB.
+                            </div>
+                        </Col>
+                    </Row>
                 </Grid>
             </section>
         );
