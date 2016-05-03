@@ -71,6 +71,30 @@
         }
     }
 
+    .block-ratings-indicator {
+        border-radius: 50%;
+        display: inline-block;
+        height: 10px;
+        margin-right: 10px;
+        width: 10px;
+
+        &.rating-1 {
+            background-color: @rating-great;
+        }
+        &.rating-2 {
+            background-color: @rating-above-average;
+        }
+        &.rating-3 {
+            background-color: @rating-average;
+        }
+        &.rating-4 {
+            background-color: @rating-below-average;
+        }
+        &.rating-5 {
+            background-color: @rating-poor;
+        }
+    }
+
     .help-block-ratings-use-header {
         letter-spacing: 1px;
         text-transform: uppercase;

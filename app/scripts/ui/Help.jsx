@@ -84,7 +84,10 @@ var BlockRatingItem = React.createClass({
                     <img src={this.props.image} className="img-responsive" />
                 </Col>
                 <Col sm={4}>
-                    <h5 className="no-margin-top">{this.props.header}</h5>
+                    <h5 className="no-margin-top">
+                        <div className={"block-ratings-indicator rating-" + this.props.rating}></div>
+                        {this.props.header}
+                    </h5>
                     {this.props.body ? <div className="help-description">{this.props.body}</div> : ''}
                 </Col>
             </div>
@@ -259,15 +262,15 @@ var HelpBlockRatings = React.createClass({
                 </h3>
                 <Grid>
                     <Row>
-                        <BlockRatingItem header="1: Clean" image="/images/ratings/1.jpg" body="Little or no visible litter on the block surface sampled. [Recall that the survey for each block focuses on just one of the three “surfaces”—the sidewalks on both sides of the street and the street itself.]" />
-                        <BlockRatingItem header="2: Mostly Clean" image="/images/ratings/2.jpg" body="A few discrete small items of litter." />
+                        <BlockRatingItem header="1: Clean" image="/images/ratings/1.jpg" body="Little or no visible litter on the block surface sampled. [Recall that the survey for each block focuses on just one of the three “surfaces”—the sidewalks on both sides of the street and the street itself.]" rating={1} />
+                        <BlockRatingItem header="2: Mostly Clean" image="/images/ratings/2.jpg" body="A few discrete small items of litter." rating={2} />
                     </Row>
                     <Row>
-                        <BlockRatingItem header="3: Visible Litter" image="/images/ratings/3.jpg" body="More than just a few items of litter. Enough litter to be easily perceived and to induce an awareness that the street is not &ldquo;clean.&rdquo;" />
-                        <BlockRatingItem header="4: Lots of Litter" image="/images/ratings/4.jpg" body="Fairly continuous items of litter. Enough litter to produce a distinct impression that the block surface has not been recently cleaned." />
+                        <BlockRatingItem header="3: Visible Litter" image="/images/ratings/3.jpg" body="More than just a few items of litter. Enough litter to be easily perceived and to induce an awareness that the street is not &ldquo;clean.&rdquo;" rating={3} />
+                        <BlockRatingItem header="4: Lots of Litter" image="/images/ratings/4.jpg" body="Fairly continuous items of litter. Enough litter to produce a distinct impression that the block surface has not been recently cleaned." rating={4} />
                     </Row>
                     <Row>
-                        <BlockRatingItem header="5: Dirty" image="/images/ratings/5.jpg" body="A major litter problem. Distinctly indicates that there are issues on the block such as those associated with homelessness, illegal dumping, drug use, abandonment, impaired property values, lack of full-time residents, small levels of pedestrian traffic associated with businesses." />
+                        <BlockRatingItem header="5: Dirty" image="/images/ratings/5.jpg" body="A major litter problem. Distinctly indicates that there are issues on the block such as those associated with homelessness, illegal dumping, drug use, abandonment, impaired property values, lack of full-time residents, small levels of pedestrian traffic associated with businesses." rating={5} />
                     </Row>
                     <Row>
                         <Col sm={6}>
