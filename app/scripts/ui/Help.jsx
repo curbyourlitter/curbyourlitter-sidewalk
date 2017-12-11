@@ -51,7 +51,6 @@ export var Help = React.createClass({
                     <Link className="help-close" to="/" aria-label="close">&times;</Link>
                     <h1>The Data</h1>
                     <HelpCommunityInput />
-                    <HelpLitterSightings />
                     <Help311Data />
                     <HelpBlockRatings />
                     <HelpExistingCans />
@@ -125,43 +124,6 @@ var HelpCommunityInput = React.createClass({
                     Community Input
                     <Button className="help-download" href={this.downloadUrl()}>Download Data</Button>
                 </h2>
-                <h3>
-                    In 2017, the Curb Your Litter project will install new litter and recycling bins throughout Greenpoint. We built this map to allow Greenpointers to help us decide the street corners that would best benefit from a new trash can. Users can choose from six different types of bins:
-                </h3>
-                <Grid>
-                    <Row>
-                        <HelpHeaderItem header="Litter Requests" image="images/bintypes/litter_request_icon.png" description="Each green basket on the map represents a vote for a new bin—click them on the map to read more about the request, or download a CSV file of all requests made to date." />
-                    </Row>
-                </Grid>
-                <section className="trash-bins">
-                    <h4 className="subhead">Trash Bins</h4>
-                    <Grid>
-                        <Row>
-                            <CommunityItem header="Covered Litter Bin" image="images/bintypes/litter_standard.jpg" body="A covered litter bin accepts all types of trash that someone walking on the street might need to throw away. An upside to this type of bin is that you can put anything in it, and the covered top prevents it from overflowing. Everything placed in this bin is sent to a landfill." />
-                            <CommunityItem header="BigBelly Litter Bin" image="images/bintypes/litter_bigbelly.jpg" body="A BigBelly litter bin uses solar panels to compact trash, allowing for these bins to hold more trash than standard litter bins. Compactors can potentially reduce truck traffic they do not need be serviced as frequently as standard bins. These bins are more expensive to maintain, and everything that goes in is sent to a landfill." />
-                        </Row>
-                    </Grid>
-                </section>
-                <section className="recycling-bins">
-                    <h4 className="subhead">Recycling Bins</h4>
-                    <Grid>
-                        <Row>
-                            <CommunityItem header="Standard Bottle & Can Recycling Bin" image="images/bintypes/recycling_standard_bottle.jpg" body="Bottle & Can recycling bins take only metal cans and plastic bottles. Cans and bottles thrown away in this type of bin are recycled. These bins encourage people to recycle and are easy to maintain." />
-                            <CommunityItem header="Standard Paper Recycling Bin" image="images/bintypes/recycling_standard_paper.jpg" body="Paper recycling bins take only clean paper and magazines. All paper tossed in these bins are recycled. Standard reycling bins encourage people to recycle and are easy to maintain." />
-                            <CommunityItem header="BigBelly Bottle & Can Recycling" image="images/bintypes/recycling_bigbelly_bottle.jpg" body="This type of bin accepts metal cans and plastic bottles only, and all cans and bottles thrown away in them are recycled.  A BigBelly recycler uses solar panels to power a machine that compacts trash within. Compactors can potentially reduce truck traffic they do not need be serviced as frequently as standard bins." />
-                            <CommunityItem header="BigBelly Paper Recycling" image="images/bintypes/recycling_bigbelly_paper.jpg" body="This type of bin accepts clean paper and magazines only, and all paper thrown away in them is recycled. A BigBelly recycler uses solar panels to power a machine that compacts trash within. Compactors can potentially reduce truck traffic they do not need be serviced as frequently as standard bins." />
-                        </Row>
-                    </Grid>
-                </section>
-            </section>
-        );
-    }
-});
-
-var HelpLitterSightings = React.createClass({
-    render: function () {
-        return (
-            <section className="help-type">
                 <Grid>
                     <Row>
                         <HelpHeaderItem header="Litter Sightings" image="images/bintypes/litter_sighting_icon.png" description="Photos of litter in the neighborhood illustrate the problem and help us identify areas that need the most attention. Submitting a photo of a particular corner, sidewalk or vacant lot strewn with trash is a way to do your part to curb our litter problem! Click each litter sighting on the map to see the details and read more." />
