@@ -39,9 +39,9 @@ var DEFAULT_REPORT_FILTERS = {
 };
 
 var DEFAULT_REQUEST_FILTERS = {
-    litter: true,
-    bigbelly: true,
-    recycling: true,
+    litter: false,
+    bigbelly: false,
+    recycling: false,
     sightings: true
 };
 

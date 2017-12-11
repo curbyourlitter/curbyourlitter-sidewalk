@@ -32,7 +32,8 @@ var map;
 var ratingLayerIndex = 0,
     reportLayerIndex = 1,
     canLayerIndex = 2,
-    requestLayerIndex = 3;
+    requestLayerIndex = 3,
+    installedCanLayerIndex = 4;
 
 // Which layers on the map is the mouse currently over?
 var currentlyOver = {};
@@ -455,20 +456,21 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
     },
 
     showOnlyExitingCans: function () {
-        if (this.canLayer && this.ratingLayer && this.reportLayer && this.requestLayer) {
+        if (this.canLayer && this.ratingLayer && this.reportLayer && this.installedCanLayer) {
             this.canLayer.show();
             this.ratingLayer.hide();
             this.reportLayer.hide();
-            this.requestLayer.hide();
+            this.installedCanLayer.hide();
         }
     },
 
     showAllLayers: function () {
-        if (this.canLayer && this.ratingLayer && this.reportLayer && this.requestLayer) {
+        if (this.canLayer && this.ratingLayer && this.reportLayer && this.requestLayer && this.installedCanLayer) {
             this.canLayer.show();
             this.ratingLayer.show();
             this.reportLayer.show();
             this.requestLayer.show();
+            this.installedCanLayer.show();
         }
     },
 
@@ -534,6 +536,7 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                 this.reportLayer = layer.getSubLayer(reportLayerIndex);
                 this.canLayer = layer.getSubLayer(canLayerIndex);
                 this.requestLayer = layer.getSubLayer(requestLayerIndex);
+                this.installedCanLayer = layer.getSubLayer(installedCanLayerIndex);
 
                 if (this.props.addingRequest) {
                     this.showOnlyExitingCans();
@@ -564,7 +567,7 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                             case reportLayerIndex:
                                 recordType = 'report';
                                 break;
-                            case requestLayerIndex:
+                            case installedCanLayerIndex:
                                 recordType = 'request';
                                 break;
                         }

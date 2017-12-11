@@ -80,7 +80,6 @@ export var List = React.createClass({
                 <ul className="entity-list" onScroll={this.handleScroll}>
                     {list}
                 </ul>
-                <div className="list-add-request">Make a Request</div>
             </Panel>
         );
     }
@@ -151,10 +150,11 @@ export var ListContainer = connect(mapStateToProps, null, null, { pure: false })
         this.setState({ loadingRequests: true });
         getRequests(filters, yearFilters, data => {
             if (this.isMounted()) {
+                var sightings = data.filter(row => row.can_type === null);
                 var rows = [];
-                rows.push(...data, ...this.state.canRows, ...this.state.reportRows);
+                rows.push(...sightings, ...this.state.canRows, ...this.state.reportRows);
                 this.setRows(rows);
-                this.setState({ loadingRequests: false, requestRows: data });
+                this.setState({ loadingRequests: false, requestRows: sightings });
                 this.forceUpdate();
             }
         }, getRequestColumnsData(config), config);

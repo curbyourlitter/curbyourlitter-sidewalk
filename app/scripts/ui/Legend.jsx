@@ -101,8 +101,6 @@ export var Legend = connect(mapStateToProps, null, null, { pure: false })(React.
                             <span className="legend-section-header">Community Input</span>
                             <Link to="/help#community-input" className="legend-help">?</Link>
                         </h3>
-                        <LegendItem name="Litter Bin Requests" layer="request" label="litter" dispatch={this.props.dispatch} shown={this.props.requestFilters.litter} />
-                        <LegendItem name="Recycling Bin Requests" layer="request" label="recycling" dispatch={this.props.dispatch} shown={this.props.requestFilters.recycling} />
                         <LegendItem name="Litter sightings" layer="request" label="sightings" dispatch={this.props.dispatch} shown={this.props.requestFilters.sightings} />
                     </section>
                     <section>
