@@ -19,6 +19,7 @@ function mapStateToProps(state) {
     return {
         addingRequest: state.addingRequest,
         filtersVisible: state.filtersVisible,
+        binFilters: _.extend({}, state.binFilters),
         ratingFilters: _.extend({}, state.ratingFilters),
         reportFilters: _.extend({}, state.reportFilters),
         requestFilters: _.extend({}, state.requestFilters),
@@ -75,6 +76,7 @@ export var Legend = connect(mapStateToProps, null, null, { pure: false })(React.
 
     anyFiltersFalse: function () {
         var filterValues = _.flatten([
+            _.values(this.props.binFilters),
             _.values(this.props.requestFilters),
             _.values(this.props.ratingFilters),
             _.values(this.props.reportFilters)
@@ -122,6 +124,14 @@ export var Legend = connect(mapStateToProps, null, null, { pure: false })(React.
                         <LegendItem name="Visible Litter" layer="rating" label="3" dispatch={this.props.dispatch} shown={this.props.ratingFilters[3]} />
                         <LegendItem name="Mostly Clean" layer="rating" label="2" dispatch={this.props.dispatch} shown={this.props.ratingFilters[2]} />
                         <LegendItem name="Clean" layer="rating" label="1" dispatch={this.props.dispatch} shown={this.props.ratingFilters[1]} />
+                    </section>
+                    <section>
+                        <h3>
+                            <span className="legend-section-header">Bins</span>
+                            <Link to="/help#bins" className="legend-help">?</Link>
+                        </h3>
+                        <LegendItem name="Existing Bins" layer="bin" label="existing" dispatch={this.props.dispatch} shown={this.props.binFilters.existing} />
+                        <LegendItem name="New Bins" layer="bin" label="new" dispatch={this.props.dispatch} shown={this.props.binFilters.new} />
                     </section>
                 </div>
             </div>

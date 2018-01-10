@@ -70,6 +70,7 @@ var dragPlacementIcon = L.icon({
 function mapStateToProps(state) {
     return {
         addingRequest: state.addingRequest,
+        binFilters: _.extend({}, state.binFilters),
         filtersWidth: state.filtersWidth,
         listRecordHovered: state.listRecordHovered,
         mapCenter: state.mapCenter,
@@ -416,6 +417,21 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
     componentDidUpdate: function (prevProps, prevState) {
         if (this.props.mapCenter && this.props.mapCenter[0] && this.props.mapCenter[1] && !_.isEqual(this.props.mapCenter, prevProps.mapCenter)) {
             map.setView(this.props.mapCenter, Math.max(map.getZoom(), 17));
+        }
+        if (this.props.binFilters && !_.isEqual(this.props.binFilters, prevProps.binFilters)) {
+            if (this.props.binFilters.existing) {
+                this.canLayer.show();
+            }
+            else {
+                this.canLayer.hide();
+            }
+
+            if (this.props.binFilters.new) {
+                this.installedCanLayer.show();
+            }
+            else {
+                this.installedCanLayer.hide();
+            }
         }
         if (this.props.ratingFilters && !_.isEqual(this.props.ratingFilters, prevProps.ratingFilters)) {
             this.updateRatingSql();

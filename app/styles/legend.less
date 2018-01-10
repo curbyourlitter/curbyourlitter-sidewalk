@@ -232,6 +232,32 @@
             .legend-indicator(true; @rating-great);
         }
 
+        &-existing,
+        &-new {
+            .legend-item-indicator-inner {
+                background-color: transparent;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                height: 14px;
+                left: 0;
+                top: 0;
+                width: 14px;
+            }
+        }
+
+        &-existing {
+            .legend-item-indicator-inner {
+                background-image: data-uri('/images/existing-bin.png');
+            }
+        }
+
+        &-new {
+            .legend-item-indicator-inner {
+                background-image: data-uri('/images/new-bin.png');
+            }
+        }
+
         &.active .legend-item-indicator-inner {
             display: block;
         }

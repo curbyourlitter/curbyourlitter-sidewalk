@@ -24,6 +24,11 @@ import {
     REQUESTS_REQUIRE_RELOAD
 } from './actions';
 
+var DEFAULT_BIN_FILTERS = {
+    existing: true,
+    new: true
+};
+
 var DEFAULT_RATING_FILTERS = {
     1: true,
     2: true,
@@ -73,6 +78,19 @@ export function filtersWidth(state = 0, action) {
 export function filtersVisible(state = true, action) {
     if (action.type === FILTERS_TOGGLE) {
         return action.visible;
+    }
+    return state;
+}
+
+export function binFilters(state, action) {
+    if (!state || action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_BIN_FILTERS);
+    }
+    if (action.type === FILTERS_UPDATE && action.layer === 'bin') {
+        state[action.filter] = action.value;
+    }
+    if (action.type === FILTERS_CLEAR) {
+        state = _.extend({}, DEFAULT_BIN_FILTERS);
     }
     return state;
 }
