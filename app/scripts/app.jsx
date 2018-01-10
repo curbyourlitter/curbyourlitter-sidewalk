@@ -13,6 +13,7 @@ import config from './config/config';
 import { CurbMap, ListButton } from './ui/CurbMap.jsx';
 import { Can } from './ui/Can.jsx';
 import { Help } from './ui/Help.jsx';
+import { InstalledCan } from './ui/InstalledCan.jsx';
 import { Legend, LegendButton } from './ui/Legend.jsx';
 import { ListContainer } from './ui/List.jsx';
 import { Report } from './ui/Report.jsx';
@@ -53,6 +54,7 @@ ReactDOM.render((
             <Route path="/" component={App}>
                 <Route path="list" component={ListContainer}/>
                 <Route path="cans/:id" component={Can}/>
+                <Route path="installedcans/:id" component={InstalledCan}/>
                 <Route path="reports/:id" component={Report}/>
                 <Route path="requests/:id" component={Request}/>
                 <Route path="help" component={Help}/>

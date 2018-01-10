@@ -183,6 +183,11 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
             iconSize = [14.5, 17];
             iconUrl = '/images/map-bin-hover.svg';
         }
+        if (data.type === 'installedcan') {
+            iconAnchor = [8, 7];
+            iconSize = [17, 17],
+            iconUrl = '/images/map-bin-request-hover.svg';
+        }
         if (data.type === 'report') {
             iconAnchor = [6, 6];
             iconSize = [12, 12];
@@ -222,6 +227,11 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
             iconAnchor = [7.5, 5];
             iconSize = [14.5, 17];
             iconUrl = '/images/map-bin-selected.svg';
+        }
+        if (data.type === 'installedcan') {
+            iconAnchor = [8, 7];
+            iconSize = [17, 17],
+            iconUrl = '/images/map-bin-request-selected.svg';
         }
         if (data.type === 'report') {
             iconAnchor = [6, 6];
@@ -286,6 +296,14 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                     <div className="detail-popup can-popup">
                         <div className="detail-popup-icon can-icon"></div>
                         <div className="detail-popup-text can-type">Existing Bin</div>
+                        <div className="clearfix"></div>
+                    </div>
+                );
+            case 'installedcan':
+                return (
+                    <div className="detail-popup can-popup">
+                        <div className="detail-popup-icon can-icon"></div>
+                        <div className="detail-popup-text can-type">New Bin</div>
                         <div className="clearfix"></div>
                     </div>
                 );
@@ -563,6 +581,8 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
 
                 this.canLayer.setInteraction(true);
                 this.canLayer.setInteractivity('longitude, latitude, cartodb_id, type');
+                this.installedCanLayer.setInteraction(true);
+                this.installedCanLayer.setInteractivity('longitude, latitude, cartodb_id');
                 this.reportLayer.setInteraction(true);
                 this.reportLayer.setInteractivity('longitude, latitude, cartodb_id, date, complaint_type, agency');
                 this.requestLayer.setInteraction(true);
@@ -579,6 +599,9 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                         switch (layerIndex) {
                             case canLayerIndex:
                                 recordType = 'can';
+                                break;
+                            case installedCanLayerIndex:
+                                recordType = 'installedcan';
                                 break;
                             case reportLayerIndex:
                                 recordType = 'report';
@@ -604,6 +627,9 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                         if (layerIndex === canLayerIndex) {
                             table = 'can';
                         }
+                        if (layerIndex === installedCanLayerIndex) {
+                            table = 'installedcan';
+                        }
                         this.props.dispatch(listRecordHovered(data.cartodb_id, table));
                         this.props.dispatch(mapRecordHovered(data.cartodb_id, table));
                     }
@@ -627,6 +653,9 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                 this.canLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.openFeature(data.cartodb_id, 'can');
                 });
+                this.installedCanLayer.on('featureClick', (event, latlng, pos, data) => {
+                    this.openFeature(data.cartodb_id, 'installedcan');
+                });
                 this.reportLayer.on('featureClick', (event, latlng, pos, data) => {
                     this.openFeature(data.cartodb_id, 'report');
                 });
@@ -640,6 +669,9 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
         switch (type) {
             case 'can':
                 this.history.pushState(null, `/cans/${id}`);
+                break;
+            case 'installedcan':
+                this.history.pushState(null, `/installedcans/${id}`);
                 break;
             case 'report':
                 this.history.pushState(null, `/reports/${id}`);
