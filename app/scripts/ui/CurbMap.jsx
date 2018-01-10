@@ -301,7 +301,7 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                 );
             case 'installedcan':
                 return (
-                    <div className="detail-popup can-popup">
+                    <div className="detail-popup installedcan-popup">
                         <div className="detail-popup-icon can-icon"></div>
                         <div className="detail-popup-text can-type">New Bin</div>
                         <div className="clearfix"></div>
@@ -615,7 +615,7 @@ export var CurbMap = connect(mapStateToProps, null, null, { pure: false })(React
                 });
 
                 layer.on('featureOver', (e, latlng, pos, data, layerIndex) => {
-                    if (layerIndex === reportLayerIndex || layerIndex === canLayerIndex || layerIndex === requestLayerIndex) {
+                    if (layerIndex === reportLayerIndex || layerIndex === canLayerIndex || layerIndex === requestLayerIndex || layerIndex === installedCanLayerIndex) {
                         currentlyOver[layerIndex] = true;
                         var table;
                         if (layerIndex === reportLayerIndex) {
